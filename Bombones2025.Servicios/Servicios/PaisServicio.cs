@@ -16,10 +16,35 @@ namespace Bombones2025.Servicios.Servicios
         {
             _paisRepositorio=new PaisRepositorio();
         }
+
+        
+
         //llamo a la lista del repo
         public List<Pais> GetPais()
         {
             return _paisRepositorio.GetPais();
         }//traida lista desarrollo el frmPaises
+
+        //----------------------------------------------------------------------
+
+        public bool Existe(Pais pais)
+        {
+            return _paisRepositorio.Existe(pais);
+        }
+        public void Guardar(Pais pais)
+        {
+            if (pais.PaisId==0)
+            {
+                _paisRepositorio.Agregar(pais);
+            }
+            //else
+            //{
+            //}
+        }
+
+        public void Borrar(int paisId)
+        {
+            _paisRepositorio.Borrar(paisId);
+        }
     }
 }

@@ -28,10 +28,13 @@
         /// </summary>
         private void InitializeComponent()
         {
+            components = new System.ComponentModel.Container();
             btnOk = new Button();
             btnCancel = new Button();
             labelPais = new Label();
             textBoxPais = new TextBox();
+            errorProviderPaisAe = new ErrorProvider(components);
+            ((System.ComponentModel.ISupportInitialize)errorProviderPaisAe).BeginInit();
             SuspendLayout();
             // 
             // btnOk
@@ -45,6 +48,7 @@
             btnOk.Text = "OK";
             btnOk.TextImageRelation = TextImageRelation.ImageAboveText;
             btnOk.UseVisualStyleBackColor = true;
+            btnOk.Click += btnOk_Click;
             // 
             // btnCancel
             // 
@@ -57,6 +61,7 @@
             btnCancel.Text = "CANCELAR";
             btnCancel.TextImageRelation = TextImageRelation.ImageAboveText;
             btnCancel.UseVisualStyleBackColor = true;
+            btnCancel.Click += btnCancel_Click;
             // 
             // labelPais
             // 
@@ -75,6 +80,10 @@
             textBoxPais.Size = new Size(258, 23);
             textBoxPais.TabIndex = 3;
             // 
+            // errorProviderPaisAe
+            // 
+            errorProviderPaisAe.ContainerControl = this;
+            // 
             // FrmPaisesAE
             // 
             AutoScaleDimensions = new SizeF(7F, 15F);
@@ -88,6 +97,7 @@
             Name = "FrmPaisesAE";
             StartPosition = FormStartPosition.CenterScreen;
             Text = "FrmPaisesAE";
+            ((System.ComponentModel.ISupportInitialize)errorProviderPaisAe).EndInit();
             ResumeLayout(false);
             PerformLayout();
         }
@@ -98,5 +108,6 @@
         private Button btnCancel;
         private Label labelPais;
         private TextBox textBoxPais;
+        private ErrorProvider errorProviderPaisAe;
     }
 }

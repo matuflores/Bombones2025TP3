@@ -53,5 +53,78 @@ namespace Bombones2025.DatosSql.Repositorios
                 NombrePais=reader.GetString(1)
             };
         }
+        //-------------------------------------------------------------------------
+        public void Agregar(Pais pais)
+        {
+            try
+            {
+                using (var cnn = new SqlConnection(connectionString))
+                {
+                    cnn.Open();
+                    string query = @"INSERT INTO Paises (NombrePais) VALUES (@NombrePais);
+                                SELECT SCOPE_IDENTITY();";
+                    using (var cmd = new SqlCommand(query, cnn))
+                    {
+                        cmd.Parameters.AddWithValue("@NombrePais", pais.NombrePais);
+                        int paisId = (int)(decimal)cmd.ExecuteScalar();
+                        pais.PaisId = paisId;
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+
+                throw new Exception(ex.Message,ex);
+            }
+        }
+
+        public bool Existe(Pais pais)
+        {
+            try
+            {
+                using (var cnn = new SqlConnection(connectionString))
+                {
+                    cnn.Open();
+                    string query = @"SELECT COUNT(*) FROM Paises WHERE LOWER(NombrePais)=LOWER(@NombrePais)";
+                    using (var cmd = new SqlCommand(query, cnn))
+                    {
+                        cmd.Parameters.AddWithValue("@NombrePais", pais.NombrePais);
+                        int cantidad = (int)cmd.ExecuteScalar();
+                        return cantidad > 0;
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+
+                throw new Exception(ex.Message,ex);
+            }
+
+        }
+
+        public void Borrar(int paisId)
+        {
+            try
+            {
+                using (var cnn = new SqlConnection(connectionString))
+                {
+                    cnn.Open();
+                    string query = @"DELETE FROM Paises WHERE PaisId=@PaisId";
+                    using (var cmd = new SqlCommand(query, cnn))
+                    {
+                        cmd.Parameters.AddWithValue("@PaisId", paisId);
+                        cmd.ExecuteNonQuery();//se ejecuta en comandos que no devuelven datos 
+                    }
+                }
+                Pais? paisBorrar=paises.FirstOrDefault(p=>p.PaisId==paisId);
+                if (paisBorrar == null) return;
+                paises.Remove(paisBorrar);
+            }
+            catch (Exception ex)
+            {
+
+                throw new Exception(ex.Message, ex);
+            }
+        }
     }
 }

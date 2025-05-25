@@ -60,7 +60,52 @@ namespace Bombones2025.Windows
             Close();
         }
 
+        private void btnNuevo_Click(object sender, EventArgs e)
+        {
+            FrmPaisesAE frm = new FrmPaisesAE(Text = "Nuevo Pais");
+            DialogResult dr = frm.ShowDialog(this);
+            if (dr == DialogResult.Cancel) return;
+            Pais? pais = frm.GetPais();
+            if (pais == null) return;
+            if (!_paisServicio.Existe(pais))
+            {
+                _paisServicio.Guardar(pais);
+                DataGridViewRow r = new DataGridViewRow();
+                r.CreateCells(dgvPaises);
+                SetearFila(r, pais);
+                AgregarFila(r);
+                MessageBox.Show("Pais Agregado", "Mensaje", MessageBoxButtons.OK, MessageBoxIcon.Information);
+            }
+            else
+            {
+                MessageBox.Show("Pais Existente", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
 
-        //clase 003 min 1:09:01 
+        }
+
+        private void btnBorrar_Click(object sender, EventArgs e)
+        {
+            if (dgvPaises.SelectedRows.Count==0)
+            {
+                return;
+            }
+            var r=dgvPaises.SelectedRows[0];
+            Pais paisBorrar=(Pais)r.Tag!;
+            DialogResult dr = MessageBox.Show($"¿Desea Borrar el pais {paisBorrar}",
+                "Confirmar Eliminacion", MessageBoxButtons.YesNo, MessageBoxIcon.Question,
+                MessageBoxDefaultButton.Button2);
+            if (dr == DialogResult.No) return;
+            try
+            {
+                _paisServicio.Borrar(paisBorrar.PaisId);
+                dgvPaises.Rows.Remove(r);
+                MessageBox.Show("Pais Eliminado");
+            }
+            catch (Exception ex)
+            {
+
+                throw new Exception(ex.Message,ex);
+            }
+        }
     }
 }
