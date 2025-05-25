@@ -1,6 +1,6 @@
 ﻿namespace Bombones2025.Windows
 {
-    partial class FrmPaisesAE
+    partial class FrmFrutosSecosAE
     {
         /// <summary>
         /// Required designer variable.
@@ -28,75 +28,74 @@
         /// </summary>
         private void InitializeComponent()
         {
-            btnOk = new Button();
+            textBoxFrutoSeco = new TextBox();
+            labelFrutoSeco = new Label();
             btnCancel = new Button();
-            labelPais = new Label();
-            textBoxPais = new TextBox();
+            btnOk = new Button();
             SuspendLayout();
             // 
-            // btnOk
+            // textBoxFrutoSeco
             // 
-            btnOk.Image = Properties.Resources.OK40;
-            btnOk.Location = new Point(84, 66);
-            btnOk.Margin = new Padding(3, 2, 3, 2);
-            btnOk.Name = "btnOk";
-            btnOk.Size = new Size(85, 69);
-            btnOk.TabIndex = 0;
-            btnOk.Text = "OK";
-            btnOk.TextImageRelation = TextImageRelation.ImageAboveText;
-            btnOk.UseVisualStyleBackColor = true;
+            textBoxFrutoSeco.Location = new Point(183, 25);
+            textBoxFrutoSeco.Margin = new Padding(3, 2, 3, 2);
+            textBoxFrutoSeco.Name = "textBoxFrutoSeco";
+            textBoxFrutoSeco.Size = new Size(258, 23);
+            textBoxFrutoSeco.TabIndex = 7;
+            // 
+            // labelFrutoSeco
+            // 
+            labelFrutoSeco.AutoSize = true;
+            labelFrutoSeco.Location = new Point(89, 27);
+            labelFrutoSeco.Name = "labelFrutoSeco";
+            labelFrutoSeco.Size = new Size(66, 15);
+            labelFrutoSeco.TabIndex = 6;
+            labelFrutoSeco.Text = "Fruto Seco:";
             // 
             // btnCancel
             // 
             btnCancel.Image = Properties.Resources.CANCEL40;
-            btnCancel.Location = new Point(351, 66);
+            btnCancel.Location = new Point(356, 63);
             btnCancel.Margin = new Padding(3, 2, 3, 2);
             btnCancel.Name = "btnCancel";
             btnCancel.Size = new Size(85, 69);
-            btnCancel.TabIndex = 1;
+            btnCancel.TabIndex = 5;
             btnCancel.Text = "CANCELAR";
             btnCancel.TextImageRelation = TextImageRelation.ImageAboveText;
             btnCancel.UseVisualStyleBackColor = true;
             // 
-            // labelPais
+            // btnOk
             // 
-            labelPais.AutoSize = true;
-            labelPais.Location = new Point(84, 30);
-            labelPais.Name = "labelPais";
-            labelPais.Size = new Size(31, 15);
-            labelPais.TabIndex = 2;
-            labelPais.Text = "Pais:";
+            btnOk.Image = Properties.Resources.OK40;
+            btnOk.Location = new Point(89, 63);
+            btnOk.Margin = new Padding(3, 2, 3, 2);
+            btnOk.Name = "btnOk";
+            btnOk.Size = new Size(85, 69);
+            btnOk.TabIndex = 4;
+            btnOk.Text = "OK";
+            btnOk.TextImageRelation = TextImageRelation.ImageAboveText;
+            btnOk.UseVisualStyleBackColor = true;
             // 
-            // textBoxPais
-            // 
-            textBoxPais.Location = new Point(178, 28);
-            textBoxPais.Margin = new Padding(3, 2, 3, 2);
-            textBoxPais.Name = "textBoxPais";
-            textBoxPais.Size = new Size(258, 23);
-            textBoxPais.TabIndex = 3;
-            // 
-            // FrmPaisesAE
+            // FrmFrutosSecosAE
             // 
             AutoScaleDimensions = new SizeF(7F, 15F);
             AutoScaleMode = AutoScaleMode.Font;
             ClientSize = new Size(531, 156);
-            Controls.Add(textBoxPais);
-            Controls.Add(labelPais);
+            Controls.Add(textBoxFrutoSeco);
+            Controls.Add(labelFrutoSeco);
             Controls.Add(btnCancel);
             Controls.Add(btnOk);
-            Margin = new Padding(3, 2, 3, 2);
-            Name = "FrmPaisesAE";
+            Name = "FrmFrutosSecosAE";
             StartPosition = FormStartPosition.CenterScreen;
-            Text = "FrmPaisesAE";
+            Text = "FrmFrutosSecosAE";
             ResumeLayout(false);
             PerformLayout();
         }
 
         #endregion
 
-        private Button btnOk;
+        private TextBox textBoxFrutoSeco;
+        private Label labelFrutoSeco;
         private Button btnCancel;
-        private Label labelPais;
-        private TextBox textBoxPais;
+        private Button btnOk;
     }
 }
