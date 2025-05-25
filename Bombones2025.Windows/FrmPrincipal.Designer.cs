@@ -29,24 +29,39 @@
         private void InitializeComponent()
         {
             btnPais = new Button();
+            btnRellenos = new Button();
             SuspendLayout();
             // 
             // btnPais
             // 
-            btnPais.Location = new Point(68, 50);
+            btnPais.Location = new Point(60, 38);
+            btnPais.Margin = new Padding(3, 2, 3, 2);
             btnPais.Name = "btnPais";
-            btnPais.Size = new Size(101, 50);
+            btnPais.Size = new Size(88, 38);
             btnPais.TabIndex = 0;
             btnPais.Text = "Paises";
             btnPais.UseVisualStyleBackColor = true;
             btnPais.Click += btnPais_Click;
             // 
+            // btnRellenos
+            // 
+            btnRellenos.Location = new Point(263, 38);
+            btnRellenos.Margin = new Padding(3, 2, 3, 2);
+            btnRellenos.Name = "btnRellenos";
+            btnRellenos.Size = new Size(88, 38);
+            btnRellenos.TabIndex = 1;
+            btnRellenos.Text = "Rellenos";
+            btnRellenos.UseVisualStyleBackColor = true;
+            btnRellenos.Click += btnRellenos_Click;
+            // 
             // FrmPrincipal
             // 
-            AutoScaleDimensions = new SizeF(8F, 20F);
+            AutoScaleDimensions = new SizeF(7F, 15F);
             AutoScaleMode = AutoScaleMode.Font;
-            ClientSize = new Size(482, 403);
+            ClientSize = new Size(422, 302);
+            Controls.Add(btnRellenos);
             Controls.Add(btnPais);
+            Margin = new Padding(3, 2, 3, 2);
             Name = "FrmPrincipal";
             StartPosition = FormStartPosition.CenterScreen;
             Text = "FrmPrincipal";
@@ -56,5 +71,6 @@
         #endregion
 
         private Button btnPais;
+        private Button btnRellenos;
     }
 }

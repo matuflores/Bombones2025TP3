@@ -22,9 +22,16 @@ namespace Bombones2025.Windows
         private void btnPais_Click(object sender, EventArgs e)
         {
             PaisServicio servicio = new PaisServicio();
-            FrmPaises frm = new FrmPaises(servicio) { Text="Listado de Paises"};
+            FrmPaises frm = new FrmPaises(servicio) { Text = "Listado de Paises" };
             frm.ShowDialog();
 
+        }
+
+        private void btnRellenos_Click(object sender, EventArgs e)
+        {
+            RellenoServicio servicio = new RellenoServicio();
+            FrmRellenos frm = new FrmRellenos(servicio) { Text = "Listado de Rellenos" };
+            frm.ShowDialog();
         }
     }
 }

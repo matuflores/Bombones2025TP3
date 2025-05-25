@@ -1,6 +1,6 @@
 ﻿namespace Bombones2025.Windows
 {
-    partial class FrmPaisesAE
+    partial class FrmRellenosAE
     {
         /// <summary>
         /// Required designer variable.
@@ -28,74 +28,74 @@
         /// </summary>
         private void InitializeComponent()
         {
-            btnOk = new Button();
+            textBoxRelleno = new TextBox();
+            labelRelleno = new Label();
             btnCancel = new Button();
-            labelPais = new Label();
-            textBoxPais = new TextBox();
+            btnOk = new Button();
             SuspendLayout();
             // 
-            // btnOk
+            // textBoxRelleno
             // 
-            btnOk.Image = Properties.Resources.OK40;
-            btnOk.Location = new Point(84, 66);
-            btnOk.Margin = new Padding(3, 2, 3, 2);
-            btnOk.Name = "btnOk";
-            btnOk.Size = new Size(85, 69);
-            btnOk.TabIndex = 0;
-            btnOk.Text = "OK";
-            btnOk.TextImageRelation = TextImageRelation.ImageAboveText;
-            btnOk.UseVisualStyleBackColor = true;
+            textBoxRelleno.Location = new Point(183, 25);
+            textBoxRelleno.Margin = new Padding(3, 2, 3, 2);
+            textBoxRelleno.Name = "textBoxRelleno";
+            textBoxRelleno.Size = new Size(258, 23);
+            textBoxRelleno.TabIndex = 7;
+            // 
+            // labelRelleno
+            // 
+            labelRelleno.AutoSize = true;
+            labelRelleno.Location = new Point(89, 27);
+            labelRelleno.Name = "labelRelleno";
+            labelRelleno.Size = new Size(49, 15);
+            labelRelleno.TabIndex = 6;
+            labelRelleno.Text = "Relleno:";
             // 
             // btnCancel
             // 
             btnCancel.Image = Properties.Resources.CANCEL40;
-            btnCancel.Location = new Point(351, 66);
+            btnCancel.Location = new Point(356, 63);
             btnCancel.Margin = new Padding(3, 2, 3, 2);
             btnCancel.Name = "btnCancel";
             btnCancel.Size = new Size(85, 69);
-            btnCancel.TabIndex = 1;
+            btnCancel.TabIndex = 5;
             btnCancel.Text = "CANCELAR";
             btnCancel.TextImageRelation = TextImageRelation.ImageAboveText;
             btnCancel.UseVisualStyleBackColor = true;
             // 
-            // labelPais
+            // btnOk
             // 
-            labelPais.AutoSize = true;
-            labelPais.Location = new Point(84, 30);
-            labelPais.Name = "labelPais";
-            labelPais.Size = new Size(31, 15);
-            labelPais.TabIndex = 2;
-            labelPais.Text = "Pais:";
+            btnOk.Image = Properties.Resources.OK40;
+            btnOk.Location = new Point(89, 63);
+            btnOk.Margin = new Padding(3, 2, 3, 2);
+            btnOk.Name = "btnOk";
+            btnOk.Size = new Size(85, 69);
+            btnOk.TabIndex = 4;
+            btnOk.Text = "OK";
+            btnOk.TextImageRelation = TextImageRelation.ImageAboveText;
+            btnOk.UseVisualStyleBackColor = true;
             // 
-            // textBoxPais
-            // 
-            textBoxPais.Location = new Point(178, 28);
-            textBoxPais.Margin = new Padding(3, 2, 3, 2);
-            textBoxPais.Name = "textBoxPais";
-            textBoxPais.Size = new Size(258, 23);
-            textBoxPais.TabIndex = 3;
-            // 
-            // FrmPaisesAE
+            // FrmRellenosAE
             // 
             AutoScaleDimensions = new SizeF(7F, 15F);
             AutoScaleMode = AutoScaleMode.Font;
             ClientSize = new Size(531, 156);
-            Controls.Add(textBoxPais);
-            Controls.Add(labelPais);
+            Controls.Add(textBoxRelleno);
+            Controls.Add(labelRelleno);
             Controls.Add(btnCancel);
             Controls.Add(btnOk);
-            Margin = new Padding(3, 2, 3, 2);
-            Name = "FrmPaisesAE";
-            Text = "FrmPaisesAE";
+            Name = "FrmRellenosAE";
+            StartPosition = FormStartPosition.CenterScreen;
+            Text = "FrmRellenosAE";
             ResumeLayout(false);
             PerformLayout();
         }
 
         #endregion
 
-        private Button btnOk;
+        private TextBox textBoxRelleno;
+        private Label labelRelleno;
         private Button btnCancel;
-        private Label labelPais;
-        private TextBox textBoxPais;
+        private Button btnOk;
     }
 }
