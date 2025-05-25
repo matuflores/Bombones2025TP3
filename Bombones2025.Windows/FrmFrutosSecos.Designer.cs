@@ -29,8 +29,10 @@
         private void InitializeComponent()
         {
             splitContainer1 = new SplitContainer();
-            toolStripFS = new ToolStrip();
             dgvFrutosSecos = new DataGridView();
+            FrutoSecoId = new DataGridViewTextBoxColumn();
+            Descripcion = new DataGridViewTextBoxColumn();
+            toolStripFS = new ToolStrip();
             btnNuevo = new ToolStripButton();
             btnBorrar = new ToolStripButton();
             btnEditar = new ToolStripButton();
@@ -40,13 +42,11 @@
             toolStripSeparator2 = new ToolStripSeparator();
             btnPrint = new ToolStripButton();
             btnCerrar = new ToolStripButton();
-            FrutoSecoId = new DataGridViewTextBoxColumn();
-            Descripcion = new DataGridViewTextBoxColumn();
             ((System.ComponentModel.ISupportInitialize)splitContainer1).BeginInit();
             splitContainer1.Panel1.SuspendLayout();
             splitContainer1.SuspendLayout();
-            toolStripFS.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)dgvFrutosSecos).BeginInit();
+            toolStripFS.SuspendLayout();
             SuspendLayout();
             // 
             // splitContainer1
@@ -64,15 +64,6 @@
             splitContainer1.SplitterDistance = 275;
             splitContainer1.TabIndex = 0;
             // 
-            // toolStripFS
-            // 
-            toolStripFS.Items.AddRange(new ToolStripItem[] { btnNuevo, btnBorrar, btnEditar, toolStripSeparator1, btnFiltrar, btnRefresh, toolStripSeparator2, btnPrint, btnCerrar });
-            toolStripFS.Location = new Point(0, 0);
-            toolStripFS.Name = "toolStripFS";
-            toolStripFS.Size = new Size(700, 62);
-            toolStripFS.TabIndex = 0;
-            toolStripFS.Text = "toolStrip1";
-            // 
             // dgvFrutosSecos
             // 
             dgvFrutosSecos.AllowUserToAddRows = false;
@@ -86,6 +77,29 @@
             dgvFrutosSecos.RowHeadersVisible = false;
             dgvFrutosSecos.Size = new Size(700, 213);
             dgvFrutosSecos.TabIndex = 1;
+            // 
+            // FrutoSecoId
+            // 
+            FrutoSecoId.HeaderText = "FrutoSecoId";
+            FrutoSecoId.Name = "FrutoSecoId";
+            FrutoSecoId.ReadOnly = true;
+            FrutoSecoId.Visible = false;
+            // 
+            // Descripcion
+            // 
+            Descripcion.AutoSizeMode = DataGridViewAutoSizeColumnMode.Fill;
+            Descripcion.HeaderText = "Descripcion";
+            Descripcion.Name = "Descripcion";
+            Descripcion.ReadOnly = true;
+            // 
+            // toolStripFS
+            // 
+            toolStripFS.Items.AddRange(new ToolStripItem[] { btnNuevo, btnBorrar, btnEditar, toolStripSeparator1, btnFiltrar, btnRefresh, toolStripSeparator2, btnPrint, btnCerrar });
+            toolStripFS.Location = new Point(0, 0);
+            toolStripFS.Name = "toolStripFS";
+            toolStripFS.Size = new Size(700, 62);
+            toolStripFS.TabIndex = 0;
+            toolStripFS.Text = "toolStrip1";
             // 
             // btnNuevo
             // 
@@ -166,20 +180,7 @@
             btnCerrar.Size = new Size(54, 59);
             btnCerrar.Text = "CERRAR";
             btnCerrar.TextImageRelation = TextImageRelation.ImageAboveText;
-            // 
-            // FrutoSecoId
-            // 
-            FrutoSecoId.HeaderText = "FrutoSecoId";
-            FrutoSecoId.Name = "FrutoSecoId";
-            FrutoSecoId.ReadOnly = true;
-            FrutoSecoId.Visible = false;
-            // 
-            // Descripcion
-            // 
-            Descripcion.AutoSizeMode = DataGridViewAutoSizeColumnMode.Fill;
-            Descripcion.HeaderText = "Descripcion";
-            Descripcion.Name = "Descripcion";
-            Descripcion.ReadOnly = true;
+            btnCerrar.Click += btnCerrar_Click;
             // 
             // FrmFrutosSecos
             // 
@@ -190,13 +191,14 @@
             Name = "FrmFrutosSecos";
             StartPosition = FormStartPosition.CenterScreen;
             Text = "FRUTOS SECOS";
+            Load += FrmFrutosSecos_Load;
             splitContainer1.Panel1.ResumeLayout(false);
             splitContainer1.Panel1.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)splitContainer1).EndInit();
             splitContainer1.ResumeLayout(false);
+            ((System.ComponentModel.ISupportInitialize)dgvFrutosSecos).EndInit();
             toolStripFS.ResumeLayout(false);
             toolStripFS.PerformLayout();
-            ((System.ComponentModel.ISupportInitialize)dgvFrutosSecos).EndInit();
             ResumeLayout(false);
         }
 

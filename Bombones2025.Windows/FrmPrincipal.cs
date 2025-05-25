@@ -33,5 +33,12 @@ namespace Bombones2025.Windows
             FrmRellenos frm = new FrmRellenos(servicio) { Text = "Listado de Rellenos" };
             frm.ShowDialog();
         }
+
+        private void btnFrutosSecos_Click(object sender, EventArgs e)
+        {
+            FrutoSecoServicio servicio=new FrutoSecoServicio();
+            FrmFrutosSecos frm=new FrmFrutosSecos(servicio) { Text = "Listado de Frutos Secos" };
+            frm.ShowDialog();
+        }
     }
 }

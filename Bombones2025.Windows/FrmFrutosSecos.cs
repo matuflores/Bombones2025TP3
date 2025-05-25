@@ -1,4 +1,6 @@
-﻿using System;
+﻿using Bombones2025.Entidades;
+using Bombones2025.Servicios.Servicios;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
@@ -12,9 +14,50 @@ namespace Bombones2025.Windows
 {
     public partial class FrmFrutosSecos : Form
     {
-        public FrmFrutosSecos()
+        private readonly FrutoSecoServicio _frutoSecoServicio = null!;
+
+        private List<FrutoSeco> _frutosSecos = new();
+
+        public FrmFrutosSecos(FrutoSecoServicio frutoSecoServicio)
         {
             InitializeComponent();
+            _frutoSecoServicio = frutoSecoServicio;
+        }
+
+        private void FrmFrutosSecos_Load(object sender, EventArgs e)
+        {
+            _frutosSecos = _frutoSecoServicio.GetFrutoSecos();
+            MostrarDatosEnGrilla();
+        }
+
+        private void MostrarDatosEnGrilla()
+        {
+            dgvFrutosSecos.Rows.Clear();
+            foreach (FrutoSeco frutoSeco in _frutosSecos)
+            {
+                DataGridViewRow r = new DataGridViewRow();
+                r.CreateCells(dgvFrutosSecos);
+                SetearFila(r, frutoSeco);
+                AgregarFila(r);
+            }
+        }
+
+        private void AgregarFila(DataGridViewRow r)
+        {
+            dgvFrutosSecos.Rows.Add(r);
+        }
+
+        private void SetearFila(DataGridViewRow r, FrutoSeco frutoSeco)
+        {
+            r.Cells[0].Value = frutoSeco.FrutoSecoId;
+            r.Cells[1].Value = frutoSeco.Descripcion;
+
+            r.Tag = frutoSeco;
+        }
+
+        private void btnCerrar_Click(object sender, EventArgs e)
+        {
+            Close();
         }
     }
 }

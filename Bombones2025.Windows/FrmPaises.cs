@@ -60,10 +60,6 @@ namespace Bombones2025.Windows
             Close();
         }
 
-        private void btnEditar_Click(object sender, EventArgs e)
-        {
-
-        }
 
         //clase 003 min 1:09:01 
     }
