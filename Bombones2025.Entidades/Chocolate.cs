@@ -15,5 +15,14 @@ namespace Bombones2025.Entidades
         {
             return $"{Descripcion}";
         }
+
+        public Chocolate Clonar()
+        {
+            return new Chocolate
+            {
+                ChocolateId = ChocolateId,
+                Descripcion = Descripcion
+            };
+        }
     }
 }

@@ -152,7 +152,7 @@ namespace Bombones2025.DatosSql.Repositorios
                     using (var cmd = new SqlCommand(query, cnn))
                     {
                         cmd.Parameters.AddWithValue("@Descripcion", frutoseco.Descripcion);
-                        cmd.Parameters.AddWithValue("@PaisId", frutoseco.FrutoSecoId);
+                        cmd.Parameters.AddWithValue("@FrutoSecoId", frutoseco.FrutoSecoId);
                         cmd.ExecuteNonQuery();
                     }
                     FrutoSeco? frutoSecoEditar = frutosSecos.FirstOrDefault(fs => fs.FrutoSecoId == frutoseco.FrutoSecoId);

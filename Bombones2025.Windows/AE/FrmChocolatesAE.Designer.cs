@@ -28,10 +28,13 @@
         /// </summary>
         private void InitializeComponent()
         {
+            components = new System.ComponentModel.Container();
             textBoxChocolate = new TextBox();
             labelChocolate = new Label();
             btnCancel = new Button();
             btnOk = new Button();
+            errorProviderChocolate = new ErrorProvider(components);
+            ((System.ComponentModel.ISupportInitialize)errorProviderChocolate).BeginInit();
             SuspendLayout();
             // 
             // textBoxChocolate
@@ -62,6 +65,7 @@
             btnCancel.Text = "CANCELAR";
             btnCancel.TextImageRelation = TextImageRelation.ImageAboveText;
             btnCancel.UseVisualStyleBackColor = true;
+            btnCancel.Click += btnCancel_Click;
             // 
             // btnOk
             // 
@@ -74,6 +78,11 @@
             btnOk.Text = "OK";
             btnOk.TextImageRelation = TextImageRelation.ImageAboveText;
             btnOk.UseVisualStyleBackColor = true;
+            btnOk.Click += btnOk_Click;
+            // 
+            // errorProviderChocolate
+            // 
+            errorProviderChocolate.ContainerControl = this;
             // 
             // FrmChocolatesAE
             // 
@@ -87,6 +96,7 @@
             Name = "FrmChocolatesAE";
             StartPosition = FormStartPosition.CenterScreen;
             Text = "FrmChocolatesAE";
+            ((System.ComponentModel.ISupportInitialize)errorProviderChocolate).EndInit();
             ResumeLayout(false);
             PerformLayout();
         }
@@ -97,5 +107,6 @@
         private Label labelChocolate;
         private Button btnCancel;
         private Button btnOk;
+        private ErrorProvider errorProviderChocolate;
     }
 }
