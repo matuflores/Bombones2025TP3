@@ -28,6 +28,7 @@
         /// </summary>
         private void InitializeComponent()
         {
+            DataGridViewCellStyle dataGridViewCellStyle1 = new DataGridViewCellStyle();
             splitContainer1 = new SplitContainer();
             dgvFrutosSecos = new DataGridView();
             FrutoSecoId = new DataGridViewTextBoxColumn();
@@ -68,6 +69,8 @@
             // 
             dgvFrutosSecos.AllowUserToAddRows = false;
             dgvFrutosSecos.AllowUserToDeleteRows = false;
+            dataGridViewCellStyle1.BackColor = Color.Silver;
+            dgvFrutosSecos.AlternatingRowsDefaultCellStyle = dataGridViewCellStyle1;
             dgvFrutosSecos.ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             dgvFrutosSecos.Columns.AddRange(new DataGridViewColumn[] { FrutoSecoId, Descripcion });
             dgvFrutosSecos.Dock = DockStyle.Fill;
@@ -75,6 +78,7 @@
             dgvFrutosSecos.Name = "dgvFrutosSecos";
             dgvFrutosSecos.ReadOnly = true;
             dgvFrutosSecos.RowHeadersVisible = false;
+            dgvFrutosSecos.SelectionMode = DataGridViewSelectionMode.FullRowSelect;
             dgvFrutosSecos.Size = new Size(700, 213);
             dgvFrutosSecos.TabIndex = 1;
             // 
@@ -110,6 +114,7 @@
             btnNuevo.Size = new Size(50, 59);
             btnNuevo.Text = "NUEVO";
             btnNuevo.TextImageRelation = TextImageRelation.ImageAboveText;
+            btnNuevo.Click += btnNuevo_Click;
             // 
             // btnBorrar
             // 
@@ -120,6 +125,7 @@
             btnBorrar.Size = new Size(56, 59);
             btnBorrar.Text = "BORRAR";
             btnBorrar.TextImageRelation = TextImageRelation.ImageAboveText;
+            btnBorrar.Click += btnBorrar_Click;
             // 
             // btnEditar
             // 
@@ -130,6 +136,7 @@
             btnEditar.Size = new Size(49, 59);
             btnEditar.Text = "EDITAR";
             btnEditar.TextImageRelation = TextImageRelation.ImageAboveText;
+            btnEditar.Click += btnEditar_Click;
             // 
             // toolStripSeparator1
             // 
@@ -145,6 +152,7 @@
             btnFiltrar.Size = new Size(54, 59);
             btnFiltrar.Text = "FILTRAR";
             btnFiltrar.TextImageRelation = TextImageRelation.ImageAboveText;
+            btnFiltrar.Click += btnFiltrar_Click;
             // 
             // btnRefresh
             // 
@@ -155,6 +163,7 @@
             btnRefresh.Size = new Size(58, 59);
             btnRefresh.Text = "REFRESH";
             btnRefresh.TextImageRelation = TextImageRelation.ImageAboveText;
+            btnRefresh.Click += btnRefresh_Click;
             // 
             // toolStripSeparator2
             // 

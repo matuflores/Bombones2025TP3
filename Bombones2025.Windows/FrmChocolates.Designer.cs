@@ -28,6 +28,7 @@
         /// </summary>
         private void InitializeComponent()
         {
+            DataGridViewCellStyle dataGridViewCellStyle2 = new DataGridViewCellStyle();
             splitContainer1 = new SplitContainer();
             dgvChocolates = new DataGridView();
             ChocolateId = new DataGridViewTextBoxColumn();
@@ -68,6 +69,8 @@
             // 
             dgvChocolates.AllowUserToAddRows = false;
             dgvChocolates.AllowUserToDeleteRows = false;
+            dataGridViewCellStyle2.BackColor = Color.Silver;
+            dgvChocolates.AlternatingRowsDefaultCellStyle = dataGridViewCellStyle2;
             dgvChocolates.ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             dgvChocolates.Columns.AddRange(new DataGridViewColumn[] { ChocolateId, Descripcion });
             dgvChocolates.Dock = DockStyle.Fill;
@@ -75,6 +78,7 @@
             dgvChocolates.Name = "dgvChocolates";
             dgvChocolates.ReadOnly = true;
             dgvChocolates.RowHeadersVisible = false;
+            dgvChocolates.SelectionMode = DataGridViewSelectionMode.FullRowSelect;
             dgvChocolates.Size = new Size(700, 211);
             dgvChocolates.TabIndex = 1;
             // 
@@ -110,6 +114,7 @@
             btnNuevo.Size = new Size(50, 59);
             btnNuevo.Text = "NUEVO";
             btnNuevo.TextImageRelation = TextImageRelation.ImageAboveText;
+            btnNuevo.Click += btnNuevo_Click;
             // 
             // btnBorrar
             // 

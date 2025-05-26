@@ -28,10 +28,13 @@
         /// </summary>
         private void InitializeComponent()
         {
+            components = new System.ComponentModel.Container();
             textBoxFrutoSeco = new TextBox();
             labelFrutoSeco = new Label();
             btnCancel = new Button();
             btnOk = new Button();
+            errorProviderFSeco = new ErrorProvider(components);
+            ((System.ComponentModel.ISupportInitialize)errorProviderFSeco).BeginInit();
             SuspendLayout();
             // 
             // textBoxFrutoSeco
@@ -62,6 +65,7 @@
             btnCancel.Text = "CANCELAR";
             btnCancel.TextImageRelation = TextImageRelation.ImageAboveText;
             btnCancel.UseVisualStyleBackColor = true;
+            btnCancel.Click += btnCancel_Click_1;
             // 
             // btnOk
             // 
@@ -74,6 +78,11 @@
             btnOk.Text = "OK";
             btnOk.TextImageRelation = TextImageRelation.ImageAboveText;
             btnOk.UseVisualStyleBackColor = true;
+            btnOk.Click += btnOk_Click_1;
+            // 
+            // errorProviderFSeco
+            // 
+            errorProviderFSeco.ContainerControl = this;
             // 
             // FrmFrutosSecosAE
             // 
@@ -87,6 +96,7 @@
             Name = "FrmFrutosSecosAE";
             StartPosition = FormStartPosition.CenterScreen;
             Text = "FrmFrutosSecosAE";
+            ((System.ComponentModel.ISupportInitialize)errorProviderFSeco).EndInit();
             ResumeLayout(false);
             PerformLayout();
         }
@@ -97,5 +107,6 @@
         private Label labelFrutoSeco;
         private Button btnCancel;
         private Button btnOk;
+        private ErrorProvider errorProviderFSeco;
     }
 }

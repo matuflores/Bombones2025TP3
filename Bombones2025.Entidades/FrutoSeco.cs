@@ -15,5 +15,13 @@ namespace Bombones2025.Entidades
         {
             return $"{Descripcion}";
         }
+        public FrutoSeco Clonar()
+        {
+            return new FrutoSeco
+            {
+                FrutoSecoId = FrutoSecoId,
+                Descripcion = Descripcion
+            };
+        }
     }
 }

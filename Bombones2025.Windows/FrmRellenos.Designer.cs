@@ -28,6 +28,7 @@
         /// </summary>
         private void InitializeComponent()
         {
+            DataGridViewCellStyle dataGridViewCellStyle1 = new DataGridViewCellStyle();
             splitContainer1 = new SplitContainer();
             dgvRellenos = new DataGridView();
             RellenoId = new DataGridViewTextBoxColumn();
@@ -68,6 +69,8 @@
             // 
             dgvRellenos.AllowUserToAddRows = false;
             dgvRellenos.AllowUserToDeleteRows = false;
+            dataGridViewCellStyle1.BackColor = Color.Silver;
+            dgvRellenos.AlternatingRowsDefaultCellStyle = dataGridViewCellStyle1;
             dgvRellenos.ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             dgvRellenos.Columns.AddRange(new DataGridViewColumn[] { RellenoId, Descripcion });
             dgvRellenos.Dock = DockStyle.Fill;
@@ -75,6 +78,7 @@
             dgvRellenos.Name = "dgvRellenos";
             dgvRellenos.ReadOnly = true;
             dgvRellenos.RowHeadersVisible = false;
+            dgvRellenos.SelectionMode = DataGridViewSelectionMode.FullRowSelect;
             dgvRellenos.Size = new Size(700, 216);
             dgvRellenos.TabIndex = 1;
             // 

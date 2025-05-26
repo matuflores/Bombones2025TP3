@@ -71,7 +71,7 @@ namespace Bombones2025.DatosSql.Repositorios
                     {
                         query = @"SELECT COUNT(*) FROM Rellenos 
                                 WHERE LOWER(Descripcion)=LOWER(@Descripcion) AND
-                                PaisId<>@PaisId";
+                                RellenoId<>@RellenoId";
                     }
 
                     using (var cmd = new SqlCommand(query, cnn))
