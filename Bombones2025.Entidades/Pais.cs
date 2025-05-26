@@ -15,5 +15,14 @@ namespace Bombones2025.Entidades
         {
             return $"{NombrePais}";
         }
+        //es la copia exacta en un pais Nuevo
+        public Pais Clonar()
+        {
+            return new Pais
+            {
+                PaisId = PaisId,
+                NombrePais = NombrePais
+            };
+        }
     }
 }

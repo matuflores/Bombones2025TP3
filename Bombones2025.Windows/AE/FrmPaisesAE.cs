@@ -14,14 +14,29 @@ namespace Bombones2025.Windows
     public partial class FrmPaisesAE : Form
     {
         private Pais? pais;
-        public FrmPaisesAE(string v)
+
+        public FrmPaisesAE()
         {
             InitializeComponent();
+        }
+
+        protected override void OnLoad(EventArgs e)
+        {
+            base.OnLoad(e);
+            if (pais is not null)
+            {
+                textBoxPais.Text = pais.NombrePais;
+            }
         }
 
         public Pais? GetPais()
         {
             return pais;
+        }
+
+        public void SetPais(Pais pais)
+        {
+            this.pais = pais;
         }
 
         private void btnCancel_Click(object sender, EventArgs e)
@@ -46,7 +61,7 @@ namespace Bombones2025.Windows
         {
             bool valido = true;
             errorProviderPaisAe.Clear();
-            if (string.IsNullOrEmpty(textBoxPais.Text))// el IsNullOrEmpty se fija si un string es null
+            if (string.IsNullOrEmpty(textBoxPais.Text))
             {
                 valido = false;
                 errorProviderPaisAe.SetError(textBoxPais, "Nombre de Pais requerido");

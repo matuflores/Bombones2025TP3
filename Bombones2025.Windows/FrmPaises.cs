@@ -62,7 +62,7 @@ namespace Bombones2025.Windows
 
         private void btnNuevo_Click(object sender, EventArgs e)
         {
-            FrmPaisesAE frm = new FrmPaisesAE(Text = "Nuevo Pais");
+            FrmPaisesAE frm = new FrmPaisesAE() {Text = "Nuevo Pais" };
             DialogResult dr = frm.ShowDialog(this);
             if (dr == DialogResult.Cancel) return;
             Pais? pais = frm.GetPais();
@@ -85,12 +85,12 @@ namespace Bombones2025.Windows
 
         private void btnBorrar_Click(object sender, EventArgs e)
         {
-            if (dgvPaises.SelectedRows.Count==0)
+            if (dgvPaises.SelectedRows.Count == 0)
             {
                 return;
             }
-            var r=dgvPaises.SelectedRows[0];
-            Pais paisBorrar=(Pais)r.Tag!;
+            var r = dgvPaises.SelectedRows[0];
+            Pais paisBorrar = (Pais)r.Tag!;
             DialogResult dr = MessageBox.Show($"¿Desea Borrar el pais {paisBorrar}",
                 "Confirmar Eliminacion", MessageBoxButtons.YesNo, MessageBoxIcon.Question,
                 MessageBoxDefaultButton.Button2);
@@ -104,8 +104,51 @@ namespace Bombones2025.Windows
             catch (Exception ex)
             {
 
+                throw new Exception(ex.Message, ex);
+            }
+        }
+
+        private void btnEditar_Click(object sender, EventArgs e)
+        {
+            if (dgvPaises.SelectedRows.Count==0)
+            {
+                return;
+            }
+            var r = dgvPaises.SelectedRows[0];
+            Pais? pais = (Pais)r.Tag!;
+            if (pais == null) return;
+            Pais? paisEditar = pais.Clonar();
+            FrmPaisesAE frm = new FrmPaisesAE() { Text = "Editar Pais" };
+            frm.SetPais(paisEditar);
+            DialogResult dr = frm.ShowDialog(this);
+            if(dr == DialogResult.Cancel) return;
+            paisEditar=frm.GetPais();
+            if(paisEditar == null) return;
+            try
+            {
+                if (!_paisServicio.Existe(paisEditar))
+                {
+                    _paisServicio.Guardar(paisEditar);
+                    SetearFila(r, paisEditar);
+
+                    MessageBox.Show("Pais Modificado", "Mensaje",
+                        MessageBoxButtons.OK,
+                        MessageBoxIcon.Information);
+                }
+                else
+                {
+                    MessageBox.Show("Pais Existente", "Error",
+                        MessageBoxButtons.OK,
+                        MessageBoxIcon.Error);
+                }
+            }
+            catch (Exception ex)
+            {
+
                 throw new Exception(ex.Message,ex);
             }
+
+
         }
     }
 }

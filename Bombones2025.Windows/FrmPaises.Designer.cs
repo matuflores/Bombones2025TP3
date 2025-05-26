@@ -28,6 +28,7 @@
         /// </summary>
         private void InitializeComponent()
         {
+            DataGridViewCellStyle dataGridViewCellStyle1 = new DataGridViewCellStyle();
             splitContainer1 = new SplitContainer();
             dgvPaises = new DataGridView();
             PaisId = new DataGridViewTextBoxColumn();
@@ -70,6 +71,8 @@
             // 
             dgvPaises.AllowUserToAddRows = false;
             dgvPaises.AllowUserToDeleteRows = false;
+            dataGridViewCellStyle1.BackColor = Color.Silver;
+            dgvPaises.AlternatingRowsDefaultCellStyle = dataGridViewCellStyle1;
             dgvPaises.ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             dgvPaises.Columns.AddRange(new DataGridViewColumn[] { PaisId, NombrePais });
             dgvPaises.Dock = DockStyle.Fill;
@@ -141,6 +144,7 @@
             btnEditar.Size = new Size(49, 59);
             btnEditar.Text = "EDITAR";
             btnEditar.TextImageRelation = TextImageRelation.ImageAboveText;
+            btnEditar.Click += btnEditar_Click;
             // 
             // toolStripSeparator1
             // 

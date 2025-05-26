@@ -37,9 +37,10 @@ namespace Bombones2025.Servicios.Servicios
             {
                 _paisRepositorio.Agregar(pais);
             }
-            //else
-            //{
-            //}
+            else
+            {
+                _paisRepositorio.Editar(pais);
+            }
         }
 
         public void Borrar(int paisId)
