@@ -1,5 +1,6 @@
 ﻿using Bombones2025.Entidades;
 using Bombones2025.Servicios.Servicios;
+using Bombones2025.Windows.Properties;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
@@ -18,6 +19,7 @@ namespace Bombones2025.Windows
         private readonly PaisServicio _paisServicio = null!;
         //instancio la lista
         private List<Pais> _paises = new();
+        private bool filtrarOn = false;
         public FrmPaises(PaisServicio paisServicio)
         {
             InitializeComponent();
@@ -154,14 +156,41 @@ namespace Bombones2025.Windows
 
         private void btnFiltrar_Click(object sender, EventArgs e)
         {
-            FrmFiltrar frm= new FrmFiltrar() { Text="Filtrar Pais"};
-            DialogResult dr = frm.ShowDialog(this);
-            string? textoParaFiltrar = frm.GetTexto();
-            if (textoParaFiltrar is null) return;
+            if (!filtrarOn)
+            {
+                FrmFiltrar frm = new FrmFiltrar() { Text = "Filtrar Pais" };
+                DialogResult dr = frm.ShowDialog(this);
+                string? textoParaFiltrar = frm.GetTexto();
+                if (textoParaFiltrar is null) return;
+                try
+                {
+                    _paises = _paisServicio.Filtrar(textoParaFiltrar);
+                    MostrarDatosEnGrilla();
+                    btnFiltrar.Image = Resources.FILTRO40;
+                    filtrarOn = true;
+                }
+                catch (Exception ex)
+                {
+
+                    throw new Exception(ex.Message, ex);
+                }
+            }
+            else
+            {
+                MessageBox.Show("Quitar Filtro", "Error",
+                        MessageBoxButtons.OK,
+                        MessageBoxIcon.Error);
+            }
+        }
+
+        private void btnRefresh_Click(object sender, EventArgs e)
+        {
             try
             {
-                _paises=_paisServicio.Filtrar(textoParaFiltrar);
-                MostrarDatosEnGrilla();
+                filtrarOn = false;
+                btnFiltrar.Image = Resources.FILTRO40;
+                _paises = _paisServicio.GetPais();
+                MostrarDatosEnGrilla() ;
             }
             catch (Exception ex)
             {

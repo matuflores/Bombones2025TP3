@@ -171,6 +171,7 @@
             btnRefresh.Size = new Size(58, 59);
             btnRefresh.Text = "REFRESH";
             btnRefresh.TextImageRelation = TextImageRelation.ImageAboveText;
+            btnRefresh.Click += btnRefresh_Click;
             // 
             // toolStripSeparator2
             // 
