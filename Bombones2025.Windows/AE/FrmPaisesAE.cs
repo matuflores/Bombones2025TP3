@@ -48,10 +48,10 @@ namespace Bombones2025.Windows
         {
             if (ValidarDatos())
             {
+                if (pais == null)
                 {
                     pais = new Pais();
                 }
-
                 pais.NombrePais = textBoxPais.Text;
                 DialogResult = DialogResult.OK;
             }

@@ -160,6 +160,7 @@
             btnFiltrar.Size = new Size(54, 59);
             btnFiltrar.Text = "FILTRAR";
             btnFiltrar.TextImageRelation = TextImageRelation.ImageAboveText;
+            btnFiltrar.Click += btnFiltrar_Click;
             // 
             // btnRefresh
             // 

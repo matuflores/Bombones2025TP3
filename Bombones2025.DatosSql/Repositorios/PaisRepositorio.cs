@@ -169,5 +169,40 @@ namespace Bombones2025.DatosSql.Repositorios
                 throw new Exception("Error al intentar editar el registro",ex);
             }
         }
+
+        public List<Pais> Filtrar(string textoParaFiltrar)
+        {
+            var listaFiltrada = new List<Pais>();
+            try
+            {
+                using (var cnn = new SqlConnection(connectionString))
+                {
+                    cnn.Open();
+                    string query = @"SELECT * FROM Paises
+                                    WHERE NombrePais LIKE @texto";
+                    using (var cmd = new SqlCommand(query, cnn))
+                    {
+                        textoParaFiltrar += "%";
+                        cmd.Parameters.AddWithValue("@texto", textoParaFiltrar);
+                        
+                        using (var reader=cmd.ExecuteReader())
+                        {
+                            while (reader.Read())
+                            {
+                                var pais=ConstruirPais(reader);
+                                listaFiltrada.Add(pais);
+                            }
+                        }
+                    }
+                }
+                return listaFiltrada;
+            }
+            catch (Exception)
+            {
+
+                throw;
+            }
+            
+        }
     }
 }

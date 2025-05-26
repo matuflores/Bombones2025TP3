@@ -62,7 +62,7 @@ namespace Bombones2025.Windows
 
         private void btnNuevo_Click(object sender, EventArgs e)
         {
-            FrmPaisesAE frm = new FrmPaisesAE() {Text = "Nuevo Pais" };
+            FrmPaisesAE frm = new FrmPaisesAE() { Text = "Nuevo Pais" };
             DialogResult dr = frm.ShowDialog(this);
             if (dr == DialogResult.Cancel) return;
             Pais? pais = frm.GetPais();
@@ -110,7 +110,7 @@ namespace Bombones2025.Windows
 
         private void btnEditar_Click(object sender, EventArgs e)
         {
-            if (dgvPaises.SelectedRows.Count==0)
+            if (dgvPaises.SelectedRows.Count == 0)
             {
                 return;
             }
@@ -121,9 +121,9 @@ namespace Bombones2025.Windows
             FrmPaisesAE frm = new FrmPaisesAE() { Text = "Editar Pais" };
             frm.SetPais(paisEditar);
             DialogResult dr = frm.ShowDialog(this);
-            if(dr == DialogResult.Cancel) return;
-            paisEditar.NombrePais = frm.GetPais()!.NombrePais;
-            if(paisEditar == null) return;
+            if (dr == DialogResult.Cancel) return;
+            paisEditar = frm.GetPais();
+            if (paisEditar == null) return;
 
             try
             {
@@ -146,10 +146,28 @@ namespace Bombones2025.Windows
             catch (Exception ex)
             {
 
-                throw new Exception(ex.Message,ex);
+                throw new Exception(ex.Message, ex);
             }
 
 
+        }
+
+        private void btnFiltrar_Click(object sender, EventArgs e)
+        {
+            FrmFiltrar frm= new FrmFiltrar() { Text="Filtrar Pais"};
+            DialogResult dr = frm.ShowDialog(this);
+            string? textoParaFiltrar = frm.GetTexto();
+            if (textoParaFiltrar is null) return;
+            try
+            {
+                _paises=_paisServicio.Filtrar(textoParaFiltrar);
+                MostrarDatosEnGrilla();
+            }
+            catch (Exception ex)
+            {
+
+                throw new Exception(ex.Message,ex);
+            }
         }
     }
 }

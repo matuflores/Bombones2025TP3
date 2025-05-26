@@ -47,5 +47,10 @@ namespace Bombones2025.Servicios.Servicios
         {
             _paisRepositorio.Borrar(paisId);
         }
+
+        public List<Pais> Filtrar(string textoParaFiltrar)
+        {
+            return _paisRepositorio.Filtrar(textoParaFiltrar);
+        }
     }
 }
