@@ -62,7 +62,7 @@ namespace Bombones2025.DatosSql.Repositorios
                 {
                     cnn.Open();
                     string query = @"INSERT INTO Paises (NombrePais) VALUES (@NombrePais);
-                                SELECT SCOPE_IDENTITY();";
+                                SELECT SCOPE_IDENTITY()";
                     using (var cmd = new SqlCommand(query, cnn))
                     {
                         cmd.Parameters.AddWithValue("@NombrePais", pais.NombrePais);

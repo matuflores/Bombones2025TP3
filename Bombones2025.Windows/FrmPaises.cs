@@ -122,8 +122,9 @@ namespace Bombones2025.Windows
             frm.SetPais(paisEditar);
             DialogResult dr = frm.ShowDialog(this);
             if(dr == DialogResult.Cancel) return;
-            paisEditar=frm.GetPais();
+            paisEditar.NombrePais = frm.GetPais()!.NombrePais;
             if(paisEditar == null) return;
+
             try
             {
                 if (!_paisServicio.Existe(paisEditar))

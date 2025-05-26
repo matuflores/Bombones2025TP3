@@ -20,7 +20,7 @@ namespace Bombones2025.Entidades
         {
             return new Pais
             {
-                PaisId = PaisId,
+                PaisId =PaisId,
                 NombrePais = NombrePais
             };
         }
