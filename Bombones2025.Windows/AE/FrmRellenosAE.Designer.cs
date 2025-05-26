@@ -28,10 +28,13 @@
         /// </summary>
         private void InitializeComponent()
         {
+            components = new System.ComponentModel.Container();
             textBoxRelleno = new TextBox();
             labelRelleno = new Label();
             btnCancel = new Button();
             btnOk = new Button();
+            errorProviderRellenoAE = new ErrorProvider(components);
+            ((System.ComponentModel.ISupportInitialize)errorProviderRellenoAE).BeginInit();
             SuspendLayout();
             // 
             // textBoxRelleno
@@ -62,6 +65,7 @@
             btnCancel.Text = "CANCELAR";
             btnCancel.TextImageRelation = TextImageRelation.ImageAboveText;
             btnCancel.UseVisualStyleBackColor = true;
+            btnCancel.Click += btnCancel_Click;
             // 
             // btnOk
             // 
@@ -74,6 +78,11 @@
             btnOk.Text = "OK";
             btnOk.TextImageRelation = TextImageRelation.ImageAboveText;
             btnOk.UseVisualStyleBackColor = true;
+            btnOk.Click += btnOk_Click;
+            // 
+            // errorProviderRellenoAE
+            // 
+            errorProviderRellenoAE.ContainerControl = this;
             // 
             // FrmRellenosAE
             // 
@@ -87,6 +96,7 @@
             Name = "FrmRellenosAE";
             StartPosition = FormStartPosition.CenterScreen;
             Text = "FrmRellenosAE";
+            ((System.ComponentModel.ISupportInitialize)errorProviderRellenoAE).EndInit();
             ResumeLayout(false);
             PerformLayout();
         }
@@ -97,5 +107,6 @@
         private Label labelRelleno;
         private Button btnCancel;
         private Button btnOk;
+        private ErrorProvider errorProviderRellenoAE;
     }
 }

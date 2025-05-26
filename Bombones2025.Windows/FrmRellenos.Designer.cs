@@ -110,6 +110,7 @@
             btnNuevo.Size = new Size(50, 59);
             btnNuevo.Text = "NUEVO";
             btnNuevo.TextImageRelation = TextImageRelation.ImageAboveText;
+            btnNuevo.Click += btnNuevo_Click;
             // 
             // btnBorrar
             // 
@@ -120,6 +121,7 @@
             btnBorrar.Size = new Size(56, 59);
             btnBorrar.Text = "BORRAR";
             btnBorrar.TextImageRelation = TextImageRelation.ImageAboveText;
+            btnBorrar.Click += btnBorrar_Click;
             // 
             // btnEditar
             // 
@@ -130,6 +132,7 @@
             btnEditar.Size = new Size(49, 59);
             btnEditar.Text = "EDITAR";
             btnEditar.TextImageRelation = TextImageRelation.ImageAboveText;
+            btnEditar.Click += btnEditar_Click;
             // 
             // toolStripSeparator1
             // 
@@ -145,6 +148,7 @@
             btnFiltrar.Size = new Size(54, 59);
             btnFiltrar.Text = "FILTRAR";
             btnFiltrar.TextImageRelation = TextImageRelation.ImageAboveText;
+            btnFiltrar.Click += btnFiltrar_Click;
             // 
             // btnRefresh
             // 
@@ -155,6 +159,7 @@
             btnRefresh.Size = new Size(58, 59);
             btnRefresh.Text = "REFRESH";
             btnRefresh.TextImageRelation = TextImageRelation.ImageAboveText;
+            btnRefresh.Click += btnRefresh_Click;
             // 
             // toolStripSeparator2
             // 

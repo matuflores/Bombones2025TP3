@@ -15,5 +15,14 @@ namespace Bombones2025.Entidades
         {
             return $"{Descripcion}";
         }
+
+        public Relleno Clonar()
+        {
+            return new Relleno
+            {
+                RellenoId = RellenoId,
+                Descripcion = Descripcion
+            };
+        }
     }
 }

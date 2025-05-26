@@ -16,9 +16,37 @@ namespace Bombones2025.Servicios.Servicios
         {
             _rellenoRepositorio = new RellenoRepositorio();
         }
+
+        public void Borrar(int rellenoId)
+        {
+            _rellenoRepositorio.Borrar(rellenoId);
+        }
+
+        public bool Existe(Relleno relleno)
+        {
+            return _rellenoRepositorio.Existe(relleno);
+        }
+
+        public List<Relleno> Filtrar(string textoParaFiltrar)
+        {
+            return _rellenoRepositorio.Filtrar(textoParaFiltrar);
+        }
+
         public List<Relleno> GetRelleno()
         {
             return _rellenoRepositorio.GetRelleno();
+        }
+
+        public void Guardar(Relleno relleno)
+        {
+            if (relleno.RellenoId == 0)
+            {
+                _rellenoRepositorio.Agregar(relleno);
+            }
+            else
+            {
+                _rellenoRepositorio.Editar(relleno);
+            }
         }
     }
 }

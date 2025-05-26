@@ -25,15 +25,13 @@ namespace Bombones2025.Servicios.Servicios
             return _paisRepositorio.GetPais();
         }//traida lista desarrollo el frmPaises
 
-        //----------------------------------------------------------------------
-
         public bool Existe(Pais pais)
         {
             return _paisRepositorio.Existe(pais);
         }
         public void Guardar(Pais pais)
         {
-            if (pais.PaisId==0)
+            if (pais.PaisId == 0)
             {
                 _paisRepositorio.Agregar(pais);
             }
@@ -42,7 +40,6 @@ namespace Bombones2025.Servicios.Servicios
                 _paisRepositorio.Editar(pais);
             }
         }
-
         public void Borrar(int paisId)
         {
             _paisRepositorio.Borrar(paisId);
@@ -52,5 +49,12 @@ namespace Bombones2025.Servicios.Servicios
         {
             return _paisRepositorio.Filtrar(textoParaFiltrar);
         }
+        //----------------------------------------------------------------------
+
+
+
+
+
+
     }
 }

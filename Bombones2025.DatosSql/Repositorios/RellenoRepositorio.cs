@@ -53,5 +53,154 @@ namespace Bombones2025.DatosSql.Repositorios
                 Descripcion = reader.GetString(1)
             };
         }
+
+        public bool Existe(Relleno relleno)
+        {
+            try
+            {
+                using (var cnn = new SqlConnection(connectionString))
+                {
+                    cnn.Open();
+                    string query;
+                    if (relleno.RellenoId == 0)
+                    {
+                        query = @"SELECT COUNT(*) FROM Rellenos 
+                                WHERE LOWER(Descripcion)=LOWER(@Descripcion)";
+                    }
+                    else
+                    {
+                        query = @"SELECT COUNT(*) FROM Rellenos 
+                                WHERE LOWER(Descripcion)=LOWER(@Descripcion) AND
+                                PaisId<>@PaisId";
+                    }
+
+                    using (var cmd = new SqlCommand(query, cnn))
+                    {
+                        if (relleno.RellenoId != 0)
+                        {
+                            cmd.Parameters.AddWithValue("@RellenoId", relleno.RellenoId);
+                        }
+                        cmd.Parameters.AddWithValue("@Descripcion", relleno.Descripcion);
+                        int cantidad = (int)cmd.ExecuteScalar();
+                        return cantidad > 0;
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+
+                throw new Exception("Error al intentar leer el registro", ex);
+            }
+        }
+
+        public void Agregar(Relleno relleno)
+        {
+            try
+            {
+                using (var cnn = new SqlConnection(connectionString))
+                {
+                    cnn.Open();
+                    string query = @"INSERT INTO Rellenos (Descripcion) VALUES (@Descripcion);
+                                SELECT SCOPE_IDENTITY()";
+                    using (var cmd = new SqlCommand(query, cnn))
+                    {
+                        cmd.Parameters.AddWithValue("@Descripcion", relleno.Descripcion);
+                        int rellenoId = (int)(decimal)cmd.ExecuteScalar();
+                        relleno.RellenoId = rellenoId;
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+
+                throw new Exception("Error al intentar agregar el registro", ex);
+            }
+        }
+
+        public void Borrar(int rellenoId)
+        {
+            try
+            {
+                using (var cnn = new SqlConnection(connectionString))
+                {
+                    cnn.Open();
+                    string query = @"DELETE FROM Rellenos WHERE RellenoId=@RellenoId";
+                    using (var cmd = new SqlCommand(query, cnn))
+                    {
+                        cmd.Parameters.AddWithValue("@RellenoId", rellenoId);
+                        cmd.ExecuteNonQuery();//se ejecuta en comandos que no devuelven datos 
+                    }
+                }
+                Relleno? rellenoBorrar = rellenos.FirstOrDefault(re => re.RellenoId == rellenoId);
+                if (rellenoBorrar == null) return;
+                rellenos.Remove(rellenoBorrar);
+            }
+            catch (Exception ex)
+            {
+
+                throw new Exception("Error al intentar borrar el registro", ex);
+            }
+        }
+
+        public void Editar(Relleno relleno)
+        {
+            try
+            {
+                using (var cnn = new SqlConnection(connectionString))
+                {
+                    cnn.Open();
+                    string query = @"UPDATE Rellenos SET Descripcion=@Descripcion
+                                    WHERE RellenoId=@RellenoId";
+                    using (var cmd = new SqlCommand(query, cnn))
+                    {
+                        cmd.Parameters.AddWithValue("@Descripcion", relleno.Descripcion);
+                        cmd.Parameters.AddWithValue("@RellenoId", relleno.RellenoId);
+                        cmd.ExecuteNonQuery();
+                    }
+                    Relleno? rellenoEditar = rellenos.FirstOrDefault(re => re.RellenoId == relleno.RellenoId);
+                    if (rellenoEditar == null) return;
+                    rellenoEditar.Descripcion = relleno.Descripcion;
+                }
+            }
+            catch (Exception ex)
+            {
+
+                throw new Exception("Error al intentar editar el registro", ex);
+            }
+        }
+
+        public List<Relleno> Filtrar(string textoParaFiltrar)
+        {
+            var listaFiltrada = new List<Relleno>();
+            try
+            {
+                using (var cnn = new SqlConnection(connectionString))
+                {
+                    cnn.Open();
+                    string query = @"SELECT * FROM Rellenos
+                                    WHERE Descripcion LIKE @texto";
+                    using (var cmd = new SqlCommand(query, cnn))
+                    {
+                        textoParaFiltrar += "%";
+                        cmd.Parameters.AddWithValue("@texto", textoParaFiltrar);
+
+                        using (var reader = cmd.ExecuteReader())
+                        {
+                            while (reader.Read())
+                            {
+                                var relleno = ConstruirRelleno(reader);
+                                listaFiltrada.Add(relleno);
+                            }
+                        }
+                    }
+                }
+                return listaFiltrada;
+            }
+            catch (Exception)
+            {
+
+                throw;
+            }
+        }
     }
 }
