@@ -224,6 +224,11 @@ namespace Bombones2025.DatosSql.Repositorios
 
         public List<Chocolate> Filtrar(string textoParaFiltrar)
         {
+            //if (_usarCache)
+            //{
+            //    return chocolatesCache.Where(c => c.Descripcion.
+            //                            StartsWith(textoParaFiltrar)).ToList();
+            //}
             var listaFiltrada = new List<Chocolate>();
             try
             {
