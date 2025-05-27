@@ -11,6 +11,7 @@ namespace Bombones2025.DatosSql.Repositorios
 {
     public class PaisRepositorio
     {
+        //clase 006 56:11
         private List<Pais> paises = new();
         private readonly string? connectionString;
         //creo la lista y la conexion
