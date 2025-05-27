@@ -1,5 +1,6 @@
 ﻿using Bombones2025.Entidades;
 using Bombones2025.Servicios.Servicios;
+using Bombones2025.Windows.Helpers;
 using Bombones2025.Windows.Properties;
 using System;
 using System.Collections.Generic;
@@ -34,28 +35,15 @@ namespace Bombones2025.Windows
 
         private void MostrarDatosEnGrilla()
         {
-            dgvFrutosSecos.Rows.Clear();
+            GridHelper.LimpiarGrilla(dgvFrutosSecos);
             foreach (FrutoSeco frutoSeco in _frutosSecos)
             {
-                DataGridViewRow r = new DataGridViewRow();
-                r.CreateCells(dgvFrutosSecos);
-                SetearFila(r, frutoSeco);
-                AgregarFila(r);
+                var r = GridHelper.ConstruirFila(dgvFrutosSecos);
+                GridHelper.SetearFila(r, frutoSeco);
+                GridHelper.AgregarFila(r, dgvFrutosSecos);
             }
         }
 
-        private void AgregarFila(DataGridViewRow r)
-        {
-            dgvFrutosSecos.Rows.Add(r);
-        }
-
-        private void SetearFila(DataGridViewRow r, FrutoSeco frutoSeco)
-        {
-            r.Cells[0].Value = frutoSeco.FrutoSecoId;
-            r.Cells[1].Value = frutoSeco.Descripcion;
-
-            r.Tag = frutoSeco;
-        }
 
         private void btnCerrar_Click(object sender, EventArgs e)
         {
@@ -72,10 +60,9 @@ namespace Bombones2025.Windows
             if (!_frutoSecoServicio.Existe(frutoSeco))
             {
                 _frutoSecoServicio.Guardar(frutoSeco);
-                DataGridViewRow r = new DataGridViewRow();
-                r.CreateCells(dgvFrutosSecos);
-                SetearFila(r, frutoSeco);
-                AgregarFila(r);
+                DataGridViewRow r = GridHelper.ConstruirFila(dgvFrutosSecos);
+                GridHelper.SetearFila(r, frutoSeco);
+                GridHelper.AgregarFila(r, dgvFrutosSecos);
                 MessageBox.Show("Fruto Seco Agregado", "Mensaje", MessageBoxButtons.OK, MessageBoxIcon.Information);
             }
             else
@@ -99,7 +86,7 @@ namespace Bombones2025.Windows
             try
             {
                 _frutoSecoServicio.Borrar(frutoSecoBorrar.FrutoSecoId);
-                dgvFrutosSecos.Rows.Remove(r);
+                GridHelper.QuitarFila(r, dgvFrutosSecos);
                 MessageBox.Show("Pais Eliminado");
             }
             catch (Exception ex)
@@ -131,7 +118,7 @@ namespace Bombones2025.Windows
                 if (!_frutoSecoServicio.Existe(frutoSecoEditar))
                 {
                     _frutoSecoServicio.Guardar(frutoSecoEditar);
-                    SetearFila(r, frutoSecoEditar);
+                    GridHelper.SetearFila(r, frutoSecoEditar);
 
                     MessageBox.Show("Fruto seco modificado", "Mensaje",
                         MessageBoxButtons.OK,

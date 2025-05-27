@@ -81,6 +81,7 @@ namespace Bombones2025.Windows
                 //r.CreateCells(dgvChocolates);
                 GridHelper.SetearFila(r, chocolate);
                 GridHelper.AgregarFila(r, dgvChocolates);
+
                 MessageBox.Show("Chocolate Agregado", "Mensaje", MessageBoxButtons.OK, MessageBoxIcon.Information);
             }
             else

@@ -1,5 +1,6 @@
 ﻿using Bombones2025.Entidades;
 using Bombones2025.Servicios.Servicios;
+using Bombones2025.Windows.Helpers;
 using Bombones2025.Windows.Properties;
 using System;
 using System.Collections.Generic;
@@ -34,27 +35,14 @@ namespace Bombones2025.Windows
 
         private void MostrarDatosEnGrilla()
         {
-            dgvPaises.Rows.Clear();
+            GridHelper.LimpiarGrilla(dgvPaises);
             foreach (Pais pais in _paises)
             {
-                DataGridViewRow r = new DataGridViewRow();
-                r.CreateCells(dgvPaises);
-                SetearFila(r, pais);
-                AgregarFila(r);
+                var r = GridHelper.ConstruirFila(dgvPaises);
+
+                GridHelper.SetearFila(r, pais);
+                GridHelper.AgregarFila(r, dgvPaises);
             }
-        }
-
-        private void AgregarFila(DataGridViewRow r)
-        {
-            dgvPaises.Rows.Add(r);
-        }
-
-        private void SetearFila(DataGridViewRow r, Pais pais)
-        {
-            r.Cells[0].Value = pais.PaisId;
-            r.Cells[1].Value = pais.NombrePais;
-
-            r.Tag = pais;
         }
 
         private void btnCerrar_Click(object sender, EventArgs e)
@@ -72,10 +60,9 @@ namespace Bombones2025.Windows
             if (!_paisServicio.Existe(pais))
             {
                 _paisServicio.Guardar(pais);
-                DataGridViewRow r = new DataGridViewRow();
-                r.CreateCells(dgvPaises);
-                SetearFila(r, pais);
-                AgregarFila(r);
+                DataGridViewRow r = GridHelper.ConstruirFila(dgvPaises);
+                GridHelper.SetearFila(r, pais);
+                GridHelper.AgregarFila(r, dgvPaises);
                 MessageBox.Show("Pais Agregado", "Mensaje", MessageBoxButtons.OK, MessageBoxIcon.Information);
             }
             else
@@ -100,7 +87,7 @@ namespace Bombones2025.Windows
             try
             {
                 _paisServicio.Borrar(paisBorrar.PaisId);
-                dgvPaises.Rows.Remove(r);
+                GridHelper.QuitarFila(r, dgvPaises);
                 MessageBox.Show("Pais Eliminado");
             }
             catch (Exception ex)
@@ -132,7 +119,7 @@ namespace Bombones2025.Windows
                 if (!_paisServicio.Existe(paisEditar))
                 {
                     _paisServicio.Guardar(paisEditar);
-                    SetearFila(r, paisEditar);
+                    GridHelper.SetearFila(r, paisEditar);
 
                     MessageBox.Show("Pais Modificado", "Mensaje",
                         MessageBoxButtons.OK,

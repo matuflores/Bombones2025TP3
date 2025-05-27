@@ -1,5 +1,6 @@
 ﻿using Bombones2025.Entidades;
 using Bombones2025.Servicios.Servicios;
+using Bombones2025.Windows.Helpers;
 using Bombones2025.Windows.Properties;
 using System;
 using System.Collections.Generic;
@@ -32,27 +33,13 @@ namespace Bombones2025.Windows
 
         private void MostrarDatosEnGrilla()
         {
-            dgvRellenos.Rows.Clear();
+            GridHelper.LimpiarGrilla(dgvRellenos);
             foreach (Relleno relleno in _rellenos)
             {
-                DataGridViewRow r = new DataGridViewRow();
-                r.CreateCells(dgvRellenos);
-                SetearFila(r, relleno);
-                AgregarFila(r);
+                var r = GridHelper.ConstruirFila(dgvRellenos);
+                GridHelper.SetearFila(r, relleno);
+                GridHelper.AgregarFila(r, dgvRellenos);
             }
-        }
-
-        private void AgregarFila(DataGridViewRow r)
-        {
-            dgvRellenos.Rows.Add(r);
-        }
-
-        private void SetearFila(DataGridViewRow r, Relleno relleno)
-        {
-            r.Cells[0].Value = relleno.RellenoId;
-            r.Cells[1].Value = relleno.Descripcion;
-
-            r.Tag = relleno;
         }
 
         private void btnCerrar_Click(object sender, EventArgs e)
@@ -70,10 +57,11 @@ namespace Bombones2025.Windows
             if (!_rellenoServicio.Existe(relleno))
             {
                 _rellenoServicio.Guardar(relleno);
-                DataGridViewRow r = new DataGridViewRow();
-                r.CreateCells(dgvRellenos);
-                SetearFila(r, relleno);
-                AgregarFila(r);
+                DataGridViewRow r = GridHelper.ConstruirFila(dgvRellenos);
+                //r.CreateCells(dgvChocolates);
+                GridHelper.SetearFila(r, relleno);
+                GridHelper.AgregarFila(r, dgvRellenos);
+
                 MessageBox.Show("Relleno Agregado", "Mensaje", MessageBoxButtons.OK, MessageBoxIcon.Information);
             }
             else
@@ -97,7 +85,7 @@ namespace Bombones2025.Windows
             try
             {
                 _rellenoServicio.Borrar(rellenoBorrar.RellenoId);
-                dgvRellenos.Rows.Remove(r);
+                GridHelper.QuitarFila(r, dgvRellenos);
                 MessageBox.Show("Relleno Eliminado");
             }
             catch (Exception ex)
@@ -129,7 +117,7 @@ namespace Bombones2025.Windows
                 if (!_rellenoServicio.Existe(rellenoEditar))
                 {
                     _rellenoServicio.Guardar(rellenoEditar);
-                    SetearFila(r, rellenoEditar);
+                    GridHelper.SetearFila(r, rellenoEditar);
 
                     MessageBox.Show("Relleno Modificado", "Mensaje",
                         MessageBoxButtons.OK,
