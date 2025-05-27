@@ -21,11 +21,32 @@ namespace Bombones2025.Windows.Helpers
             return r;
         }
 
-        public static void SetearFila(DataGridViewRow r, Chocolate chocolate)
+        public static void SetearFila(DataGridViewRow r, object obj)
         {
-            r.Cells[0].Value = chocolate.ChocolateId;
-            r.Cells[1].Value = chocolate.Descripcion;
-            r.Tag = chocolate;
+            switch (obj)
+            {
+                case Chocolate chocolate:
+                    r.Cells[0].Value = chocolate.ChocolateId;
+                    r.Cells[1].Value = chocolate.Descripcion;
+                    break;
+
+                case Pais pais:
+                    r.Cells[0].Value = pais.PaisId;
+                    r.Cells[1].Value = pais.NombrePais;
+                    break;
+
+                case Relleno relleno:
+                    r.Cells[0].Value = relleno.RellenoId;
+                    r.Cells[1].Value = relleno.Descripcion;
+                    break;
+
+                case FrutoSeco frutoSeco:
+                    r.Cells[0].Value = frutoSeco.FrutoSecoId;
+                    r.Cells[1].Value = frutoSeco.Descripcion;
+                    break;
+            }
+            r.Tag = obj;
+
         }
 
         public static void AgregarFila(DataGridViewRow r, DataGridView grid)
