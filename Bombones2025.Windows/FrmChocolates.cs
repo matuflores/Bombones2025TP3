@@ -1,6 +1,7 @@
 ﻿using Bombones2025.Entidades;
 using Bombones2025.Servicios.Servicios;
 using Bombones2025.Windows.AE;
+using Bombones2025.Windows.Helpers;
 using Bombones2025.Windows.Properties;
 using System;
 using System.Collections.Generic;
@@ -33,28 +34,33 @@ namespace Bombones2025.Windows
 
         private void MostrarDatosEnGrilla()
         {
-            dgvChocolates.Rows.Clear();
+            GridHelper.LimpiarGrilla(dgvChocolates);
+            //dgvChocolates.Rows.Clear();
             foreach (Chocolate chocolate in _chocolates)
             {
-                DataGridViewRow r = new DataGridViewRow();
-                r.CreateCells(dgvChocolates);
-                SetearFila(r, chocolate);
-                AgregarFila(r);
+                var r = GridHelper.ConstruirFila(dgvChocolates);
+                //DataGridViewRow r = new DataGridViewRow();
+                //r.CreateCells(dgvChocolates);
+                //SetearFila(r, chocolate);
+                //AgregarFila(r);
+
+                GridHelper.SetearFila(r,chocolate);
+                GridHelper.AgregarFila(r, dgvChocolates);
             }
         }
 
-        private void AgregarFila(DataGridViewRow r)
-        {
-            dgvChocolates.Rows.Add(r);
-        }
+        //private void AgregarFila(DataGridViewRow r)
+        //{
+        //    dgvChocolates.Rows.Add(r);
+        //}
 
-        private void SetearFila(DataGridViewRow r, Chocolate chocolate)
-        {
-            r.Cells[0].Value = chocolate.ChocolateId;
-            r.Cells[1].Value = chocolate.Descripcion;
-            r.Tag = chocolate;
+        //private void SetearFila(DataGridViewRow r, Chocolate chocolate)
+        //{
+        //    r.Cells[0].Value = chocolate.ChocolateId;
+        //    r.Cells[1].Value = chocolate.Descripcion;
+        //    r.Tag = chocolate;
 
-        }
+        //}
 
         private void btnCerrar_Click(object sender, EventArgs e)
         {
@@ -71,10 +77,10 @@ namespace Bombones2025.Windows
             if (!_chocolateServicio.Existe(chocolate))
             {
                 _chocolateServicio.Guardar(chocolate);
-                DataGridViewRow r = new DataGridViewRow();
-                r.CreateCells(dgvChocolates);
-                SetearFila(r, chocolate);
-                AgregarFila(r);
+                DataGridViewRow r = GridHelper.ConstruirFila(dgvChocolates);
+                //r.CreateCells(dgvChocolates);
+                GridHelper.SetearFila(r, chocolate);
+                GridHelper.AgregarFila(r, dgvChocolates);
                 MessageBox.Show("Chocolate Agregado", "Mensaje", MessageBoxButtons.OK, MessageBoxIcon.Information);
             }
             else
@@ -98,7 +104,8 @@ namespace Bombones2025.Windows
             try
             {
                 _chocolateServicio.Borrar(chocolateBorrar.ChocolateId);
-                dgvChocolates.Rows.Remove(r);
+                //dgvChocolates.Rows.Remove(r);
+                GridHelper.QuitarFila(r, dgvChocolates);
                 MessageBox.Show("Chocolate Eliminado");
             }
             catch (Exception ex)
@@ -130,7 +137,8 @@ namespace Bombones2025.Windows
                 if (!_chocolateServicio.Existe(chocolateEditar))
                 {
                     _chocolateServicio.Guardar(chocolateEditar);
-                    SetearFila(r, chocolateEditar);
+                    GridHelper.SetearFila(r, chocolateEditar);
+                    //SetearFila(r, chocolateEditar);
 
                     MessageBox.Show("Chocolate Modificado", "Mensaje",
                         MessageBoxButtons.OK,
