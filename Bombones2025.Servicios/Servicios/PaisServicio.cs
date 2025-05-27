@@ -14,7 +14,7 @@ namespace Bombones2025.Servicios.Servicios
         //traido el repo lo llamo en el ctor
         public PaisServicio()
         {
-            _paisRepositorio=new PaisRepositorio();
+            _paisRepositorio=new PaisRepositorio(true);
         }
 
         

@@ -11,14 +11,18 @@ namespace Bombones2025.DatosSql.Repositorios
 {
     public class PaisRepositorio
     {
-        //clase 006 56:11
-        private List<Pais> paises = new();
+        private readonly bool _usarCache;
+        private List<Pais> paisesCache = new();
         private readonly string? connectionString;
         //creo la lista y la conexion
-        public PaisRepositorio()
+        public PaisRepositorio(bool usarCache=false)
         {
+            _usarCache = usarCache;
             connectionString = ConfigurationManager.ConnectionStrings["MiConexion"].ToString();
-            LeerDatos();
+            if (_usarCache)
+            {
+                LeerDatos();
+            }
         }
 
         private void LeerDatos()
@@ -34,7 +38,7 @@ namespace Bombones2025.DatosSql.Repositorios
                         while (reader.Read())
                         {
                             Pais pais = ConstruirPais(reader);
-                            paises.Add(pais);
+                            paisesCache.Add(pais);
                         }
                     }
                 }
@@ -44,7 +48,29 @@ namespace Bombones2025.DatosSql.Repositorios
         //luego de leer y construir el Pais, lo Traigo con getPais
         public List<Pais> GetPais()
         {
-            return paises.OrderBy(p => p.NombrePais).ToList();
+            if (_usarCache)
+            {
+                return paisesCache;
+            }
+            List<Pais> lista = new List<Pais>();
+            using (var cnn = new SqlConnection(connectionString))
+            {
+                cnn.Open();
+                string query = @"SELECT PaisId, NombrePais
+                                FROM Paises ORDER BY NombrePais";
+                using (var cmd = new SqlCommand(query, cnn))
+                {
+                    using (var reader = cmd.ExecuteReader())
+                    {
+                        while (reader.Read())
+                        {
+                            Pais pais = ConstruirPais(reader);
+                            lista.Add(pais);
+                        }
+                    }
+                }
+            }
+            return lista;
         } 
         private Pais ConstruirPais(SqlDataReader reader)
         {
@@ -71,6 +97,10 @@ namespace Bombones2025.DatosSql.Repositorios
                         pais.PaisId = paisId;
                     }
                 }
+                if (_usarCache) 
+                { 
+                    paisesCache.Add(pais);
+                }
             }
             catch (Exception ex)
             {
@@ -81,6 +111,13 @@ namespace Bombones2025.DatosSql.Repositorios
 
         public bool Existe(Pais pais)
         {
+            if (_usarCache)
+            {
+                return pais.PaisId == 0 ? paisesCache
+                    .Any(p => p.NombrePais.ToLower() == pais.NombrePais.ToLower())
+                    : paisesCache.Any(p => p.NombrePais.ToLower() == pais.NombrePais.ToLower()
+                    && p.PaisId != pais.PaisId);
+            }
             try
             {
                 using (var cnn = new SqlConnection(connectionString))
@@ -133,9 +170,12 @@ namespace Bombones2025.DatosSql.Repositorios
                         cmd.ExecuteNonQuery();//se ejecuta en comandos que no devuelven datos 
                     }
                 }
-                Pais? paisBorrar=paises.FirstOrDefault(p=>p.PaisId==paisId);
-                if (paisBorrar == null) return;
-                paises.Remove(paisBorrar);
+                if (_usarCache)
+                {
+                    Pais? paisBorrar = paisesCache.FirstOrDefault(p => p.PaisId == paisId);
+                    if (paisBorrar == null) return;
+                    paisesCache.Remove(paisBorrar); 
+                }
             }
             catch (Exception ex)
             {
@@ -159,9 +199,12 @@ namespace Bombones2025.DatosSql.Repositorios
                         cmd.Parameters.AddWithValue("@PaisId",pais.PaisId);
                         cmd.ExecuteNonQuery(); 
                     }
-                    Pais? paisEditar = paises.FirstOrDefault(p => p.PaisId == pais.PaisId);
-                    if (paisEditar == null) return;
-                    paisEditar.NombrePais = pais.NombrePais;
+                    if (_usarCache)
+                    {
+                        Pais? paisEditar = paisesCache.FirstOrDefault(p => p.PaisId == pais.PaisId);
+                        if (paisEditar == null) return;
+                        paisEditar.NombrePais = pais.NombrePais; 
+                    }
                 }
             }
             catch (Exception ex)

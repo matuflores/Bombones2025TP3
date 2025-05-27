@@ -11,12 +11,18 @@ namespace Bombones2025.DatosSql.Repositorios
 {
     public class FrutoSecoRepositorio
     {
-        private List<FrutoSeco> frutosSecos = new();
+        private readonly bool _usarCache;
+        private List<FrutoSeco> frutosSecosCache = new();
         private readonly string? connectionString;
-        public FrutoSecoRepositorio()
+        public FrutoSecoRepositorio(bool usarCache=false)
         {
+            _usarCache = usarCache;
             connectionString = ConfigurationManager.ConnectionStrings["MiConexion"].ToString();
-            LeerDatos();
+            if (_usarCache)
+            {
+                LeerDatos(); 
+            }
+            
         }
 
         private void LeerDatos()
@@ -32,7 +38,7 @@ namespace Bombones2025.DatosSql.Repositorios
                         while (reader.Read())
                         {
                             FrutoSeco frutoSeco = ConstruirFrutoSeco(reader);
-                            frutosSecos.Add(frutoSeco);
+                            frutosSecosCache.Add(frutoSeco);
                         }
                     }
                 }
@@ -41,7 +47,29 @@ namespace Bombones2025.DatosSql.Repositorios
 
         public List<FrutoSeco> GetFrutoSeco()
         {
-            return frutosSecos.OrderBy(p => p.Descripcion).ToList();
+            if (_usarCache)
+            {
+                return frutosSecosCache;
+            }
+            List<FrutoSeco> lista = new List<FrutoSeco>();
+            using (var cnn = new SqlConnection(connectionString))
+            {
+                cnn.Open();
+                string query = @"SELECT FrutoSecoId, Descripcion
+                                FROM FrutosSecos ORDER BY Descripcion";
+                using (var cmd = new SqlCommand(query, cnn))
+                {
+                    using (var reader = cmd.ExecuteReader())
+                    {
+                        while (reader.Read())
+                        {
+                            FrutoSeco frutoSeco = ConstruirFrutoSeco(reader);
+                            lista.Add(frutoSeco);
+                        }
+                    }
+                }
+            }
+            return lista;
         }
         private FrutoSeco ConstruirFrutoSeco(SqlDataReader reader)
         {
@@ -54,6 +82,13 @@ namespace Bombones2025.DatosSql.Repositorios
 
         public bool Existe(FrutoSeco frutoSeco)
         {
+            if (_usarCache)
+            {
+                return frutoSeco.FrutoSecoId == 0 ? frutosSecosCache
+                    .Any(fs => fs.Descripcion.ToLower() == frutoSeco.Descripcion.ToLower())
+                    : frutosSecosCache.Any(fs => fs.Descripcion.ToLower() == frutoSeco.Descripcion.ToLower()
+                    && fs.FrutoSecoId != frutoSeco.FrutoSecoId);
+            }
             try
             {
                 using (var cnn = new SqlConnection(connectionString))
@@ -107,6 +142,10 @@ namespace Bombones2025.DatosSql.Repositorios
                         frutoseco.FrutoSecoId = frutoSecoId;
                     }
                 }
+                if (_usarCache)
+                {
+                    frutosSecosCache.Add(frutoseco);
+                }
             }
             catch (Exception ex)
             {
@@ -129,9 +168,12 @@ namespace Bombones2025.DatosSql.Repositorios
                         cmd.ExecuteNonQuery();//se ejecuta en comandos que no devuelven datos 
                     }
                 }
-                FrutoSeco? frutoSecoBorrar = frutosSecos.FirstOrDefault(fs => fs.FrutoSecoId == frutoSecoId);
-                if (frutoSecoBorrar == null) return;
-                frutosSecos.Remove(frutoSecoBorrar);
+                if (_usarCache)
+                {
+                    FrutoSeco? frutoSecoBorrar = frutosSecosCache.FirstOrDefault(fs => fs.FrutoSecoId == frutoSecoId);
+                    if (frutoSecoBorrar == null) return;
+                    frutosSecosCache.Remove(frutoSecoBorrar); 
+                }
             }
             catch (Exception ex)
             {
@@ -155,9 +197,12 @@ namespace Bombones2025.DatosSql.Repositorios
                         cmd.Parameters.AddWithValue("@FrutoSecoId", frutoseco.FrutoSecoId);
                         cmd.ExecuteNonQuery();
                     }
-                    FrutoSeco? frutoSecoEditar = frutosSecos.FirstOrDefault(fs => fs.FrutoSecoId == frutoseco.FrutoSecoId);
-                    if (frutoSecoEditar == null) return;
-                    frutoSecoEditar.Descripcion = frutoseco.Descripcion;
+                    if (_usarCache)
+                    {
+                        FrutoSeco? frutoSecoEditar = frutosSecosCache.FirstOrDefault(fs => fs.FrutoSecoId == frutoseco.FrutoSecoId);
+                        if (frutoSecoEditar == null) return;
+                        frutoSecoEditar.Descripcion = frutoseco.Descripcion; 
+                    }
                 }
             }
             catch (Exception ex)

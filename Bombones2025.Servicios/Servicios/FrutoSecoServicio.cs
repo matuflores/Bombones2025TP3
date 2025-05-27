@@ -13,7 +13,7 @@ namespace Bombones2025.Servicios.Servicios
         private readonly FrutoSecoRepositorio _frutoSecoRepositorio = null!;
         public FrutoSecoServicio()
         {
-            _frutoSecoRepositorio = new FrutoSecoRepositorio();
+            _frutoSecoRepositorio = new FrutoSecoRepositorio(true);
         }
         
         public List<FrutoSeco> GetFrutoSecos()

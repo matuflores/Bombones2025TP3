@@ -14,7 +14,7 @@ namespace Bombones2025.Servicios.Servicios
         
         public RellenoServicio()
         {
-            _rellenoRepositorio = new RellenoRepositorio();
+            _rellenoRepositorio = new RellenoRepositorio(true);
         }
 
         public void Borrar(int rellenoId)

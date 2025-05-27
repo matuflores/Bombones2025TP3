@@ -11,12 +11,17 @@ namespace Bombones2025.DatosSql.Repositorios
 {
     public class ChocolateRepositorio
     {
-        private List<Chocolate> chocolates = new();
+        private readonly bool _usarCache;
+        private List<Chocolate> chocolatesCache = new();
         private readonly string? connectionString;
-        public ChocolateRepositorio()
+        public ChocolateRepositorio(bool usarCache=false)
         {
+            _usarCache = usarCache;
             connectionString = ConfigurationManager.ConnectionStrings["MiConexion"].ToString();
-            LeerDatos();
+            if (_usarCache)
+            {
+                LeerDatos();
+            }            
         }
 
         private void LeerDatos()
@@ -32,16 +37,43 @@ namespace Bombones2025.DatosSql.Repositorios
                         while (reader.Read())
                         {
                             Chocolate chocolate = ConstruirChocolate(reader);
-                            chocolates.Add(chocolate);
+                            chocolatesCache.Add(chocolate);
                         }
                     }
                 }
             }
         }
 
+        //public void RecargarCache()
+        //{
+        //    chocolatesCache.Clear();
+        //    LeerDatos();
+        //}
         public List<Chocolate> GetChocolate()
         {
-            return chocolates.OrderBy(p => p.Descripcion).ToList();
+            if (_usarCache)
+            {
+                return chocolatesCache;
+            }
+            List<Chocolate>lista = new List<Chocolate>();
+            using (var cnn=new SqlConnection(connectionString))
+            {
+                cnn.Open();
+                string query = @"SELECT ChocolateId, Descripcion
+                                FROM Chocolates ORDER BY Descripcion";
+                using (var cmd=new SqlCommand(query,cnn))
+                {
+                    using (var reader=cmd.ExecuteReader())
+                    {
+                        while (reader.Read())
+                        {
+                            Chocolate chocolate = ConstruirChocolate(reader);
+                            lista.Add(chocolate);
+                        }
+                    }
+                }
+            }
+            return lista;
         }
         private Chocolate ConstruirChocolate(SqlDataReader reader)
         {
@@ -54,7 +86,14 @@ namespace Bombones2025.DatosSql.Repositorios
 
         public bool Existe(Chocolate chocolate)
         {
-            try
+            if (_usarCache)//si es verdadero
+            {//me fijo si el chocolate es nuevo, me fijo si tengo en el cache uno igaul, de caso contrario. Si hay uno con mismo nombre pero distinto ID
+                return chocolate.ChocolateId==0?chocolatesCache
+                    .Any(c=>c.Descripcion.ToLower()==chocolate.Descripcion.ToLower())
+                    :chocolatesCache.Any(c=>c.Descripcion.ToLower() == chocolate.Descripcion.ToLower()
+                    && c.ChocolateId!=chocolate.ChocolateId);
+            } 
+            try//si no uso cache en memoria lo impacto en la base de datos
             {
                 using (var cnn = new SqlConnection(connectionString))
                 {
@@ -107,6 +146,12 @@ namespace Bombones2025.DatosSql.Repositorios
                         chocolate.ChocolateId = chocolateId;
                     }
                 }
+                if (_usarCache)
+                {
+                    chocolatesCache.Add(chocolate);
+                    //RecargarCache();
+                }
+                
             }
             catch (Exception ex)
             {
@@ -129,9 +174,14 @@ namespace Bombones2025.DatosSql.Repositorios
                         cmd.ExecuteNonQuery();
                     }
                 }
-                Chocolate? chocolateBorrar = chocolates.FirstOrDefault(c => c.ChocolateId == chocolateId);
-                if (chocolateBorrar == null) return;
-                chocolates.Remove(chocolateBorrar);
+                if (_usarCache)
+                {
+                    Chocolate? chocolateBorrar = chocolatesCache.FirstOrDefault(c => c.ChocolateId == chocolateId);
+                    if (chocolateBorrar == null) return;
+                    chocolatesCache.Remove(chocolateBorrar);
+                    //RecargarCache();
+                }
+                
             }
             catch (Exception ex)
             {
@@ -155,9 +205,14 @@ namespace Bombones2025.DatosSql.Repositorios
                         cmd.Parameters.AddWithValue("@ChocolateId", chocolate.ChocolateId);
                         cmd.ExecuteNonQuery();
                     }
-                    Chocolate? chocolateEditar = chocolates.FirstOrDefault(c => c.ChocolateId == chocolate.ChocolateId);
-                    if (chocolateEditar == null) return;
-                    chocolateEditar.Descripcion = chocolate.Descripcion;
+                    if (_usarCache)
+                    {
+                        Chocolate? chocolateEditar = chocolatesCache.FirstOrDefault(c => c.ChocolateId == chocolate.ChocolateId);
+                        if (chocolateEditar == null) return;
+                        chocolateEditar.Descripcion = chocolate.Descripcion;
+                        //RecargarCache();
+                    }
+                    
                 }
             }
             catch (Exception ex)

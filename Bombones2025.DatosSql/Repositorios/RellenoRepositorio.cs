@@ -11,13 +11,17 @@ namespace Bombones2025.DatosSql.Repositorios
 {
     public class RellenoRepositorio
     {
-        private List<Relleno> rellenos = new();
+        private readonly bool _usarCache;
+        private List<Relleno> rellenosCache = new();
         private readonly string? connectionString;
-        //creo la lista y la conexion
-        public RellenoRepositorio()
+        public RellenoRepositorio(bool usarCache=false)
         {
+            _usarCache = usarCache;
             connectionString = ConfigurationManager.ConnectionStrings["MiConexion"].ToString();
-            LeerDatos();
+            if (_usarCache)
+            {
+                LeerDatos(); 
+            }
         }
 
         private void LeerDatos()
@@ -33,7 +37,7 @@ namespace Bombones2025.DatosSql.Repositorios
                         while (reader.Read())
                         {
                             Relleno relleno = ConstruirRelleno(reader);
-                            rellenos.Add(relleno);
+                            rellenosCache.Add(relleno);
                         }
                     }
                 }
@@ -43,7 +47,29 @@ namespace Bombones2025.DatosSql.Repositorios
         //luego de leer y construir el Pais, lo Traigo con getPais
         public List<Relleno> GetRelleno()
         {
-            return rellenos.OrderBy(p => p.Descripcion).ToList();
+            if (_usarCache)
+            {
+                return rellenosCache;
+            }
+            List<Relleno> lista = new List<Relleno>();
+            using (var cnn = new SqlConnection(connectionString))
+            {
+                cnn.Open();
+                string query = @"SELECT RellenoId, Descripcion
+                                FROM Rellenos ORDER BY Descripcion";
+                using (var cmd = new SqlCommand(query, cnn))
+                {
+                    using (var reader = cmd.ExecuteReader())
+                    {
+                        while (reader.Read())
+                        {
+                            Relleno relleno = ConstruirRelleno(reader);
+                            lista.Add(relleno);
+                        }
+                    }
+                }
+            }
+            return lista;
         }
         private Relleno ConstruirRelleno(SqlDataReader reader)
         {
@@ -56,6 +82,13 @@ namespace Bombones2025.DatosSql.Repositorios
 
         public bool Existe(Relleno relleno)
         {
+            if (_usarCache)
+            {
+                return relleno.RellenoId == 0 ? rellenosCache
+                    .Any(r => r.Descripcion.ToLower() == relleno.Descripcion.ToLower())
+                    : rellenosCache.Any(r => r.Descripcion.ToLower() == relleno.Descripcion.ToLower()
+                    && r.RellenoId != relleno.RellenoId);
+            }
             try
             {
                 using (var cnn = new SqlConnection(connectionString))
@@ -109,6 +142,10 @@ namespace Bombones2025.DatosSql.Repositorios
                         relleno.RellenoId = rellenoId;
                     }
                 }
+                if (_usarCache)
+                {
+                    rellenosCache.Add(relleno);
+                }
             }
             catch (Exception ex)
             {
@@ -131,9 +168,12 @@ namespace Bombones2025.DatosSql.Repositorios
                         cmd.ExecuteNonQuery();//se ejecuta en comandos que no devuelven datos 
                     }
                 }
-                Relleno? rellenoBorrar = rellenos.FirstOrDefault(re => re.RellenoId == rellenoId);
-                if (rellenoBorrar == null) return;
-                rellenos.Remove(rellenoBorrar);
+                if (_usarCache)
+                {
+                    Relleno? rellenoBorrar = rellenosCache.FirstOrDefault(re => re.RellenoId == rellenoId);
+                    if (rellenoBorrar == null) return;
+                    rellenosCache.Remove(rellenoBorrar); 
+                }
             }
             catch (Exception ex)
             {
@@ -157,9 +197,12 @@ namespace Bombones2025.DatosSql.Repositorios
                         cmd.Parameters.AddWithValue("@RellenoId", relleno.RellenoId);
                         cmd.ExecuteNonQuery();
                     }
-                    Relleno? rellenoEditar = rellenos.FirstOrDefault(re => re.RellenoId == relleno.RellenoId);
-                    if (rellenoEditar == null) return;
-                    rellenoEditar.Descripcion = relleno.Descripcion;
+                    if (_usarCache)
+                    {
+                        Relleno? rellenoEditar = rellenosCache.FirstOrDefault(re => re.RellenoId == relleno.RellenoId);
+                        if (rellenoEditar == null) return;
+                        rellenoEditar.Descripcion = relleno.Descripcion; 
+                    }
                 }
             }
             catch (Exception ex)

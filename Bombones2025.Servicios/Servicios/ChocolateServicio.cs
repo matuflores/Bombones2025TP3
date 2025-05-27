@@ -13,7 +13,7 @@ namespace Bombones2025.Servicios.Servicios
         private readonly ChocolateRepositorio _chocolateRepositorio = null!;
         public ChocolateServicio()
         {
-            _chocolateRepositorio = new ChocolateRepositorio();
+            _chocolateRepositorio = new ChocolateRepositorio(true);
         }
 
         public List<Chocolate> GetChocolate()
