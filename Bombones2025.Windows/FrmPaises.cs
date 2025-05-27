@@ -199,6 +199,6 @@ namespace Bombones2025.Windows
             }
         }
 
-        //clase 004 terminada completa
+        //clase 005 terminada completa
     }
 }
