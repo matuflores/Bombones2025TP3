@@ -36,6 +36,7 @@
             toolStripStatusLabel1 = new ToolStripStatusLabel();
             toolStripUserLogin = new ToolStripStatusLabel();
             btnOFF = new Button();
+            btnFormasDePagos = new Button();
             statusStrip1.SuspendLayout();
             SuspendLayout();
             // 
@@ -63,7 +64,7 @@
             // 
             // btnFrutosSecos
             // 
-            btnFrutosSecos.Location = new Point(60, 121);
+            btnFrutosSecos.Location = new Point(60, 105);
             btnFrutosSecos.Margin = new Padding(3, 2, 3, 2);
             btnFrutosSecos.Name = "btnFrutosSecos";
             btnFrutosSecos.Size = new Size(88, 38);
@@ -74,7 +75,7 @@
             // 
             // btnChocolates
             // 
-            btnChocolates.Location = new Point(263, 121);
+            btnChocolates.Location = new Point(263, 105);
             btnChocolates.Margin = new Padding(3, 2, 3, 2);
             btnChocolates.Name = "btnChocolates";
             btnChocolates.Size = new Size(88, 38);
@@ -116,12 +117,23 @@
             btnOFF.UseVisualStyleBackColor = true;
             btnOFF.Click += btnOFF_Click;
             // 
+            // btnFormasDePagos
+            // 
+            btnFormasDePagos.Location = new Point(60, 174);
+            btnFormasDePagos.Margin = new Padding(3, 2, 3, 2);
+            btnFormasDePagos.Name = "btnFormasDePagos";
+            btnFormasDePagos.Size = new Size(291, 52);
+            btnFormasDePagos.TabIndex = 6;
+            btnFormasDePagos.Text = "Formas de Pago";
+            btnFormasDePagos.UseVisualStyleBackColor = true;
+            // 
             // FrmPrincipal
             // 
             AutoScaleDimensions = new SizeF(7F, 15F);
             AutoScaleMode = AutoScaleMode.Font;
             ClientSize = new Size(422, 302);
             ControlBox = false;
+            Controls.Add(btnFormasDePagos);
             Controls.Add(btnOFF);
             Controls.Add(statusStrip1);
             Controls.Add(btnChocolates);
@@ -148,5 +160,6 @@
         private ToolStripStatusLabel toolStripStatusLabel1;
         private ToolStripStatusLabel toolStripUserLogin;
         private Button btnOFF;
+        private Button btnFormasDePagos;
     }
 }
