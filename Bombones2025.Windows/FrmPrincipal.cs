@@ -14,6 +14,7 @@ namespace Bombones2025.Windows
 {
     public partial class FrmPrincipal : Form
     {
+        private Usuario usuario = null!;
         public FrmPrincipal()
         {
             InitializeComponent();
@@ -46,6 +47,11 @@ namespace Bombones2025.Windows
             ChocolateServicio servicio=new ChocolateServicio();
             FrmChocolates frm = new FrmChocolates(servicio) { Text = "Listado de Chocolates" };
             frm.ShowDialog();
+        }
+
+        public void SetUsuario(Usuario usuarioLogueado)
+        {
+            toolStripUserLogin.Text = usuarioLogueado.Nombre;
         }
     }
 }

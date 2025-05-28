@@ -32,6 +32,10 @@
             btnRellenos = new Button();
             btnFrutosSecos = new Button();
             btnChocolates = new Button();
+            statusStrip1 = new StatusStrip();
+            toolStripStatusLabel1 = new ToolStripStatusLabel();
+            toolStripUserLogin = new ToolStripStatusLabel();
+            statusStrip1.SuspendLayout();
             SuspendLayout();
             // 
             // btnPais
@@ -78,11 +82,33 @@
             btnChocolates.UseVisualStyleBackColor = true;
             btnChocolates.Click += btnChocolates_Click;
             // 
+            // statusStrip1
+            // 
+            statusStrip1.Items.AddRange(new ToolStripItem[] { toolStripStatusLabel1, toolStripUserLogin });
+            statusStrip1.Location = new Point(0, 280);
+            statusStrip1.Name = "statusStrip1";
+            statusStrip1.Size = new Size(422, 22);
+            statusStrip1.TabIndex = 4;
+            statusStrip1.Text = "statusStrip1";
+            // 
+            // toolStripStatusLabel1
+            // 
+            toolStripStatusLabel1.Name = "toolStripStatusLabel1";
+            toolStripStatusLabel1.Size = new Size(50, 17);
+            toolStripStatusLabel1.Text = "Usuario:";
+            // 
+            // toolStripUserLogin
+            // 
+            toolStripUserLogin.Name = "toolStripUserLogin";
+            toolStripUserLogin.Size = new Size(12, 17);
+            toolStripUserLogin.Text = "-";
+            // 
             // FrmPrincipal
             // 
             AutoScaleDimensions = new SizeF(7F, 15F);
             AutoScaleMode = AutoScaleMode.Font;
             ClientSize = new Size(422, 302);
+            Controls.Add(statusStrip1);
             Controls.Add(btnChocolates);
             Controls.Add(btnFrutosSecos);
             Controls.Add(btnRellenos);
@@ -91,7 +117,10 @@
             Name = "FrmPrincipal";
             StartPosition = FormStartPosition.CenterScreen;
             Text = "FrmPrincipal";
+            statusStrip1.ResumeLayout(false);
+            statusStrip1.PerformLayout();
             ResumeLayout(false);
+            PerformLayout();
         }
 
         #endregion
@@ -100,5 +129,8 @@
         private Button btnRellenos;
         private Button btnFrutosSecos;
         private Button btnChocolates;
+        private StatusStrip statusStrip1;
+        private ToolStripStatusLabel toolStripStatusLabel1;
+        private ToolStripStatusLabel toolStripUserLogin;
     }
 }
