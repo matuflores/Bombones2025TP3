@@ -1,5 +1,6 @@
 ﻿using Bombones2025.DatosSql.Repositorios;
 using Bombones2025.Entidades;
+using Bombones2025.Utilidades;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -13,7 +14,7 @@ namespace Bombones2025.Servicios.Servicios
         private readonly ChocolateRepositorio _chocolateRepositorio = null!;
         public ChocolateServicio()
         {
-            _chocolateRepositorio = new ChocolateRepositorio(true);
+            _chocolateRepositorio = new ChocolateRepositorio(ConstantesDelSistema.umbralCache);
         }
 
         public List<Chocolate> GetChocolate()

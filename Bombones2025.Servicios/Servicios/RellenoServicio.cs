@@ -1,5 +1,6 @@
 ﻿using Bombones2025.DatosSql.Repositorios;
 using Bombones2025.Entidades;
+using Bombones2025.Utilidades;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -14,7 +15,7 @@ namespace Bombones2025.Servicios.Servicios
         
         public RellenoServicio()
         {
-            _rellenoRepositorio = new RellenoRepositorio(true);
+            _rellenoRepositorio = new RellenoRepositorio(ConstantesDelSistema.umbralCache);
         }
 
         public void Borrar(int rellenoId)

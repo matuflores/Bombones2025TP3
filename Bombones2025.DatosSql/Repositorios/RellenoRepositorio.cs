@@ -14,13 +14,34 @@ namespace Bombones2025.DatosSql.Repositorios
         private readonly bool _usarCache;
         private List<Relleno> rellenosCache = new();
         private readonly string? connectionString;
-        public RellenoRepositorio(bool usarCache=false)
+        public RellenoRepositorio(int umbralCache = 30, bool? usarCache = null)
         {
-            _usarCache = usarCache;
             connectionString = ConfigurationManager.ConnectionStrings["MiConexion"].ToString();
+            if (usarCache.HasValue && usarCache.Value == true)
+            {
+                _usarCache = true;
+            }
+            else
+            {
+                int cantidadRegistros = ObtenerCantidadRegistros();
+                _usarCache = cantidadRegistros <= umbralCache;
+            }
             if (_usarCache)
             {
-                LeerDatos(); 
+                LeerDatos();
+            }
+        }
+
+        private int ObtenerCantidadRegistros()
+        {
+            using (var cnn = new SqlConnection(connectionString))
+            {
+                cnn.Open();
+                string query = @"SELECT COUNT (*) FROM Rellenos";
+                using (var cmd = new SqlCommand(query, cnn))
+                {
+                    return (int)cmd.ExecuteScalar();
+                }
             }
         }
 

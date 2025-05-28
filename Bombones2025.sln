@@ -1,7 +1,7 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 17
-VisualStudioVersion = 17.13.35919.96 d17.13
+VisualStudioVersion = 17.13.35919.96
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Bombones2025.Entidades", "Bombones2025.Entidades\Bombones2025.Entidades.csproj", "{B51EC529-4059-4350-BD3A-53314ABF7B9B}"
 EndProject
@@ -10,6 +10,8 @@ EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Bombones2025.Windows", "Bombones2025.Windows\Bombones2025.Windows.csproj", "{CA629C23-7724-41C7-B66F-5A26BA79198B}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Bombones2025.Servicios", "Bombones2025.Servicios\Bombones2025.Servicios.csproj", "{6644E955-FB66-4A73-8F09-C0DE15F0A18B}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Bombones2025.Utilidades", "Bombones2025.Utilidades\Bombones2025.Utilidades.csproj", "{ED51FB8A-DC8E-4B44-AA51-36CC1F796D1C}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -33,6 +35,10 @@ Global
 		{6644E955-FB66-4A73-8F09-C0DE15F0A18B}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{6644E955-FB66-4A73-8F09-C0DE15F0A18B}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{6644E955-FB66-4A73-8F09-C0DE15F0A18B}.Release|Any CPU.Build.0 = Release|Any CPU
+		{ED51FB8A-DC8E-4B44-AA51-36CC1F796D1C}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{ED51FB8A-DC8E-4B44-AA51-36CC1F796D1C}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{ED51FB8A-DC8E-4B44-AA51-36CC1F796D1C}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{ED51FB8A-DC8E-4B44-AA51-36CC1F796D1C}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

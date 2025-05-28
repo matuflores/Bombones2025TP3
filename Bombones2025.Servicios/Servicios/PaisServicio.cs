@@ -1,5 +1,6 @@
 ﻿using Bombones2025.DatosSql.Repositorios;
 using Bombones2025.Entidades;
+using Bombones2025.Utilidades;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -14,7 +15,7 @@ namespace Bombones2025.Servicios.Servicios
         //traido el repo lo llamo en el ctor
         public PaisServicio()
         {
-            _paisRepositorio=new PaisRepositorio(true);
+            _paisRepositorio=new PaisRepositorio(ConstantesDelSistema.umbralCache);
         }
 
         
