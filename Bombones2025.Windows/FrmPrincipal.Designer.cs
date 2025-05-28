@@ -35,6 +35,7 @@
             statusStrip1 = new StatusStrip();
             toolStripStatusLabel1 = new ToolStripStatusLabel();
             toolStripUserLogin = new ToolStripStatusLabel();
+            btnOFF = new Button();
             statusStrip1.SuspendLayout();
             SuspendLayout();
             // 
@@ -103,11 +104,25 @@
             toolStripUserLogin.Size = new Size(12, 17);
             toolStripUserLogin.Text = "-";
             // 
+            // btnOFF
+            // 
+            btnOFF.FlatStyle = FlatStyle.Flat;
+            btnOFF.Image = Properties.Resources.OFF30;
+            btnOFF.Location = new Point(367, 231);
+            btnOFF.Name = "btnOFF";
+            btnOFF.Size = new Size(43, 46);
+            btnOFF.TabIndex = 5;
+            btnOFF.TextImageRelation = TextImageRelation.ImageAboveText;
+            btnOFF.UseVisualStyleBackColor = true;
+            btnOFF.Click += btnOFF_Click;
+            // 
             // FrmPrincipal
             // 
             AutoScaleDimensions = new SizeF(7F, 15F);
             AutoScaleMode = AutoScaleMode.Font;
             ClientSize = new Size(422, 302);
+            ControlBox = false;
+            Controls.Add(btnOFF);
             Controls.Add(statusStrip1);
             Controls.Add(btnChocolates);
             Controls.Add(btnFrutosSecos);
@@ -132,5 +147,6 @@
         private StatusStrip statusStrip1;
         private ToolStripStatusLabel toolStripStatusLabel1;
         private ToolStripStatusLabel toolStripUserLogin;
+        private Button btnOFF;
     }
 }

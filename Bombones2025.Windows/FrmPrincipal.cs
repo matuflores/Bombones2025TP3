@@ -44,7 +44,7 @@ namespace Bombones2025.Windows
 
         private void btnChocolates_Click(object sender, EventArgs e)
         {
-            ChocolateServicio servicio=new ChocolateServicio();
+            ChocolateServicio servicio = new ChocolateServicio();
             FrmChocolates frm = new FrmChocolates(servicio) { Text = "Listado de Chocolates" };
             frm.ShowDialog();
         }
@@ -52,6 +52,11 @@ namespace Bombones2025.Windows
         public void SetUsuario(Usuario usuarioLogueado)
         {
             toolStripUserLogin.Text = usuarioLogueado.Nombre;
+        }
+
+        private void btnOFF_Click(object sender, EventArgs e)
+        {
+            Application.Exit();
         }
     }
 }

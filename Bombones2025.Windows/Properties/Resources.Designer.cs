@@ -133,6 +133,16 @@ namespace Bombones2025.Windows.Properties {
         /// <summary>
         ///   Busca un recurso adaptado de tipo System.Drawing.Bitmap.
         /// </summary>
+        internal static System.Drawing.Bitmap OFF30 {
+            get {
+                object obj = ResourceManager.GetObject("OFF30", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Busca un recurso adaptado de tipo System.Drawing.Bitmap.
+        /// </summary>
         internal static System.Drawing.Bitmap OK40 {
             get {
                 object obj = ResourceManager.GetObject("OK40", resourceCulture);

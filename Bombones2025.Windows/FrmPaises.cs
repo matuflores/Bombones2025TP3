@@ -185,7 +185,5 @@ namespace Bombones2025.Windows
                 throw new Exception(ex.Message,ex);
             }
         }
-
-        //clase 005 terminada completa
     }
 }
