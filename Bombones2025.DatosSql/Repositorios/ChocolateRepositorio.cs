@@ -9,41 +9,29 @@ using System.Threading.Tasks;
 
 namespace Bombones2025.DatosSql.Repositorios
 {
-    public class ChocolateRepositorio
+    public class ChocolateRepositorio : IChocolateRepositorio
     {
         private readonly bool _usarCache;
         private List<Chocolate> chocolatesCache = new();
         private readonly string? connectionString;
-        public ChocolateRepositorio(int umbralCache=30,bool? usarCache=null)
+        public ChocolateRepositorio(int umbralCache = 30, bool? usarCache = null)
         {
             connectionString = ConfigurationManager.ConnectionStrings["MiConexion"].ToString();
             if (usarCache.HasValue && usarCache.Value == true)
             {
                 _usarCache = true;
             }
-            else 
+            else
             {
-                int cantidadRegistros = ObtenerCantidadRegistros();
+                int cantidadRegistros = GetCantidad();
                 _usarCache = cantidadRegistros <= umbralCache;
             }
             if (_usarCache)
             {
                 LeerDatos();
-            }            
-        }
-
-        private int ObtenerCantidadRegistros()
-        {
-            using (var cnn=new SqlConnection(connectionString))
-            {
-                cnn.Open();
-                string query = @"SELECT COUNT (*) FROM Chocolates";
-                using (var cmd=new SqlCommand(query,cnn))
-                {
-                    return (int)cmd.ExecuteScalar();
-                }
             }
         }
+
 
         private void LeerDatos()
         {
@@ -76,15 +64,15 @@ namespace Bombones2025.DatosSql.Repositorios
             {
                 return chocolatesCache;
             }
-            List<Chocolate>lista = new List<Chocolate>();
-            using (var cnn=new SqlConnection(connectionString))
+            List<Chocolate> lista = new List<Chocolate>();
+            using (var cnn = new SqlConnection(connectionString))
             {
                 cnn.Open();
                 string query = @"SELECT ChocolateId, Descripcion
                                 FROM Chocolates ORDER BY Descripcion";
-                using (var cmd=new SqlCommand(query,cnn))
+                using (var cmd = new SqlCommand(query, cnn))
                 {
-                    using (var reader=cmd.ExecuteReader())
+                    using (var reader = cmd.ExecuteReader())
                     {
                         while (reader.Read())
                         {
@@ -109,11 +97,11 @@ namespace Bombones2025.DatosSql.Repositorios
         {
             if (_usarCache)//si es verdadero
             {//me fijo si el chocolate es nuevo, me fijo si tengo en el cache uno igaul, de caso contrario. Si hay uno con mismo nombre pero distinto ID
-                return chocolate.ChocolateId==0?chocolatesCache
-                    .Any(c=>c.Descripcion.ToLower()==chocolate.Descripcion.ToLower())
-                    :chocolatesCache.Any(c=>c.Descripcion.ToLower() == chocolate.Descripcion.ToLower()
-                    && c.ChocolateId!=chocolate.ChocolateId);
-            } 
+                return chocolate.ChocolateId == 0 ? chocolatesCache
+                    .Any(c => c.Descripcion.ToLower() == chocolate.Descripcion.ToLower())
+                    : chocolatesCache.Any(c => c.Descripcion.ToLower() == chocolate.Descripcion.ToLower()
+                    && c.ChocolateId != chocolate.ChocolateId);
+            }
             try//si no uso cache en memoria lo impacto en la base de datos
             {
                 using (var cnn = new SqlConnection(connectionString))
@@ -172,7 +160,7 @@ namespace Bombones2025.DatosSql.Repositorios
                     chocolatesCache.Add(chocolate);
                     //RecargarCache();
                 }
-                
+
             }
             catch (Exception ex)
             {
@@ -202,7 +190,7 @@ namespace Bombones2025.DatosSql.Repositorios
                     chocolatesCache.Remove(chocolateBorrar);
                     //RecargarCache();
                 }
-                
+
             }
             catch (Exception ex)
             {
@@ -233,7 +221,7 @@ namespace Bombones2025.DatosSql.Repositorios
                         chocolateEditar.Descripcion = chocolate.Descripcion;
                         //RecargarCache();
                     }
-                    
+
                 }
             }
             catch (Exception ex)
@@ -279,6 +267,19 @@ namespace Bombones2025.DatosSql.Repositorios
             {
 
                 throw;
+            }
+        }
+
+        public int GetCantidad()
+        {
+            using (var cnn = new SqlConnection(connectionString))
+            {
+                cnn.Open();
+                string query = @"SELECT COUNT (*) FROM Chocolates";
+                using (var cmd = new SqlCommand(query, cnn))
+                {
+                    return (int)cmd.ExecuteScalar();
+                }
             }
         }
     }

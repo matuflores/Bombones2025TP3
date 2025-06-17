@@ -200,6 +200,7 @@
             Name = "FrmFormasDePago";
             StartPosition = FormStartPosition.CenterScreen;
             Text = "FrmFormasDePago";
+            Load += FrmFormasDePago_Load;
             splitContainer1.Panel1.ResumeLayout(false);
             splitContainer1.Panel1.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)splitContainer1).EndInit();

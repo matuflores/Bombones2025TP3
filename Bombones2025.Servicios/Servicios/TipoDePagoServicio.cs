@@ -8,7 +8,7 @@ using System.Threading.Tasks;
 
 namespace Bombones2025.Servicios.Servicios
 {
-    public class TipoDePagoServicio
+    public class TipoDePagoServicio : ITipoDePagoServicio
     {
         private readonly TipoDePagoRepositorio _tipoDePagoRepositorio = null!;
 

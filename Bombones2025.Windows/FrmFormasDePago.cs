@@ -1,6 +1,7 @@
 ﻿using Bombones2025.Entidades;
 using Bombones2025.Servicios.Servicios;
 using Bombones2025.Windows.AE;
+using Bombones2025.Windows.Helpers;
 using Bombones2025.Windows.Properties;
 using System;
 using System.Collections.Generic;
@@ -25,25 +26,31 @@ namespace Bombones2025.Windows
             InitializeComponent();
             _tipoDePagoServicio = tipoDePagoServicio;
         }
-
-        private void FrmTiposDePago_Load(object sender, EventArgs e)
+        
+        private void FrmFormasDePago_Load(object sender, EventArgs e)
         {
             _tiposDePago = _tipoDePagoServicio.GetTipoDePago();
             MostrarDatosEnGrilla();
         }
-
         private void MostrarDatosEnGrilla()
         {
-
-            dgvFormasDePago.Rows.Clear();
+            GridHelper.LimpiarGrilla(dgvFormasDePago);
             foreach (TipoDePago tipoDePago in _tiposDePago)
             {
+                var r = GridHelper.ConstruirFila(dgvFormasDePago);
 
-                DataGridViewRow r = new DataGridViewRow();
-                r.CreateCells(dgvFormasDePago);
-                SetearFila(r, tipoDePago);
-                AgregarFila(r);
+                GridHelper.SetearFila(r, tipoDePago);
+                GridHelper.AgregarFila(r, dgvFormasDePago);
             }
+            //dgvFormasDePago.Rows.Clear();
+            //foreach (TipoDePago tipoDePago in _tiposDePago)
+            //{
+
+            //    DataGridViewRow r = new DataGridViewRow();
+            //    r.CreateCells(dgvFormasDePago);
+            //    SetearFila(r, tipoDePago);
+            //    AgregarFila(r);
+            //}
         }
 
         private void AgregarFila(DataGridViewRow r)
@@ -198,5 +205,7 @@ namespace Bombones2025.Windows
                 throw new Exception(ex.Message, ex);
             }
         }
+
+        
     }
 }

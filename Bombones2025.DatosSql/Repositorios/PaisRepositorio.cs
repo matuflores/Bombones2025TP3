@@ -9,7 +9,7 @@ using System.Threading.Tasks;
 
 namespace Bombones2025.DatosSql.Repositorios
 {
-    public class PaisRepositorio
+    public class PaisRepositorio : IPaisRepositorio
     {
         private readonly bool _usarCache;
         private List<Pais> paisesCache = new();
@@ -24,7 +24,7 @@ namespace Bombones2025.DatosSql.Repositorios
             }
             else
             {
-                int cantidadRegistros = ObtenerCantidadRegistros();
+                int cantidadRegistros =GetCantidad();
                 _usarCache = cantidadRegistros <= umbralCache;
             }
             if (_usarCache)
@@ -33,18 +33,6 @@ namespace Bombones2025.DatosSql.Repositorios
             }
         }
 
-        private int ObtenerCantidadRegistros()
-        {
-            using (var cnn = new SqlConnection(connectionString))
-            {
-                cnn.Open();
-                string query = @"SELECT COUNT (*) FROM Paises";
-                using (var cmd = new SqlCommand(query, cnn))
-                {
-                    return (int)cmd.ExecuteScalar();
-                }
-            }
-        }
 
         private void LeerDatos()
         {
@@ -52,9 +40,9 @@ namespace Bombones2025.DatosSql.Repositorios
             {
                 cnn.Open();
                 string query = "SELECT PaisId, NombrePais FROM Paises";
-                using (var cmd = new SqlCommand(query,cnn))
+                using (var cmd = new SqlCommand(query, cnn))
                 {
-                    using (var reader=cmd.ExecuteReader())
+                    using (var reader = cmd.ExecuteReader())
                     {
                         while (reader.Read())
                         {
@@ -92,13 +80,13 @@ namespace Bombones2025.DatosSql.Repositorios
                 }
             }
             return lista;
-        } 
+        }
         private Pais ConstruirPais(SqlDataReader reader)
         {
             return new Pais
             {
                 PaisId = reader.GetInt32(0),
-                NombrePais=reader.GetString(1)
+                NombrePais = reader.GetString(1)
             };
         }
         //-------------------------------------------------------------------------
@@ -118,8 +106,8 @@ namespace Bombones2025.DatosSql.Repositorios
                         pais.PaisId = paisId;
                     }
                 }
-                if (_usarCache) 
-                { 
+                if (_usarCache)
+                {
                     paisesCache.Add(pais);
                 }
             }
@@ -152,14 +140,14 @@ namespace Bombones2025.DatosSql.Repositorios
                     }
                     else
                     {
-                        query= @"SELECT COUNT(*) FROM Paises 
+                        query = @"SELECT COUNT(*) FROM Paises 
                                 WHERE LOWER(NombrePais)=LOWER(@NombrePais) AND
                                 PaisId<>@PaisId";
                     }
-                    
+
                     using (var cmd = new SqlCommand(query, cnn))
                     {
-                        if (pais.PaisId!=0)
+                        if (pais.PaisId != 0)
                         {
                             cmd.Parameters.AddWithValue("@PaisId", pais.PaisId);
                         }
@@ -195,7 +183,7 @@ namespace Bombones2025.DatosSql.Repositorios
                 {
                     Pais? paisBorrar = paisesCache.FirstOrDefault(p => p.PaisId == paisId);
                     if (paisBorrar == null) return;
-                    paisesCache.Remove(paisBorrar); 
+                    paisesCache.Remove(paisBorrar);
                 }
             }
             catch (Exception ex)
@@ -212,26 +200,26 @@ namespace Bombones2025.DatosSql.Repositorios
                 using (var cnn = new SqlConnection(connectionString))
                 {
                     cnn.Open();
-                    string query =@"UPDATE Paises SET NombrePais=@NombrePais
+                    string query = @"UPDATE Paises SET NombrePais=@NombrePais
                                     WHERE PaisId=@PaisId";
                     using (var cmd = new SqlCommand(query, cnn))
                     {
                         cmd.Parameters.AddWithValue("@NombrePais", pais.NombrePais);
-                        cmd.Parameters.AddWithValue("@PaisId",pais.PaisId);
-                        cmd.ExecuteNonQuery(); 
+                        cmd.Parameters.AddWithValue("@PaisId", pais.PaisId);
+                        cmd.ExecuteNonQuery();
                     }
                     if (_usarCache)
                     {
                         Pais? paisEditar = paisesCache.FirstOrDefault(p => p.PaisId == pais.PaisId);
                         if (paisEditar == null) return;
-                        paisEditar.NombrePais = pais.NombrePais; 
+                        paisEditar.NombrePais = pais.NombrePais;
                     }
                 }
             }
             catch (Exception ex)
             {
 
-                throw new Exception("Error al intentar editar el registro",ex);
+                throw new Exception("Error al intentar editar el registro", ex);
             }
         }
 
@@ -249,12 +237,12 @@ namespace Bombones2025.DatosSql.Repositorios
                     {
                         textoParaFiltrar += "%";
                         cmd.Parameters.AddWithValue("@texto", textoParaFiltrar);
-                        
-                        using (var reader=cmd.ExecuteReader())
+
+                        using (var reader = cmd.ExecuteReader())
                         {
                             while (reader.Read())
                             {
-                                var pais=ConstruirPais(reader);
+                                var pais = ConstruirPais(reader);
                                 listaFiltrada.Add(pais);
                             }
                         }
@@ -267,7 +255,20 @@ namespace Bombones2025.DatosSql.Repositorios
 
                 throw;
             }
-            
+
+        }
+
+        public int GetCantidad()
+        {
+            using (var cnn = new SqlConnection(connectionString))
+            {
+                cnn.Open();
+                string query = @"SELECT COUNT (*) FROM Paises";
+                using (var cmd = new SqlCommand(query, cnn))
+                {
+                    return (int)cmd.ExecuteScalar();
+                }
+            }
         }
     }
 }

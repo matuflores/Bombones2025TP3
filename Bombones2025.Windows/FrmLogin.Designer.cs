@@ -48,6 +48,7 @@
             textBoxUsuario.Name = "textBoxUsuario";
             textBoxUsuario.Size = new Size(258, 23);
             textBoxUsuario.TabIndex = 0;
+            textBoxUsuario.Text = "admin";
             // 
             // labelRelleno
             // 
@@ -91,6 +92,7 @@
             textBoxClave.Name = "textBoxClave";
             textBoxClave.Size = new Size(258, 23);
             textBoxClave.TabIndex = 1;
+            textBoxClave.Text = "admin123";
             // 
             // label1
             // 

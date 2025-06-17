@@ -9,16 +9,16 @@ using System.Threading.Tasks;
 
 namespace Bombones2025.Servicios.Servicios
 {
-    public class PaisServicio
+    public class PaisServicio : IPaisServicio
     {
         private readonly PaisRepositorio _paisRepositorio = null!;
         //traido el repo lo llamo en el ctor
         public PaisServicio()
         {
-            _paisRepositorio=new PaisRepositorio(ConstantesDelSistema.umbralCache);
+            _paisRepositorio = new PaisRepositorio(ConstantesDelSistema.umbralCache);
         }
 
-        
+
 
         //llamo a la lista del repo
         public List<Pais> GetPais()

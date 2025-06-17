@@ -13,6 +13,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Bombones2025.Servicios", "B
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Bombones2025.Utilidades", "Bombones2025.Utilidades\Bombones2025.Utilidades.csproj", "{ED51FB8A-DC8E-4B44-AA51-36CC1F796D1C}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Bombones2025.Infraestructura", "Bombones2025.Infraestructura\Bombones2025.Infraestructura.csproj", "{A5A507E6-CBE5-4662-A1C4-22C70968DD79}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -39,6 +41,10 @@ Global
 		{ED51FB8A-DC8E-4B44-AA51-36CC1F796D1C}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{ED51FB8A-DC8E-4B44-AA51-36CC1F796D1C}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{ED51FB8A-DC8E-4B44-AA51-36CC1F796D1C}.Release|Any CPU.Build.0 = Release|Any CPU
+		{A5A507E6-CBE5-4662-A1C4-22C70968DD79}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{A5A507E6-CBE5-4662-A1C4-22C70968DD79}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{A5A507E6-CBE5-4662-A1C4-22C70968DD79}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{A5A507E6-CBE5-4662-A1C4-22C70968DD79}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

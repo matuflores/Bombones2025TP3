@@ -9,10 +9,10 @@ using System.Threading.Tasks;
 
 namespace Bombones2025.Servicios.Servicios
 {
-    public class RellenoServicio
+    public class RellenoServicio : IRellenoServicio
     {
         private readonly RellenoRepositorio _rellenoRepositorio = null!;
-        
+
         public RellenoServicio()
         {
             _rellenoRepositorio = new RellenoRepositorio(ConstantesDelSistema.umbralCache);

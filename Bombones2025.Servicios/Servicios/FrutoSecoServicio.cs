@@ -9,14 +9,14 @@ using System.Threading.Tasks;
 
 namespace Bombones2025.Servicios.Servicios
 {
-    public class FrutoSecoServicio
+    public class FrutoSecoServicio : IFrutoSecoServicio
     {
         private readonly FrutoSecoRepositorio _frutoSecoRepositorio = null!;
         public FrutoSecoServicio()
         {
             _frutoSecoRepositorio = new FrutoSecoRepositorio(ConstantesDelSistema.umbralCache);
         }
-        
+
         public List<FrutoSeco> GetFrutoSecos()
         {
             return _frutoSecoRepositorio.GetFrutoSeco();

@@ -10,7 +10,7 @@ using System.Xml.Linq;
 
 namespace Bombones2025.DatosSql.Repositorios
 {
-    public class TipoDePagoRepositorio
+    public class TipoDePagoRepositorio : ITipoDePagoRepositorio
     {
         private readonly bool _usarCache;
         private List<TipoDePago> tiposDePagosCache = new();
@@ -24,7 +24,7 @@ namespace Bombones2025.DatosSql.Repositorios
             }
             else
             {
-                int cantidadRegistros = ObtenerCantidadRegistros();
+                int cantidadRegistros = GetCantidad();
                 _usarCache = cantidadRegistros <= umbralCache;
             }
             if (_usarCache)
@@ -34,18 +34,6 @@ namespace Bombones2025.DatosSql.Repositorios
         }
 
 
-        private int ObtenerCantidadRegistros()
-        {
-            using (var cnn = new SqlConnection(connectionString))
-            {
-                cnn.Open();
-                string query = @"SELECT COUNT (*) FROM FormasDePago";
-                using (var cmd = new SqlCommand(query, cnn))
-                {
-                    return (int)cmd.ExecuteScalar();
-                }
-            }
-        }
 
         private void LeerDatos()
         {
@@ -268,6 +256,19 @@ namespace Bombones2025.DatosSql.Repositorios
             {
 
                 throw new Exception(ex.Message, ex);
+            }
+        }
+
+        public int GetCantidad()
+        {
+            using (var cnn = new SqlConnection(connectionString))
+            {
+                cnn.Open();
+                string query = @"SELECT COUNT (*) FROM FormasDePago";
+                using (var cmd = new SqlCommand(query, cnn))
+                {
+                    return (int)cmd.ExecuteScalar();
+                }
             }
         }
     }

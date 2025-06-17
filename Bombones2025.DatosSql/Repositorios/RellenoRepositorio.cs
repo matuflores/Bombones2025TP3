@@ -9,7 +9,7 @@ using System.Threading.Tasks;
 
 namespace Bombones2025.DatosSql.Repositorios
 {
-    public class RellenoRepositorio
+    public class RellenoRepositorio : IRellenoRepositorio
     {
         private readonly bool _usarCache;
         private List<Relleno> rellenosCache = new();
@@ -193,7 +193,7 @@ namespace Bombones2025.DatosSql.Repositorios
                 {
                     Relleno? rellenoBorrar = rellenosCache.FirstOrDefault(re => re.RellenoId == rellenoId);
                     if (rellenoBorrar == null) return;
-                    rellenosCache.Remove(rellenoBorrar); 
+                    rellenosCache.Remove(rellenoBorrar);
                 }
             }
             catch (Exception ex)
@@ -222,7 +222,7 @@ namespace Bombones2025.DatosSql.Repositorios
                     {
                         Relleno? rellenoEditar = rellenosCache.FirstOrDefault(re => re.RellenoId == relleno.RellenoId);
                         if (rellenoEditar == null) return;
-                        rellenoEditar.Descripcion = relleno.Descripcion; 
+                        rellenoEditar.Descripcion = relleno.Descripcion;
                     }
                 }
             }

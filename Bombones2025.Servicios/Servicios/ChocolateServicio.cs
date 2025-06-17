@@ -9,7 +9,7 @@ using System.Threading.Tasks;
 
 namespace Bombones2025.Servicios.Servicios
 {
-    public class ChocolateServicio
+    public class ChocolateServicio : IChocolateServicio
     {
         private readonly ChocolateRepositorio _chocolateRepositorio = null!;
         public ChocolateServicio()

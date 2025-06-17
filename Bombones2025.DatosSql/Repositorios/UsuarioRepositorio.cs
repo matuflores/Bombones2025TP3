@@ -9,7 +9,7 @@ using System.Threading.Tasks;
 
 namespace Bombones2025.DatosSql.Repositorios
 {
-    public class UsuarioRepositorio
+    public class UsuarioRepositorio : IUsuarioRepositorio
     {
         private readonly string connectionString = null!;
 

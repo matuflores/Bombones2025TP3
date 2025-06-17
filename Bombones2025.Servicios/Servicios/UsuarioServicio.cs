@@ -8,7 +8,7 @@ using System.Threading.Tasks;
 
 namespace Bombones2025.Servicios.Servicios
 {
-    public class UsuarioServicio
+    public class UsuarioServicio : IUsuarioServicio
     {
         private readonly UsuarioRepositorio usuarioRepositorio;
 

@@ -9,7 +9,7 @@ using System.Threading.Tasks;
 
 namespace Bombones2025.DatosSql.Repositorios
 {
-    public class FrutoSecoRepositorio
+    public class FrutoSecoRepositorio : IFrutoSecoRepositorio
     {
         private readonly bool _usarCache;
         private List<FrutoSeco> frutosSecosCache = new();
@@ -23,7 +23,7 @@ namespace Bombones2025.DatosSql.Repositorios
             }
             else
             {
-                int cantidadRegistros = ObtenerCantidadRegistros();
+                int cantidadRegistros = GetCantidad();
                 _usarCache = cantidadRegistros <= umbralCache;
             }
             if (_usarCache)
@@ -32,18 +32,6 @@ namespace Bombones2025.DatosSql.Repositorios
             }
         }
 
-        private int ObtenerCantidadRegistros()
-        {
-            using (var cnn = new SqlConnection(connectionString))
-            {
-                cnn.Open();
-                string query = @"SELECT COUNT (*) FROM FrutosSecos";
-                using (var cmd = new SqlCommand(query, cnn))
-                {
-                    return (int)cmd.ExecuteScalar();
-                }
-            }
-        }
 
         private void LeerDatos()
         {
@@ -192,7 +180,7 @@ namespace Bombones2025.DatosSql.Repositorios
                 {
                     FrutoSeco? frutoSecoBorrar = frutosSecosCache.FirstOrDefault(fs => fs.FrutoSecoId == frutoSecoId);
                     if (frutoSecoBorrar == null) return;
-                    frutosSecosCache.Remove(frutoSecoBorrar); 
+                    frutosSecosCache.Remove(frutoSecoBorrar);
                 }
             }
             catch (Exception ex)
@@ -221,7 +209,7 @@ namespace Bombones2025.DatosSql.Repositorios
                     {
                         FrutoSeco? frutoSecoEditar = frutosSecosCache.FirstOrDefault(fs => fs.FrutoSecoId == frutoseco.FrutoSecoId);
                         if (frutoSecoEditar == null) return;
-                        frutoSecoEditar.Descripcion = frutoseco.Descripcion; 
+                        frutoSecoEditar.Descripcion = frutoseco.Descripcion;
                     }
                 }
             }
@@ -263,6 +251,19 @@ namespace Bombones2025.DatosSql.Repositorios
             {
 
                 throw;
+            }
+        }
+
+        public int GetCantidad()
+        {
+            using (var cnn = new SqlConnection(connectionString))
+            {
+                cnn.Open();
+                string query = @"SELECT COUNT (*) FROM FrutosSecos";
+                using (var cmd = new SqlCommand(query, cnn))
+                {
+                    return (int)cmd.ExecuteScalar();
+                }
             }
         }
     }
