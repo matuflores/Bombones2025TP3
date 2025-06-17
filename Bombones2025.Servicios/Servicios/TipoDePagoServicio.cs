@@ -10,11 +10,12 @@ namespace Bombones2025.Servicios.Servicios
 {
     public class TipoDePagoServicio : ITipoDePagoServicio
     {
-        private readonly TipoDePagoRepositorio _tipoDePagoRepositorio = null!;
+        private readonly ITipoDePagoRepositorio _tipoDePagoRepositorio = null!;
 
-        public TipoDePagoServicio()
+        public TipoDePagoServicio(ITipoDePagoRepositorio tipoDePagoRepositorio)
         {
-            _tipoDePagoRepositorio = new TipoDePagoRepositorio();
+            //_tipoDePagoRepositorio = new TipoDePagoRepositorio();
+            _tipoDePagoRepositorio=tipoDePagoRepositorio;
         }
 
         public List<TipoDePago> GetTipoDePago()

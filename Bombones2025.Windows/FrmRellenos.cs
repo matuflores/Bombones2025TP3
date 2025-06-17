@@ -16,10 +16,10 @@ namespace Bombones2025.Windows
 {
     public partial class FrmRellenos : Form
     {
-        private readonly RellenoServicio _rellenoServicio = null!;
+        private readonly IRellenoServicio _rellenoServicio = null!;
         private List<Relleno> _rellenos = new();
         private bool filtrarOn = false;
-        public FrmRellenos(RellenoServicio rellenoServicio)
+        public FrmRellenos(IRellenoServicio rellenoServicio)
         {
             InitializeComponent();
             _rellenoServicio = rellenoServicio;

@@ -18,10 +18,10 @@ namespace Bombones2025.Windows
     public partial class FrmFormasDePago : Form
     {
 
-        private readonly TipoDePagoServicio _tipoDePagoServicio = null!;
+        private readonly ITipoDePagoServicio _tipoDePagoServicio = null!;
         private List<TipoDePago> _tiposDePago = new();
         private bool filtrarOn = false;
-        public FrmFormasDePago(TipoDePagoServicio tipoDePagoServicio)
+        public FrmFormasDePago(ITipoDePagoServicio tipoDePagoServicio)
         {
             InitializeComponent();
             _tipoDePagoServicio = tipoDePagoServicio;

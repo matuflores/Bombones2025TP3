@@ -3,24 +3,15 @@ using Bombones2025.Servicios.Servicios;
 using Bombones2025.Windows.AE;
 using Bombones2025.Windows.Helpers;
 using Bombones2025.Windows.Properties;
-using System;
-using System.Collections.Generic;
-using System.ComponentModel;
-using System.Data;
-using System.Drawing;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using System.Windows.Forms;
 
 namespace Bombones2025.Windows
 {
     public partial class FrmChocolates : Form
     {
-        private readonly ChocolateServicio _chocolateServicio = null!;
+        private readonly IChocolateServicio _chocolateServicio = null!;
         private List<Chocolate> _chocolates = new();
         private bool filtrarOn = false;
-        public FrmChocolates(ChocolateServicio chocolateServicio)
+        public FrmChocolates(IChocolateServicio chocolateServicio)
         {
             InitializeComponent();
             _chocolateServicio = chocolateServicio;
@@ -44,7 +35,7 @@ namespace Bombones2025.Windows
                 //SetearFila(r, chocolate);
                 //AgregarFila(r);
 
-                GridHelper.SetearFila(r,chocolate);
+                GridHelper.SetearFila(r, chocolate);
                 GridHelper.AgregarFila(r, dgvChocolates);
             }
         }
@@ -74,9 +65,11 @@ namespace Bombones2025.Windows
             if (dr == DialogResult.Cancel) return;
             Chocolate? chocolate = frm.GetChocolate();
             if (chocolate == null) return;
-            if (!_chocolateServicio.Existe(chocolate))
+            //if (!_chocolateServicio.Existe(chocolate))
+            //{
+            //_chocolateServicio.Guardar(chocolate);
+            if (_chocolateServicio.Agregar(chocolate, out var errores))
             {
-                _chocolateServicio.Guardar(chocolate);
                 DataGridViewRow r = GridHelper.ConstruirFila(dgvChocolates);
                 //r.CreateCells(dgvChocolates);
                 GridHelper.SetearFila(r, chocolate);
@@ -86,7 +79,7 @@ namespace Bombones2025.Windows
             }
             else
             {
-                MessageBox.Show("Chocolate Existente", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                MessageBox.Show(errores.First(), "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
         }
 
@@ -104,10 +97,14 @@ namespace Bombones2025.Windows
             if (dr == DialogResult.No) return;
             try
             {
-                _chocolateServicio.Borrar(chocolateBorrar.ChocolateId);
-                //dgvChocolates.Rows.Remove(r);
-                GridHelper.QuitarFila(r, dgvChocolates);
-                MessageBox.Show("Chocolate Eliminado");
+                if (_chocolateServicio.Borrar(chocolateBorrar.ChocolateId, out var errores))
+                {
+                    //_chocolateServicio.Borrar(chocolateBorrar.ChocolateId);
+                    //dgvChocolates.Rows.Remove(r);
+                    GridHelper.QuitarFila(r, dgvChocolates);
+                    MessageBox.Show("Chocolate Eliminado");
+                }
+                
             }
             catch (Exception ex)
             {
@@ -135,9 +132,11 @@ namespace Bombones2025.Windows
 
             try
             {
-                if (!_chocolateServicio.Existe(chocolateEditar))
+                //if (!_chocolateServicio.Existe(chocolateEditar))
+                //{
+                if (_chocolateServicio.Editar(chocolateEditar, out var errores))
                 {
-                    _chocolateServicio.Guardar(chocolateEditar);
+                    //_chocolateServicio.Guardar(chocolateEditar);
                     GridHelper.SetearFila(r, chocolateEditar);
                     //SetearFila(r, chocolateEditar);
 
@@ -145,9 +144,10 @@ namespace Bombones2025.Windows
                         MessageBoxButtons.OK,
                         MessageBoxIcon.Information);
                 }
+                //}
                 else
                 {
-                    MessageBox.Show("Chocolate Existente", "Error",
+                    MessageBox.Show(errores.First(), "Error",
                         MessageBoxButtons.OK,
                         MessageBoxIcon.Error);
                 }

@@ -16,12 +16,12 @@ namespace Bombones2025.Windows
 {
     public partial class FrmFrutosSecos : Form
     {
-        private readonly FrutoSecoServicio _frutoSecoServicio = null!;
+        private readonly IFrutoSecoServicio _frutoSecoServicio = null!;
 
         private List<FrutoSeco> _frutosSecos = new();
         private bool filtrarOn = false;
 
-        public FrmFrutosSecos(FrutoSecoServicio frutoSecoServicio)
+        public FrmFrutosSecos(IFrutoSecoServicio frutoSecoServicio)
         {
             InitializeComponent();
             _frutoSecoServicio = frutoSecoServicio;

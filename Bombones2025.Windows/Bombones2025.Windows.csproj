@@ -15,6 +15,7 @@
 
   <ItemGroup>
     <ProjectReference Include="..\Bombones2025.Entidades\Bombones2025.Entidades.csproj" />
+    <ProjectReference Include="..\Bombones2025.Infraestructura\Bombones2025.Infraestructura.csproj" />
     <ProjectReference Include="..\Bombones2025.Servicios\Bombones2025.Servicios.csproj" />
   </ItemGroup>
 

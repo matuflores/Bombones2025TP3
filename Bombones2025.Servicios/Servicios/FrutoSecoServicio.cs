@@ -11,10 +11,11 @@ namespace Bombones2025.Servicios.Servicios
 {
     public class FrutoSecoServicio : IFrutoSecoServicio
     {
-        private readonly FrutoSecoRepositorio _frutoSecoRepositorio = null!;
-        public FrutoSecoServicio()
+        private readonly IFrutoSecoRepositorio _frutoSecoRepositorio = null!;
+        public FrutoSecoServicio(IFrutoSecoRepositorio frutoSecoRepositorio)
         {
-            _frutoSecoRepositorio = new FrutoSecoRepositorio(ConstantesDelSistema.umbralCache);
+            //_frutoSecoRepositorio = new FrutoSecoRepositorio(ConstantesDelSistema.umbralCache);
+            _frutoSecoRepositorio=frutoSecoRepositorio;
         }
 
         public List<FrutoSeco> GetFrutoSecos()

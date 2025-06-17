@@ -11,11 +11,12 @@ namespace Bombones2025.Servicios.Servicios
 {
     public class PaisServicio : IPaisServicio
     {
-        private readonly PaisRepositorio _paisRepositorio = null!;
+        private readonly IPaisRepositorio _paisRepositorio = null!;
         //traido el repo lo llamo en el ctor
-        public PaisServicio()
+        public PaisServicio(IPaisRepositorio paisRepositorio)
         {
-            _paisRepositorio = new PaisRepositorio(ConstantesDelSistema.umbralCache);
+            //_paisRepositorio = new PaisRepositorio(ConstantesDelSistema.umbralCache);
+            _paisRepositorio=paisRepositorio;
         }
 
 

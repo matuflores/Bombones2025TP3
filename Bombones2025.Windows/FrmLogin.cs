@@ -1,23 +1,14 @@
 ﻿using Bombones2025.Entidades;
 using Bombones2025.Servicios.Servicios;
 using Bombones2025.Windows.Helpers;
-using System;
-using System.Collections.Generic;
-using System.ComponentModel;
-using System.Data;
-using System.Drawing;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using System.Windows.Forms;
 
 namespace Bombones2025.Windows
 {
     public partial class FrmLogin : Form
     {
         private Usuario? usuarioLogueado;
-        private readonly UsuarioServicio? _usuarioServicio;
-        public FrmLogin(UsuarioServicio? usuarioServicio)
+        private readonly IUsuarioServicio? _usuarioServicio;
+        public FrmLogin(IUsuarioServicio? usuarioServicio)
         {
             InitializeComponent();
             _usuarioServicio = usuarioServicio;

@@ -11,11 +11,12 @@ namespace Bombones2025.Servicios.Servicios
 {
     public class RellenoServicio : IRellenoServicio
     {
-        private readonly RellenoRepositorio _rellenoRepositorio = null!;
+        private readonly IRellenoRepositorio _rellenoRepositorio = null!;
 
-        public RellenoServicio()
+        public RellenoServicio(IRellenoRepositorio rellenoRepositorio)
         {
-            _rellenoRepositorio = new RellenoRepositorio(ConstantesDelSistema.umbralCache);
+            //_rellenoRepositorio = new RellenoRepositorio(ConstantesDelSistema.umbralCache);
+            _rellenoRepositorio=rellenoRepositorio;
         }
 
         public void Borrar(int rellenoId)

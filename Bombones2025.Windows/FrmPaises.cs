@@ -17,11 +17,11 @@ namespace Bombones2025.Windows
     public partial class FrmPaises : Form
     {
         //llamo a servicios
-        private readonly PaisServicio _paisServicio = null!;
+        private readonly IPaisServicio _paisServicio = null!;
         //instancio la lista
         private List<Pais> _paises = new();
         private bool filtrarOn = false;
-        public FrmPaises(PaisServicio paisServicio)
+        public FrmPaises(IPaisServicio paisServicio)
         {
             InitializeComponent();
             _paisServicio = paisServicio;

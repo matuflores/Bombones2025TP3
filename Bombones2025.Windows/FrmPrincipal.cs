@@ -1,5 +1,7 @@
 ﻿using Bombones2025.Entidades;
+using Bombones2025.Infraestructura;
 using Bombones2025.Servicios.Servicios;
+using Microsoft.Extensions.DependencyInjection;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
@@ -22,7 +24,9 @@ namespace Bombones2025.Windows
 
         private void btnPais_Click(object sender, EventArgs e)
         {
-            PaisServicio servicio = new PaisServicio();
+            //PaisServicio servicio = new PaisServicio();
+            IPaisServicio servicio=AppServices.ServiceProvider!
+                .GetRequiredService<IPaisServicio>();
             FrmPaises frm = new FrmPaises(servicio) { Text = "Listado de Paises" };
             frm.ShowDialog();
 
@@ -30,21 +34,24 @@ namespace Bombones2025.Windows
 
         private void btnRellenos_Click(object sender, EventArgs e)
         {
-            RellenoServicio servicio = new RellenoServicio();
+            IRellenoServicio servicio = AppServices.ServiceProvider!
+                .GetRequiredService<IRellenoServicio>();
             FrmRellenos frm = new FrmRellenos(servicio) { Text = "Listado de Rellenos" };
             frm.ShowDialog();
         }
 
         private void btnFrutosSecos_Click(object sender, EventArgs e)
         {
-            FrutoSecoServicio servicio = new FrutoSecoServicio();
+            IFrutoSecoServicio servicio =AppServices.ServiceProvider!
+                .GetRequiredService<IFrutoSecoServicio>();
             FrmFrutosSecos frm = new FrmFrutosSecos(servicio) { Text = "Listado de Frutos Secos" };
             frm.ShowDialog();
         }
 
         private void btnChocolates_Click(object sender, EventArgs e)
         {
-            ChocolateServicio servicio = new ChocolateServicio();
+            IChocolateServicio servicio = AppServices.ServiceProvider!
+                .GetRequiredService<IChocolateServicio>();
             FrmChocolates frm = new FrmChocolates(servicio) { Text = "Listado de Chocolates" };
             frm.ShowDialog();
         }
@@ -61,7 +68,8 @@ namespace Bombones2025.Windows
 
         private void btnFormasDePagos_Click(object sender, EventArgs e)
         {
-            TipoDePagoServicio servicio = new TipoDePagoServicio();
+            ITipoDePagoServicio servicio = AppServices.ServiceProvider!
+                .GetRequiredService<ITipoDePagoServicio>();
             FrmFormasDePago frm = new FrmFormasDePago(servicio) { Text = "Listado de Formas de Pago" };
             frm.ShowDialog();
         }
