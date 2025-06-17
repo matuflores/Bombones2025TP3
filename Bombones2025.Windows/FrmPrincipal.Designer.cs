@@ -119,13 +119,14 @@
             // 
             // btnFormasDePagos
             // 
-            btnFormasDePagos.Location = new Point(60, 174);
+            btnFormasDePagos.Location = new Point(60, 181);
             btnFormasDePagos.Margin = new Padding(3, 2, 3, 2);
             btnFormasDePagos.Name = "btnFormasDePagos";
-            btnFormasDePagos.Size = new Size(291, 52);
+            btnFormasDePagos.Size = new Size(88, 38);
             btnFormasDePagos.TabIndex = 6;
             btnFormasDePagos.Text = "Formas de Pago";
             btnFormasDePagos.UseVisualStyleBackColor = true;
+            btnFormasDePagos.Click += btnFormasDePagos_Click;
             // 
             // FrmPrincipal
             // 

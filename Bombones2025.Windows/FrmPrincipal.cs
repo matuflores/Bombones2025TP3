@@ -58,5 +58,10 @@ namespace Bombones2025.Windows
         {
             Application.Exit();
         }
+
+        private void btnFormasDePagos_Click(object sender, EventArgs e)
+        {
+            Application.Exit();
+        }
     }
 }
