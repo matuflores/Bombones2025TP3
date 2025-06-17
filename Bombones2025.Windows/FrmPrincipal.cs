@@ -61,7 +61,9 @@ namespace Bombones2025.Windows
 
         private void btnFormasDePagos_Click(object sender, EventArgs e)
         {
-            Application.Exit();
+            TipoDePagoServicio servicio = new TipoDePagoServicio();
+            FrmFormasDePago frm = new FrmFormasDePago(servicio) { Text = "Listado de Formas de Pago" };
+            frm.ShowDialog();
         }
     }
 }

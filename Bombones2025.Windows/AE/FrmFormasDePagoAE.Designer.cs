@@ -65,6 +65,7 @@
             btnCancel.Text = "CANCELAR";
             btnCancel.TextImageRelation = TextImageRelation.ImageAboveText;
             btnCancel.UseVisualStyleBackColor = true;
+            btnCancel.Click += btnCancel_Click;
             // 
             // btnOk
             // 
@@ -77,6 +78,7 @@
             btnOk.Text = "OK";
             btnOk.TextImageRelation = TextImageRelation.ImageAboveText;
             btnOk.UseVisualStyleBackColor = true;
+            btnOk.Click += btnOk_Click_1;
             // 
             // errorProviderFormaDePago
             // 
