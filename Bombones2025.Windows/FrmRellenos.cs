@@ -27,8 +27,18 @@ namespace Bombones2025.Windows
 
         private void FrmRellenos_Load(object sender, EventArgs e)
         {
-            _rellenos = _rellenoServicio.GetRelleno();
-            MostrarDatosEnGrilla();
+            try
+            {
+                _rellenos = _rellenoServicio.GetRelleno();
+                MostrarDatosEnGrilla();
+            }
+            catch (Exception ex)
+            {
+
+                MessageBox.Show(ex.Message, "Error",
+                    MessageBoxButtons.OK,
+                    MessageBoxIcon.Error);
+            }
         }
 
         private void MostrarDatosEnGrilla()
@@ -54,19 +64,25 @@ namespace Bombones2025.Windows
             if (dr == DialogResult.Cancel) return;
             Relleno? relleno = frm.GetRelleno();
             if (relleno == null) return;
-            if (!_rellenoServicio.Existe(relleno))
+            try
             {
-                _rellenoServicio.Guardar(relleno);
-                DataGridViewRow r = GridHelper.ConstruirFila(dgvRellenos);
-                //r.CreateCells(dgvChocolates);
-                GridHelper.SetearFila(r, relleno);
-                GridHelper.AgregarFila(r, dgvRellenos);
+                if (_rellenoServicio.Agregar(relleno, out var errores))
+                {
 
-                MessageBox.Show("Relleno Agregado", "Mensaje", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                    DataGridViewRow r = GridHelper.ConstruirFila(dgvRellenos);
+                    GridHelper.SetearFila(r, relleno);
+                    GridHelper.AgregarFila(r, dgvRellenos);
+                    MessageBox.Show("Relleno Agregado", "Mensaje", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                }
+                else
+                {
+                    MessageBox.Show(errores.First(), "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                }
             }
-            else
+            catch (Exception ex)
             {
-                MessageBox.Show("Relleno Existente", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+
+                throw new Exception(ex.Message, ex);
             }
         }
 
@@ -84,9 +100,16 @@ namespace Bombones2025.Windows
             if (dr == DialogResult.No) return;
             try
             {
-                _rellenoServicio.Borrar(rellenoBorrar.RellenoId);
-                GridHelper.QuitarFila(r, dgvRellenos);
-                MessageBox.Show("Relleno Eliminado");
+                if (_rellenoServicio.Borrar(rellenoBorrar.RellenoId, out var errores))
+                {
+                    GridHelper.QuitarFila(r, dgvRellenos);
+                    MessageBox.Show("Relleno Eliminado");
+                }
+                else
+                {
+                    MessageBox.Show(errores.First(), "Error"
+                        , MessageBoxButtons.OK, MessageBoxIcon.Error);
+                }
             }
             catch (Exception ex)
             {
@@ -114,9 +137,8 @@ namespace Bombones2025.Windows
 
             try
             {
-                if (!_rellenoServicio.Existe(rellenoEditar))
+                if (_rellenoServicio.Editar(rellenoEditar, out var errores))
                 {
-                    _rellenoServicio.Guardar(rellenoEditar);
                     GridHelper.SetearFila(r, rellenoEditar);
 
                     MessageBox.Show("Relleno Modificado", "Mensaje",
@@ -125,7 +147,7 @@ namespace Bombones2025.Windows
                 }
                 else
                 {
-                    MessageBox.Show("Relleno Existente", "Error",
+                    MessageBox.Show(errores.First(), "Error",
                         MessageBoxButtons.OK,
                         MessageBoxIcon.Error);
                 }
@@ -147,7 +169,7 @@ namespace Bombones2025.Windows
                 if (textoParaFiltrar is null) return;
                 try
                 {
-                    _rellenos = _rellenoServicio.Filtrar(textoParaFiltrar);
+                    _rellenos = _rellenoServicio.GetRelleno(textoParaFiltrar);
                     MostrarDatosEnGrilla();
                     btnFiltrar.Image = Resources.FILTRO40;
                     filtrarOn = true;

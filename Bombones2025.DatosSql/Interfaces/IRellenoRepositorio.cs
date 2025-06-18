@@ -8,7 +8,7 @@ namespace Bombones2025.DatosSql.Repositorios
         void Borrar(int rellenoId);
         void Editar(Relleno relleno);
         bool Existe(Relleno relleno);
-        List<Relleno> Filtrar(string textoParaFiltrar);
-        List<Relleno> GetRelleno();
+        List<Relleno> GetRelleno(string? textoParaFiltrar = null);
+        int GetCantidad();
     }
 }

@@ -1,8 +1,14 @@
-﻿using Bombones2025.DatosSql.Repositorios;
+﻿using Bombones2025.DatosSql;
+using Bombones2025.DatosSql.Repositorios;
+using Bombones2025.DatosSql.RepositoriosSINUSO;
 using Bombones2025.Servicios.Servicios;
+using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.DependencyInjection;
+using Microsoft.Extensions.Logging;
 using System;
 using System.Collections.Generic;
+using System.Configuration;
+using System.Diagnostics;
 using System.Linq;
 using System.Security.Authentication.ExtendedProtection;
 using System.Text;
@@ -16,10 +22,22 @@ namespace Bombones2025.Infraestructura
         public static void Inicializar()
         {
             var services = new ServiceCollection();
-            services.AddScoped<IPaisRepositorio, PaisRepositorio>();
+
+            services.AddDbContext<BombonesDbContext>(options =>
+            {
+                options.UseSqlServer(ConfigurationManager
+                    .ConnectionStrings["MiConexion"].ConnectionString);
+
+                options.EnableSensitiveDataLogging()
+                .LogTo(msg=>Debug.WriteLine(msg), LogLevel.Information);
+            });//LE DIGO QUE TRABAJE CON sql Y QUE TRABAJE CON LA BASE DE DATO
+
+
+
+            services.AddScoped<IPaisRepositorio, PaisRepositorioEF>();
             services.AddScoped<IChocolateRepositorio, ChocolateRepositorio>();
             services.AddScoped<IFrutoSecoRepositorio, FrutoSecoRepositorio>();
-            services.AddScoped<IRellenoRepositorio, RellenoRepositorio>();
+            services.AddScoped<IRellenoRepositorio, RellenoRepositorioEF>();
             services.AddScoped<ITipoDePagoRepositorio, TipoDePagoRepositorio>();
             services.AddScoped<IUsuarioRepositorio, UsuarioRepositorio>();
 

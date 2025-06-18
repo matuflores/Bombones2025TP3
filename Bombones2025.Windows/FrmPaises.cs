@@ -29,8 +29,18 @@ namespace Bombones2025.Windows
 
         private void FrmPaises_Load(object sender, EventArgs e)
         {
-            _paises = _paisServicio.GetPais();
-            MostrarDatosEnGrilla();
+            try
+            {
+                _paises = _paisServicio.GetPais();
+                MostrarDatosEnGrilla();
+            }
+            catch (Exception ex)
+            {
+
+                MessageBox.Show(ex.Message, "Error",
+                    MessageBoxButtons.OK, 
+                    MessageBoxIcon.Error);
+            }
         }
 
         private void MostrarDatosEnGrilla()
@@ -57,17 +67,25 @@ namespace Bombones2025.Windows
             if (dr == DialogResult.Cancel) return;
             Pais? pais = frm.GetPais();
             if (pais == null) return;
-            if (!_paisServicio.Existe(pais))
+            try
             {
-                _paisServicio.Guardar(pais);
-                DataGridViewRow r = GridHelper.ConstruirFila(dgvPaises);
-                GridHelper.SetearFila(r, pais);
-                GridHelper.AgregarFila(r, dgvPaises);
-                MessageBox.Show("Pais Agregado", "Mensaje", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                if (_paisServicio.Agregar(pais, out var errores))
+                {
+                    
+                    DataGridViewRow r = GridHelper.ConstruirFila(dgvPaises);
+                    GridHelper.SetearFila(r, pais);
+                    GridHelper.AgregarFila(r, dgvPaises);
+                    MessageBox.Show("Pais Agregado", "Mensaje", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                }
+                else
+                {
+                    MessageBox.Show(errores.First(), "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                }
             }
-            else
+            catch (Exception ex)
             {
-                MessageBox.Show("Pais Existente", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+
+                throw new Exception(ex.Message, ex);
             }
 
         }
@@ -86,9 +104,17 @@ namespace Bombones2025.Windows
             if (dr == DialogResult.No) return;
             try
             {
-                _paisServicio.Borrar(paisBorrar.PaisId);
-                GridHelper.QuitarFila(r, dgvPaises);
-                MessageBox.Show("Pais Eliminado");
+                if (_paisServicio.Borrar(paisBorrar.PaisId, out var errores))
+                {
+                    GridHelper.QuitarFila(r, dgvPaises);
+                    MessageBox.Show("Pais Eliminado");
+                }
+                else
+                {
+                    MessageBox.Show(errores.First(),"Error"
+                        ,MessageBoxButtons.OK, MessageBoxIcon.Error);
+                }
+                
             }
             catch (Exception ex)
             {
@@ -116,9 +142,9 @@ namespace Bombones2025.Windows
 
             try
             {
-                if (!_paisServicio.Existe(paisEditar))
+                if (_paisServicio.Editar(paisEditar, out var errores))
                 {
-                    _paisServicio.Guardar(paisEditar);
+                    //_paisServicio.Guardar(paisEditar);
                     GridHelper.SetearFila(r, paisEditar);
 
                     MessageBox.Show("Pais Modificado", "Mensaje",
@@ -127,7 +153,7 @@ namespace Bombones2025.Windows
                 }
                 else
                 {
-                    MessageBox.Show("Pais Existente", "Error",
+                    MessageBox.Show(errores.First(), "Error",
                         MessageBoxButtons.OK,
                         MessageBoxIcon.Error);
                 }
@@ -151,7 +177,7 @@ namespace Bombones2025.Windows
                 if (textoParaFiltrar is null) return;
                 try
                 {
-                    _paises = _paisServicio.Filtrar(textoParaFiltrar);
+                    _paises = _paisServicio.GetPais(textoParaFiltrar);
                     MostrarDatosEnGrilla();
                     btnFiltrar.Image = Resources.FILTRO40;
                     filtrarOn = true;
@@ -177,12 +203,12 @@ namespace Bombones2025.Windows
                 filtrarOn = false;
                 btnFiltrar.Image = Resources.FILTRO40;
                 _paises = _paisServicio.GetPais();
-                MostrarDatosEnGrilla() ;
+                MostrarDatosEnGrilla();
             }
             catch (Exception ex)
             {
 
-                throw new Exception(ex.Message,ex);
+                throw new Exception(ex.Message, ex);
             }
         }
     }

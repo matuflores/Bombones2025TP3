@@ -8,8 +8,8 @@ namespace Bombones2025.DatosSql.Repositorios
         void Borrar(int paisId);
         void Editar(Pais pais);
         bool Existe(Pais pais);
-        List<Pais> Filtrar(string textoParaFiltrar);
-        List<Pais> GetPais();
+        //List<Pais> Filtrar(string textoParaFiltrar); //remplazo esta ya que reutilizo el GETPAIS
+        List<Pais> GetPais(string? textoParaFiltrar=null);
 
         int GetCantidad();
     }
