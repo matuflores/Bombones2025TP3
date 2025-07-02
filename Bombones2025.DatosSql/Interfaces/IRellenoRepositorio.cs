@@ -10,5 +10,6 @@ namespace Bombones2025.DatosSql.Repositorios
         bool Existe(Relleno relleno);
         List<Relleno> GetRelleno(string? textoParaFiltrar = null);
         int GetCantidad();
+
     }
 }

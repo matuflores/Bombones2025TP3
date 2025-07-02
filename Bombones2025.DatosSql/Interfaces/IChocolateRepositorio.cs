@@ -8,8 +8,7 @@ namespace Bombones2025.DatosSql.Repositorios
         void Borrar(int chocolateId);
         void Editar(Chocolate chocolate);
         bool Existe(Chocolate chocolate);
-        List<Chocolate> Filtrar(string textoParaFiltrar);
-        List<Chocolate> GetChocolate();
+        List<Chocolate> GetChocolate(string? textoParaFiltrar = null);
 
         int GetCantidad();
     }

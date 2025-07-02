@@ -4,12 +4,13 @@ namespace Bombones2025.DatosSql.Repositorios
 {
     public interface IFrutoSecoRepositorio
     {
-        void Agregar(FrutoSeco frutoseco);
+
+        void Agregar(FrutoSeco frutoSeco);
         void Borrar(int frutoSecoId);
-        void Editar(FrutoSeco frutoseco);
+        void Editar(FrutoSeco frutoSeco);
         bool Existe(FrutoSeco frutoSeco);
-        List<FrutoSeco> Filtrar(string textoParaFiltrar);
-        List<FrutoSeco> GetFrutoSeco();
+        //List<Pais> Filtrar(string textoParaFiltrar); //remplazo esta ya que reutilizo el GETPAIS
+        List<FrutoSeco> GetFrutoSeco(string? textoParaFiltrar = null);
 
         int GetCantidad();
     }
