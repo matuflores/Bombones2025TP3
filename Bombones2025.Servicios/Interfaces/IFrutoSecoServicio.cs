@@ -6,8 +6,8 @@ namespace Bombones2025.Servicios.Servicios
     {
         void Borrar(int frutoSecoId);
         bool Existe(FrutoSeco frutoSeco);
-        List<FrutoSeco> Filtrar(string textoParaFiltrar);
-        List<FrutoSeco> GetFrutoSecos();
+        
+        List<FrutoSeco> GetFrutoSeco(string? textoParaFiltrar = null);
         void Guardar(FrutoSeco frutoseco);
     }
 }

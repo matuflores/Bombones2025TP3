@@ -171,7 +171,7 @@ namespace Bombones2025.Windows
                 if (textoParaFiltrar is null) return;
                 try
                 {
-                    _tiposDePago = _tipoDePagoServicio.Filtrar(textoParaFiltrar);
+                    _tiposDePago = _tipoDePagoServicio.GetTipoDePago(textoParaFiltrar);
                     MostrarDatosEnGrilla();
                     btnFiltrar.Image = Resources.FILTRO40;
                     filtrarOn = true;

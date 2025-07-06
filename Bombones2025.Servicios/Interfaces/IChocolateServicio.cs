@@ -4,11 +4,10 @@ namespace Bombones2025.Servicios.Servicios
 {
     public interface IChocolateServicio
     {
-        //void Borrar(int chocolateId);
+        
         bool Borrar(int chocolateId, out List<string> errores);
         bool Existe(Chocolate chocolate);
-        List<Chocolate> Filtrar(string textoParaFiltrar);
-        List<Chocolate> GetChocolate();
+        List<Chocolate> GetChocolate(string? textoParaFiltrar = null);
         //void Guardar(Chocolate chocolate);
         bool Agregar(Chocolate chocolate, out List<string> errores);
         bool Editar(Chocolate chocolate, out List<string> errores);

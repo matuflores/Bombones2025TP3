@@ -11,5 +11,6 @@ namespace Bombones2025.DatosSql.Repositorios
         List<Chocolate> GetChocolate(string? textoParaFiltrar = null);
 
         int GetCantidad();
+
     }
 }

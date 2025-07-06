@@ -161,31 +161,31 @@ namespace Bombones2025.Windows
 
         private void btnFiltrar_Click(object sender, EventArgs e)
         {
-            if (!filtrarOn)
-            {
-                FrmFiltrar frm = new FrmFiltrar() { Text = "Filtrar Chocolate" };
-                DialogResult dr = frm.ShowDialog(this);
-                string? textoParaFiltrar = frm.GetTexto();
-                if (textoParaFiltrar is null) return;
-                try
-                {
-                    _chocolates = _chocolateServicio.Filtrar(textoParaFiltrar);
-                    MostrarDatosEnGrilla();
-                    btnFiltrar.Image = Resources.FILTRO40;
-                    filtrarOn = true;
-                }
-                catch (Exception ex)
-                {
+            //if (!filtrarOn)
+            //{
+            //    FrmFiltrar frm = new FrmFiltrar() { Text = "Filtrar Chocolate" };
+            //    DialogResult dr = frm.ShowDialog(this);
+            //    string? textoParaFiltrar = frm.GetTexto();
+            //    if (textoParaFiltrar is null) return;
+            //    try
+            //    {
+            //        _chocolates = _chocolateServicio.Filtrar(textoParaFiltrar);
+            //        MostrarDatosEnGrilla();
+            //        btnFiltrar.Image = Resources.FILTRO40;
+            //        filtrarOn = true;
+            //    }
+            //    catch (Exception ex)
+            //    {
 
-                    throw new Exception(ex.Message, ex);
-                }
-            }
-            else
-            {
-                MessageBox.Show("Quitar Filtro", "Error",
-                        MessageBoxButtons.OK,
-                        MessageBoxIcon.Error);
-            }
+            //        throw new Exception(ex.Message, ex);
+            //    }
+            //}
+            //else
+            //{
+            //    MessageBox.Show("Quitar Filtro", "Error",
+            //            MessageBoxButtons.OK,
+            //            MessageBoxIcon.Error);
+            //}
         }
 
         private void btnRefresh_Click(object sender, EventArgs e)

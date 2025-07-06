@@ -1,4 +1,5 @@
 ﻿using Bombones2025.DatosSql.Repositorios;
+using Bombones2025.DatosSql.RepositoriosSINUSO;
 using Bombones2025.Entidades;
 using Bombones2025.Utilidades;
 using System;
@@ -44,9 +45,14 @@ namespace Bombones2025.Servicios.Servicios
             _frutoSecoRepositorio.Borrar(frutoSecoId);
         }
 
-        public List<FrutoSeco> Filtrar(string textoParaFiltrar)
+        //public List<FrutoSeco> Filtrar(string textoParaFiltrar)
+        //{
+        //    return _frutoSecoRepositorio.Filtrar(textoParaFiltrar);
+        //}
+
+        public List<FrutoSeco> GetFrutoSeco(string? textoParaFiltrar = null)
         {
-            return _frutoSecoRepositorio.Filtrar(textoParaFiltrar);
+            return _frutoSecoRepositorio.GetFrutoSeco(textoParaFiltrar);
         }
     }
 }

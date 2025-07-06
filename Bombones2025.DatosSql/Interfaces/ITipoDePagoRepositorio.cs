@@ -8,8 +8,8 @@ namespace Bombones2025.DatosSql.Repositorios
         void Borrar(int tipoPagoId);
         void Editar(TipoDePago tipoDePago);
         bool Existe(TipoDePago tipoDePago);
-        List<TipoDePago> Filtrar(string textoParaFiltrar);
-        List<TipoDePago> GetTipoDePago();
+        List<TipoDePago> GetTipoDePago(string? textoParaFiltrar = null);
+
 
         int GetCantidad();
     }

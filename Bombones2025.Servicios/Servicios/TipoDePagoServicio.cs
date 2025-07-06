@@ -44,9 +44,9 @@ namespace Bombones2025.Servicios.Servicios
             _tipoDePagoRepositorio.Borrar(tipoPagoId);
         }
 
-        public List<TipoDePago> Filtrar(string textoParaFiltrar)
-        {
-            return _tipoDePagoRepositorio.Filtrar(textoParaFiltrar);
-        }
+        //public List<TipoDePago> Filtrar(string textoParaFiltrar)
+        //{
+        //    return _tipoDePagoRepositorio.Filtrar(textoParaFiltrar);
+        //}
     }
 }

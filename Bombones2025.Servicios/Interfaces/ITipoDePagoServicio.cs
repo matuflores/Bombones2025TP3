@@ -6,8 +6,8 @@ namespace Bombones2025.Servicios.Servicios
     {
         void Borrar(int tipoPagoId);
         bool Existe(TipoDePago tipoDePago);
-        List<TipoDePago> Filtrar(string textoParaFiltrar);
-        List<TipoDePago> GetTipoDePago();
+        //List<TipoDePago> Filtrar(string textoParaFiltrar);
+        List<TipoDePago> GetTipoDePago(string? textoParaFiltrar = null);
         void Guardar(TipoDePago tipoDePago);
     }
 }

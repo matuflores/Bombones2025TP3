@@ -1,4 +1,5 @@
 ﻿using Bombones2025.DatosSql.Repositorios;
+using Bombones2025.DatosSql.RepositoriosSINUSO;
 using Bombones2025.Entidades;
 using Bombones2025.Utilidades;
 using System;
@@ -44,10 +45,10 @@ namespace Bombones2025.Servicios.Servicios
         //    _chocolateRepositorio.Borrar(chocolateId);
         //}
 
-        public List<Chocolate> Filtrar(string textoParaFiltrar)
-        {
-            return _chocolateRepositorio.Filtrar(textoParaFiltrar);
-        }
+        //public List<Chocolate> Filtrar(string textoParaFiltrar)
+        //{
+        //    return _chocolateRepositorio.Filtrar(textoParaFiltrar);
+        //}
 
         public bool Agregar(Chocolate chocolate, out List<string> errores)
         {
@@ -78,6 +79,11 @@ namespace Bombones2025.Servicios.Servicios
             errores = new List<string>();
             _chocolateRepositorio.Borrar(chocolateId);
             return true;
+        }
+
+        public List<Chocolate> GetChocolate(string? textoParaFiltrar = null)
+        {
+            return _chocolateRepositorio.GetChocolate(textoParaFiltrar);
         }
     }
 }

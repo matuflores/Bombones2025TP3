@@ -9,7 +9,6 @@ namespace Bombones2025.DatosSql.Repositorios
         void Borrar(int frutoSecoId);
         void Editar(FrutoSeco frutoSeco);
         bool Existe(FrutoSeco frutoSeco);
-        //List<Pais> Filtrar(string textoParaFiltrar); //remplazo esta ya que reutilizo el GETPAIS
         List<FrutoSeco> GetFrutoSeco(string? textoParaFiltrar = null);
 
         int GetCantidad();
