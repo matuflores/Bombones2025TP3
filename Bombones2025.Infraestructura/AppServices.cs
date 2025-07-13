@@ -38,7 +38,7 @@ namespace Bombones2025.Infraestructura
             services.AddScoped<IChocolateRepositorio, ChocolateRepositorioEF>();
             services.AddScoped<IFrutoSecoRepositorio, FrutoSecoRepositorioEF>();
             services.AddScoped<IRellenoRepositorio, RellenoRepositorioEF>();
-            services.AddScoped<ITipoDePagoRepositorio, TipoDePagoRepositorio>();
+            services.AddScoped<ITipoDePagoRepositorio, FormaDePagoRepositorioEF>();
             services.AddScoped<IUsuarioRepositorio, UsuarioRepositorio>();
 
             services.AddScoped<IPaisServicio, PaisServicio>();

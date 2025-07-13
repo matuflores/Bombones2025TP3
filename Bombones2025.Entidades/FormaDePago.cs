@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace Bombones2025.Entidades
 {
-    public class TipoDePago
+    public class FormaDePago
     {
         public int FormaDePagoId { get; set; }
         public string Descripcion { get; set; } = null!;
@@ -15,9 +15,9 @@ namespace Bombones2025.Entidades
         {
             return $"{Descripcion}";
         }
-        public TipoDePago Clonar()
+        public FormaDePago Clonar()
         {
-            return new TipoDePago
+            return new FormaDePago
             {
                 FormaDePagoId = FormaDePagoId,
                 Descripcion = Descripcion

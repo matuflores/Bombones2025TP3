@@ -4,10 +4,11 @@ namespace Bombones2025.Servicios.Servicios
 {
     public interface ITipoDePagoServicio
     {
-        void Borrar(int tipoPagoId);
-        bool Existe(TipoDePago tipoDePago);
+        bool Borrar(int tipoPagoId, out List<string> errores);
+        bool Existe(FormaDePago tipoDePago);
         //List<TipoDePago> Filtrar(string textoParaFiltrar);
-        List<TipoDePago> GetTipoDePago(string? textoParaFiltrar = null);
-        void Guardar(TipoDePago tipoDePago);
+        List<FormaDePago> GetTipoDePago(string? textoParaFiltrar = null);
+        bool Agregar(FormaDePago tipoDePago, out List<string> errores);
+        bool Editar(FormaDePago tipoDePago, out List<string> errores);
     }
 }

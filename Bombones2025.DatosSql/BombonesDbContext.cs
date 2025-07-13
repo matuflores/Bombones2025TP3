@@ -23,6 +23,6 @@ namespace Bombones2025.DatosSql
         public DbSet<Chocolate> Chocolates { get; set; }
         public DbSet<FrutoSeco> FrutosSecos { get; set; }
 
-        public DbSet<TipoDePago> TipoDePagos { get; set; }
+        public DbSet<FormaDePago> FormasDePago { get; set; }
     }
 }

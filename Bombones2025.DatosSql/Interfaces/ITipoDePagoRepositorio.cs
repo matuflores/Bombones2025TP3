@@ -4,11 +4,11 @@ namespace Bombones2025.DatosSql.Repositorios
 {
     public interface ITipoDePagoRepositorio
     {
-        void Agregar(TipoDePago tipoDePago);
+        void Agregar(FormaDePago tipoDePago);
         void Borrar(int tipoPagoId);
-        void Editar(TipoDePago tipoDePago);
-        bool Existe(TipoDePago tipoDePago);
-        List<TipoDePago> GetTipoDePago(string? textoParaFiltrar = null);
+        void Editar(FormaDePago tipoDePago);
+        bool Existe(FormaDePago tipoDePago);
+        List<FormaDePago> GetTipoDePago(string? textoParaFiltrar = null);
 
 
         int GetCantidad();

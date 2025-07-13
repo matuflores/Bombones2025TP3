@@ -2,15 +2,6 @@
 using Bombones2025.Servicios.Servicios;
 using Bombones2025.Windows.Helpers;
 using Bombones2025.Windows.Properties;
-using System;
-using System.Collections.Generic;
-using System.ComponentModel;
-using System.Data;
-using System.Drawing;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using System.Windows.Forms;
 
 namespace Bombones2025.Windows
 {
@@ -38,7 +29,7 @@ namespace Bombones2025.Windows
             {
 
                 MessageBox.Show(ex.Message, "Error",
-                    MessageBoxButtons.OK, 
+                    MessageBoxButtons.OK,
                     MessageBoxIcon.Error);
             }
         }
@@ -71,7 +62,7 @@ namespace Bombones2025.Windows
             {
                 if (_paisServicio.Agregar(pais, out var errores))
                 {
-                    
+
                     DataGridViewRow r = GridHelper.ConstruirFila(dgvPaises);
                     GridHelper.SetearFila(r, pais);
                     GridHelper.AgregarFila(r, dgvPaises);
@@ -111,10 +102,10 @@ namespace Bombones2025.Windows
                 }
                 else
                 {
-                    MessageBox.Show(errores.First(),"Error"
-                        ,MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    MessageBox.Show(errores.First(), "Error"
+                        , MessageBoxButtons.OK, MessageBoxIcon.Error);
                 }
-                
+
             }
             catch (Exception ex)
             {

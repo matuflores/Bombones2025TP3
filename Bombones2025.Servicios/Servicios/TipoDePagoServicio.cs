@@ -10,43 +10,54 @@ namespace Bombones2025.Servicios.Servicios
 {
     public class TipoDePagoServicio : ITipoDePagoServicio
     {
-        private readonly ITipoDePagoRepositorio _tipoDePagoRepositorio = null!;
-
+        private readonly ITipoDePagoRepositorio? _tipoDePagoRepositorio=null!;
         public TipoDePagoServicio(ITipoDePagoRepositorio tipoDePagoRepositorio)
         {
-            //_tipoDePagoRepositorio = new TipoDePagoRepositorio();
-            _tipoDePagoRepositorio=tipoDePagoRepositorio;
+            _tipoDePagoRepositorio = tipoDePagoRepositorio;
         }
 
-        public List<TipoDePago> GetTipoDePago()
+        
+
+        public bool Agregar(FormaDePago tipoDePago, out List<string> errores)
         {
-            return _tipoDePagoRepositorio.GetTipoDePago();
+            errores = new List<string>();
+            if (_tipoDePagoRepositorio.Existe(tipoDePago))
+            {
+                errores.Add("Tipo de pago existente!");
+                return false;
+            }
+            _tipoDePagoRepositorio.Agregar(tipoDePago);
+            return true;
         }
 
-
-        public bool Existe(TipoDePago tipoDePago)
+        public bool Existe(FormaDePago tipoDePago)
         {
             return _tipoDePagoRepositorio.Existe(tipoDePago);
         }
-        public void Guardar(TipoDePago tipoDePago)
+
+        public bool Borrar(int formaDePagoId, out List<string> errores)
         {
-            if (tipoDePago.FormaDePagoId == 0)
-            {
-                _tipoDePagoRepositorio.Agregar(tipoDePago);
-            }
-            else
-            {
-                _tipoDePagoRepositorio.Editar(tipoDePago);
-            }
-        }
-        public void Borrar(int tipoPagoId)
-        {
-            _tipoDePagoRepositorio.Borrar(tipoPagoId);
+            errores = new List<string>();
+            _tipoDePagoRepositorio.Borrar(formaDePagoId);
+            return true;
         }
 
-        //public List<TipoDePago> Filtrar(string textoParaFiltrar)
-        //{
-        //    return _tipoDePagoRepositorio.Filtrar(textoParaFiltrar);
-        //}
+        public bool Editar(FormaDePago tipoDePago, out List<string> errores)
+        {
+            errores = new List<string>();
+            if (_tipoDePagoRepositorio.Existe(tipoDePago))
+            {
+                errores.Add("Tipo de pago Existente!!" + Environment.NewLine + "Edicion denegada");
+                return false;
+            }
+            _tipoDePagoRepositorio.Editar(tipoDePago);
+            return true;
+        }
+
+
+        public List<FormaDePago> GetTipoDePago(string? textoParaFiltrar = null)
+        {
+            return _tipoDePagoRepositorio.GetTipoDePago(textoParaFiltrar);
+        }
     }
 }

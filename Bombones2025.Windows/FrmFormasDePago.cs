@@ -3,15 +3,6 @@ using Bombones2025.Servicios.Servicios;
 using Bombones2025.Windows.AE;
 using Bombones2025.Windows.Helpers;
 using Bombones2025.Windows.Properties;
-using System;
-using System.Collections.Generic;
-using System.ComponentModel;
-using System.Data;
-using System.Drawing;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using System.Windows.Forms;
 
 namespace Bombones2025.Windows
 {
@@ -19,51 +10,40 @@ namespace Bombones2025.Windows
     {
 
         private readonly ITipoDePagoServicio _tipoDePagoServicio = null!;
-        private List<TipoDePago> _tiposDePago = new();
+        private List<FormaDePago> _tiposDePago = new();
         private bool filtrarOn = false;
         public FrmFormasDePago(ITipoDePagoServicio tipoDePagoServicio)
         {
             InitializeComponent();
             _tipoDePagoServicio = tipoDePagoServicio;
         }
-        
+
         private void FrmFormasDePago_Load(object sender, EventArgs e)
         {
-            _tiposDePago = _tipoDePagoServicio.GetTipoDePago();
-            MostrarDatosEnGrilla();
+            try
+            {
+                _tiposDePago = _tipoDePagoServicio.GetTipoDePago();
+                MostrarDatosEnGrilla();
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message, "Error",
+                                    MessageBoxButtons.OK,
+                                    MessageBoxIcon.Error);
+            }
         }
         private void MostrarDatosEnGrilla()
         {
             GridHelper.LimpiarGrilla(dgvFormasDePago);
-            foreach (TipoDePago tipoDePago in _tiposDePago)
+            foreach (FormaDePago tipoDePago in _tiposDePago)
             {
                 var r = GridHelper.ConstruirFila(dgvFormasDePago);
 
                 GridHelper.SetearFila(r, tipoDePago);
                 GridHelper.AgregarFila(r, dgvFormasDePago);
             }
-            //dgvFormasDePago.Rows.Clear();
-            //foreach (TipoDePago tipoDePago in _tiposDePago)
-            //{
-
-            //    DataGridViewRow r = new DataGridViewRow();
-            //    r.CreateCells(dgvFormasDePago);
-            //    SetearFila(r, tipoDePago);
-            //    AgregarFila(r);
-            //}
         }
 
-        private void AgregarFila(DataGridViewRow r)
-        {
-            dgvFormasDePago.Rows.Add(r);
-        }
-
-        private void SetearFila(DataGridViewRow r, TipoDePago tipoDePago)
-        {
-            r.Cells[0].Value = tipoDePago.FormaDePagoId;
-            r.Cells[1].Value = tipoDePago.Descripcion;
-            r.Tag = tipoDePago;
-        }
 
 
         private void btnCerrar_Click_1(object sender, EventArgs e)
@@ -76,21 +56,27 @@ namespace Bombones2025.Windows
             FrmFormasDePagoAE frm = new FrmFormasDePagoAE() { Text = "Nueva Forma de Pago" };
             DialogResult dr = frm.ShowDialog(this);
             if (dr == DialogResult.Cancel) return;
-            TipoDePago? tipoDePago = frm.GetTipoDePago();
+            FormaDePago? tipoDePago = frm.GetTipoDePago();
             if (tipoDePago == null) return;
-            if (!_tipoDePagoServicio.Existe(tipoDePago))
+            try
             {
-                _tipoDePagoServicio.Guardar(tipoDePago);
-                DataGridViewRow r = new DataGridViewRow();
-                r.CreateCells(dgvFormasDePago);
-                SetearFila(r, tipoDePago);
-                AgregarFila(r);
+                if (_tipoDePagoServicio.Agregar(tipoDePago, out var errores))
+                {
 
-                MessageBox.Show("Tipo de Pago Agregado", "Mensaje", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                    DataGridViewRow r = GridHelper.ConstruirFila(dgvFormasDePago);
+                    GridHelper.SetearFila(r, tipoDePago);
+                    GridHelper.AgregarFila(r, dgvFormasDePago);
+                    MessageBox.Show("Forma de pago Agregado", "Mensaje", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                }
+                else
+                {
+                    MessageBox.Show(errores.First(), "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                }
             }
-            else
+            catch (Exception ex)
             {
-                MessageBox.Show("Tipo de Pago Existente", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+
+                throw new Exception(ex.Message, ex);
             }
         }
 
@@ -101,16 +87,24 @@ namespace Bombones2025.Windows
                 return;
             }
             var r = dgvFormasDePago.SelectedRows[0];
-            TipoDePago tipoDePagoBorrar = (TipoDePago)r.Tag!;
-            DialogResult dr = MessageBox.Show($"¿Desea Borrar el tipo de pago {tipoDePagoBorrar}",
+            FormaDePago tipoDePagoBorrar = (FormaDePago)r.Tag!;
+            DialogResult dr = MessageBox.Show($"¿Desea Borrar la forma de pago {tipoDePagoBorrar}",
                 "Confirmar Eliminacion", MessageBoxButtons.YesNo, MessageBoxIcon.Question,
                 MessageBoxDefaultButton.Button2);
             if (dr == DialogResult.No) return;
             try
             {
-                _tipoDePagoServicio.Borrar(tipoDePagoBorrar.FormaDePagoId);
-                dgvFormasDePago.Rows.Remove(r);
-                MessageBox.Show("Tipo de Pago Eliminado");
+                if (_tipoDePagoServicio.Borrar(tipoDePagoBorrar.FormaDePagoId, out var errores))
+                {
+                    GridHelper.QuitarFila(r, dgvFormasDePago);
+                    MessageBox.Show("Forma de pago Eliminado");
+                }
+                else
+                {
+                    MessageBox.Show(errores.First(), "Error"
+                        , MessageBoxButtons.OK, MessageBoxIcon.Error);
+                }
+
             }
             catch (Exception ex)
             {
@@ -126,30 +120,29 @@ namespace Bombones2025.Windows
                 return;
             }
             var r = dgvFormasDePago.SelectedRows[0];
-            TipoDePago? tipoDePago = (TipoDePago)r.Tag!;
+            FormaDePago? tipoDePago = (FormaDePago)r.Tag!;
             if (tipoDePago == null) return;
-            TipoDePago? tipoPagoEditar = tipoDePago.Clonar();
-            FrmFormasDePagoAE frm = new FrmFormasDePagoAE() { Text = "Editar Tipo de Pago" };
-            frm.SetTipoDePago(tipoPagoEditar);
+            FormaDePago? tipoDePagoEdit = tipoDePago.Clonar();
+            FrmFormasDePagoAE frm = new FrmFormasDePagoAE() { Text = "Editar Forma de Pago" };
+            frm.SetTipoDePago(tipoDePagoEdit);
             DialogResult dr = frm.ShowDialog(this);
             if (dr == DialogResult.Cancel) return;
-            tipoPagoEditar = frm.GetTipoDePago();
-            if (tipoPagoEditar == null) return;
+            tipoDePagoEdit = frm.GetTipoDePago();
+            if (tipoDePagoEdit == null) return;
 
             try
             {
-                if (!_tipoDePagoServicio.Existe(tipoPagoEditar))
+                if (_tipoDePagoServicio.Editar(tipoDePagoEdit, out var errores))
                 {
-                    _tipoDePagoServicio.Guardar(tipoPagoEditar);
-                    SetearFila(r, tipoPagoEditar);
+                    GridHelper.SetearFila(r, tipoDePagoEdit);
 
-                    MessageBox.Show("Tipo de Pago Modificado", "Mensaje",
+                    MessageBox.Show("Tipo de pago Modificado", "Mensaje",
                         MessageBoxButtons.OK,
                         MessageBoxIcon.Information);
                 }
                 else
                 {
-                    MessageBox.Show("Tipo de Pago Existente", "Error",
+                    MessageBox.Show(errores.First(), "Error",
                         MessageBoxButtons.OK,
                         MessageBoxIcon.Error);
                 }
@@ -206,6 +199,6 @@ namespace Bombones2025.Windows
             }
         }
 
-        
+
     }
 }

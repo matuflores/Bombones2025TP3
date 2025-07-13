@@ -45,7 +45,7 @@ namespace Bombones2025.Windows.Helpers
                     r.Cells[1].Value = frutoSeco.Descripcion;
                     break;
 
-                case TipoDePago tipoDePago:
+                case FormaDePago tipoDePago:
                     r.Cells[0].Value=tipoDePago.FormaDePagoId;
                     r.Cells[1].Value = tipoDePago.Descripcion;
                     break;

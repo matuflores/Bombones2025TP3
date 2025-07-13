@@ -29,8 +29,17 @@ namespace Bombones2025.Windows
 
         private void FrmFrutosSecos_Load(object sender, EventArgs e)
         {
-            _frutosSecos = _frutoSecoServicio.GetFrutoSecos();
-            MostrarDatosEnGrilla();
+            try
+            {
+                _frutosSecos = _frutoSecoServicio.GetFrutoSeco();
+                MostrarDatosEnGrilla();
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message, "Error",
+                    MessageBoxButtons.OK,
+                    MessageBoxIcon.Error);
+            }
         }
 
         private void MostrarDatosEnGrilla()
@@ -148,7 +157,7 @@ namespace Bombones2025.Windows
                 if (textoParaFiltrar is null) return;
                 try
                 {
-                    _frutosSecos = _frutoSecoServicio.Filtrar(textoParaFiltrar);
+                    _frutosSecos = _frutoSecoServicio.GetFrutoSeco(textoParaFiltrar);
                     MostrarDatosEnGrilla();
                     btnFiltrar.Image = Resources.FILTRO40;
                     filtrarOn = true;
@@ -173,7 +182,7 @@ namespace Bombones2025.Windows
             {
                 filtrarOn = false;
                 btnFiltrar.Image = Resources.FILTRO40;
-                _frutosSecos = _frutoSecoServicio.GetFrutoSecos();
+                _frutosSecos = _frutoSecoServicio.GetFrutoSeco();
                 MostrarDatosEnGrilla();
             }
             catch (Exception ex)

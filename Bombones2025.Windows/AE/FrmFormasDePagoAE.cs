@@ -17,7 +17,7 @@ namespace Bombones2025.Windows.AE
         {
             InitializeComponent();
         }
-        private TipoDePago? tipoDePago;
+        private FormaDePago? tipoDePago;
 
         protected override void OnLoad(EventArgs e)
         {
@@ -28,12 +28,12 @@ namespace Bombones2025.Windows.AE
             }
         }
 
-        public TipoDePago? GetTipoDePago()
+        public FormaDePago? GetTipoDePago()
         {
             return tipoDePago;
         }
 
-        public void SetTipoDePago(TipoDePago tipoPago)
+        public void SetTipoDePago(FormaDePago tipoPago)
         {
             this.tipoDePago = tipoPago;
         }
@@ -58,7 +58,7 @@ namespace Bombones2025.Windows.AE
             {
                 if (tipoDePago == null)
                 {
-                    tipoDePago = new TipoDePago();
+                    tipoDePago = new FormaDePago();
                 }
                 tipoDePago.Descripcion = textBoxFormaPago.Text;
                 DialogResult = DialogResult.OK;
@@ -69,5 +69,6 @@ namespace Bombones2025.Windows.AE
         {
             DialogResult = DialogResult.Cancel;
         }
+
     }
 }
