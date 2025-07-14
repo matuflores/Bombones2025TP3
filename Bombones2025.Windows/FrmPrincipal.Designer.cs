@@ -37,6 +37,7 @@
             toolStripUserLogin = new ToolStripStatusLabel();
             btnOFF = new Button();
             btnFormasDePagos = new Button();
+            btnProvEst = new Button();
             statusStrip1.SuspendLayout();
             SuspendLayout();
             // 
@@ -128,12 +129,23 @@
             btnFormasDePagos.UseVisualStyleBackColor = true;
             btnFormasDePagos.Click += btnFormasDePagos_Click;
             // 
+            // btnProvEst
+            // 
+            btnProvEst.Location = new Point(263, 181);
+            btnProvEst.Margin = new Padding(3, 2, 3, 2);
+            btnProvEst.Name = "btnProvEst";
+            btnProvEst.Size = new Size(88, 38);
+            btnProvEst.TabIndex = 7;
+            btnProvEst.Text = "Provincias Estados";
+            btnProvEst.UseVisualStyleBackColor = true;
+            // 
             // FrmPrincipal
             // 
             AutoScaleDimensions = new SizeF(7F, 15F);
             AutoScaleMode = AutoScaleMode.Font;
             ClientSize = new Size(422, 302);
             ControlBox = false;
+            Controls.Add(btnProvEst);
             Controls.Add(btnFormasDePagos);
             Controls.Add(btnOFF);
             Controls.Add(statusStrip1);
@@ -162,5 +174,6 @@
         private ToolStripStatusLabel toolStripUserLogin;
         private Button btnOFF;
         private Button btnFormasDePagos;
+        private Button btnProvEst;
     }
 }
