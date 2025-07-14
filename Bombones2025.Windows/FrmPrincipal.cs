@@ -77,10 +77,12 @@ namespace Bombones2025.Windows
 
         private void btnProvEst_Click(object sender, EventArgs e)
         {
-            IProvinciaEstadoServicio servicio = AppServices.ServiceProvider!
+            IProvinciaEstadoServicio provEstadoServicio = AppServices.ServiceProvider!
                 .GetRequiredService<IProvinciaEstadoServicio>();
+            IPaisServicio paisServicio = AppServices.ServiceProvider!
+                .GetRequiredService<IPaisServicio>();
             //aca luego del NEW el FRM me tiraba error lo corregi del LOAD en el codigo del FRM
-            FrmProvinciasEstados frm = new FrmProvinciasEstados(servicio) { Text = "Listado de Provincias/Estados" };
+            FrmProvinciasEstados frm = new FrmProvinciasEstados(provEstadoServicio,paisServicio) { Text = "Listado de Provincias/Estados" };
             frm.ShowDialog();
         }
     }

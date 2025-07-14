@@ -1,5 +1,6 @@
 ﻿using Bombones2025.Entidades;
 using Bombones2025.Servicios.Interfaces;
+using Bombones2025.Servicios.Servicios;
 using Bombones2025.Windows.Helpers;
 using System;
 using System.Collections.Generic;
@@ -16,11 +17,13 @@ namespace Bombones2025.Windows
     public partial class FrmProvinciasEstados : Form
     {
         private readonly IProvinciaEstadoServicio _provinciaEstadoServicio;
+        private readonly IPaisServicio _paisServicio;
         private List<ProvinciaEstado>? _provinciaEstados;
-        public FrmProvinciasEstados(IProvinciaEstadoServicio provinciaEstadoServicio)
+        public FrmProvinciasEstados(IProvinciaEstadoServicio provinciaEstadoServicio, IPaisServicio paisServicio)
         {
             InitializeComponent();
             _provinciaEstadoServicio = provinciaEstadoServicio;
+            _paisServicio = paisServicio;
         }
 
         private void btnCerrar_Click(object sender, EventArgs e)
@@ -54,6 +57,12 @@ namespace Bombones2025.Windows
                 GridHelper.SetearFila(r, provinciaEstado);
                 GridHelper.AgregarFila(r, dgvProvEst);
             }
+        }
+
+        private void paisToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            FrmFiltroPorPais frm = new FrmFiltroPorPais(_paisServicio);
+            DialogResult dr= frm.ShowDialog(this);
         }
     }
 }

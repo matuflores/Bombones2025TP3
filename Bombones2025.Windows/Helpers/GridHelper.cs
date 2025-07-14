@@ -53,7 +53,8 @@ namespace Bombones2025.Windows.Helpers
                 case ProvinciaEstado provinciaEstado:
                     r.Cells[0].Value = provinciaEstado.ProvinciaEstadoId;
                     r.Cells[1].Value = provinciaEstado.NombreProvinciaEstado;
-                    r.Cells[2].Value = provinciaEstado.PaisId;
+                    //r.Cells[2].Value = provinciaEstado.PaisId;
+                    r.Cells[2].Value = provinciaEstado.Pais!.NombrePais;
                     break;
             }
             r.Tag = obj;

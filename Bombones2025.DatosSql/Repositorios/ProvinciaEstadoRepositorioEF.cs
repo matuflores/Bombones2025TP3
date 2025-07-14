@@ -1,5 +1,6 @@
 ﻿using Bombones2025.DatosSql.Interfaces;
 using Bombones2025.Entidades;
+using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -19,7 +20,11 @@ namespace Bombones2025.DatosSql.Repositorios
 
         public List<ProvinciaEstado> GetProvinciaEstados()
         {
-            return _dbContext.ProvinciasEstados.ToList();
+            return _dbContext.ProvinciasEstados
+                .Include(p=>p.Pais)//esto hace que pueda acceder al Pais, de aca modifico en el GridHelper
+                .AsNoTracking()
+                .ToList();
+
         }
     }
 }
