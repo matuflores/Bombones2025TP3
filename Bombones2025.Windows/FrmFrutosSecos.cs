@@ -96,7 +96,7 @@ namespace Bombones2025.Windows
             {
                 _frutoSecoServicio.Borrar(frutoSecoBorrar.FrutoSecoId);
                 GridHelper.QuitarFila(r, dgvFrutosSecos);
-                MessageBox.Show("Pais Eliminado");
+                MessageBox.Show("Fruto Seco Eliminado");
             }
             catch (Exception ex)
             {
