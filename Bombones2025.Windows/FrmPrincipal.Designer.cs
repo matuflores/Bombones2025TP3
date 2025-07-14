@@ -138,6 +138,7 @@
             btnProvEst.TabIndex = 7;
             btnProvEst.Text = "Provincias Estados";
             btnProvEst.UseVisualStyleBackColor = true;
+            btnProvEst.Click += btnProvEst_Click;
             // 
             // FrmPrincipal
             // 

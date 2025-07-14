@@ -1,5 +1,6 @@
 ﻿using Bombones2025.Entidades;
 using Bombones2025.Infraestructura;
+using Bombones2025.Servicios.Interfaces;
 using Bombones2025.Servicios.Servicios;
 using Microsoft.Extensions.DependencyInjection;
 using System;
@@ -25,7 +26,7 @@ namespace Bombones2025.Windows
         private void btnPais_Click(object sender, EventArgs e)
         {
             //PaisServicio servicio = new PaisServicio();
-            IPaisServicio servicio=AppServices.ServiceProvider!
+            IPaisServicio servicio = AppServices.ServiceProvider!
                 .GetRequiredService<IPaisServicio>();
             FrmPaises frm = new FrmPaises(servicio) { Text = "Listado de Paises" };
             frm.ShowDialog();
@@ -42,7 +43,7 @@ namespace Bombones2025.Windows
 
         private void btnFrutosSecos_Click(object sender, EventArgs e)
         {
-            IFrutoSecoServicio servicio =AppServices.ServiceProvider!
+            IFrutoSecoServicio servicio = AppServices.ServiceProvider!
                 .GetRequiredService<IFrutoSecoServicio>();
             FrmFrutosSecos frm = new FrmFrutosSecos(servicio) { Text = "Listado de Frutos Secos" };
             frm.ShowDialog();
@@ -71,6 +72,15 @@ namespace Bombones2025.Windows
             ITipoDePagoServicio servicio = AppServices.ServiceProvider!
                 .GetRequiredService<ITipoDePagoServicio>();
             FrmFormasDePago frm = new FrmFormasDePago(servicio) { Text = "Listado de Formas de Pago" };
+            frm.ShowDialog();
+        }
+
+        private void btnProvEst_Click(object sender, EventArgs e)
+        {
+            IProvinciaEstadoServicio servicio = AppServices.ServiceProvider!
+                .GetRequiredService<IProvinciaEstadoServicio>();
+            //aca luego del NEW el FRM me tiraba error lo corregi del LOAD en el codigo del FRM
+            FrmProvinciasEstados frm = new FrmProvinciasEstados(servicio) { Text = "Listado de Provincias/Estados" };
             frm.ShowDialog();
         }
     }

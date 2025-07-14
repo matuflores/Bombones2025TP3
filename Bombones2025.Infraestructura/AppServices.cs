@@ -1,6 +1,8 @@
 ﻿using Bombones2025.DatosSql;
+using Bombones2025.DatosSql.Interfaces;
 using Bombones2025.DatosSql.Repositorios;
 using Bombones2025.DatosSql.RepositoriosSINUSO;
+using Bombones2025.Servicios.Interfaces;
 using Bombones2025.Servicios.Servicios;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.DependencyInjection;
@@ -40,6 +42,7 @@ namespace Bombones2025.Infraestructura
             services.AddScoped<IRellenoRepositorio, RellenoRepositorioEF>();
             services.AddScoped<ITipoDePagoRepositorio, FormaDePagoRepositorioEF>();
             services.AddScoped<IUsuarioRepositorio, UsuarioRepositorio>();
+            services.AddScoped<IProvinciaEstadoRepositorio, ProvinciaEstadoRepositorioEF>();
 
             services.AddScoped<IPaisServicio, PaisServicio>();
             services.AddScoped<IChocolateServicio, ChocolateServicio>();
@@ -47,6 +50,7 @@ namespace Bombones2025.Infraestructura
             services.AddScoped<IRellenoServicio, RellenoServicio>();
             services.AddScoped<ITipoDePagoServicio, TipoDePagoServicio>();
             services.AddScoped<IUsuarioServicio, UsuarioServicio>();
+            services.AddScoped<IProvinciaEstadoServicio, ProvinciaEstadoServicio>();
 
             _serviceProvider = services.BuildServiceProvider();
             //defino una conexion de servicios, luego creo un proveedor de servicios

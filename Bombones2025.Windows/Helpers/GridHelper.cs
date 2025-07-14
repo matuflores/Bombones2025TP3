@@ -49,6 +49,12 @@ namespace Bombones2025.Windows.Helpers
                     r.Cells[0].Value=tipoDePago.FormaDePagoId;
                     r.Cells[1].Value = tipoDePago.Descripcion;
                     break;
+
+                case ProvinciaEstado provinciaEstado:
+                    r.Cells[0].Value = provinciaEstado.ProvinciaEstadoId;
+                    r.Cells[1].Value = provinciaEstado.NombreProvinciaEstado;
+                    r.Cells[2].Value = provinciaEstado.PaisId;
+                    break;
             }
             r.Tag = obj;
 
