@@ -49,7 +49,9 @@ namespace Bombones2025.Windows.AE
                 _provinciaEstado.NombreProvinciaEstado = textBoxProvEst.Text;
                 _provinciaEstado.PaisId = (int)cbPaisProvEst.SelectedValue!;
                 //aca le paso el PAIS id, pero tengo que mostrar el nombre en la grilla
-                _provinciaEstado.Pais=(Pais)cbPaisProvEst.SelectedItem!;
+                
+                
+                //_provinciaEstado.Pais=(Pais)cbPaisProvEst.SelectedItem!;
                 DialogResult = DialogResult.OK;
             }
         }

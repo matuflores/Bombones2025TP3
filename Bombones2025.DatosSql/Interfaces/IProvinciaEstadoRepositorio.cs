@@ -11,5 +11,6 @@ namespace Bombones2025.DatosSql.Interfaces
     {
         List<ProvinciaEstado> GetProvinciaEstados(int? paisId=null, string? textoFiltro=null);
         void Agregar(ProvinciaEstado provinciaEstado);
+        ProvinciaEstado? GetById(int provinciaEstadoId);
     }
 }

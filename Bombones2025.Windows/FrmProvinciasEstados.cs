@@ -150,9 +150,9 @@ namespace Bombones2025.Windows
             {
                 if (_provinciaEstadoServicio.Guardar(provinciaEstado, out var errores))//(_provinciaEstadoServicio.Existe(provinciaEstado))
                 {
-
+                    ProvinciaEstado? peAgregado = _provinciaEstadoServicio.GetById(provinciaEstado.ProvinciaEstadoId);
                     DataGridViewRow r = GridHelper.ConstruirFila(dgvProvEst);
-                    GridHelper.SetearFila(r, provinciaEstado);
+                    GridHelper.SetearFila(r, peAgregado!);
                     GridHelper.AgregarFila(r, dgvProvEst);
                     MessageBox.Show("Provincia/Estado Agregado", "Mensaje", MessageBoxButtons.OK, MessageBoxIcon.Information);
                 }

@@ -21,13 +21,21 @@ namespace Bombones2025.DatosSql.Repositorios
         public void Agregar(ProvinciaEstado provinciaEstado)
         {
             _dbContext.ProvinciasEstados.Add(provinciaEstado);
-            //_dbContext.ProvinciasEstados.AsNoTracking();
             _dbContext.SaveChanges();
+        }
+
+        public ProvinciaEstado? GetById(int provinciaEstadoId)
+        {
+            return _dbContext.ProvinciasEstados
+                .Include(pe=>pe.Pais)
+                .AsNoTracking()
+                .FirstOrDefault(pe => pe.ProvinciaEstadoId == provinciaEstadoId);
         }
 
         public List<ProvinciaEstado> GetProvinciaEstados(int? paisId = null, string? textoFiltro=null )
         {
             //si viene un paisId tengo que filtrar, IQueryable es una interfaz que me permite ir armando el query por partes
+            
             IQueryable<ProvinciaEstado> query = _dbContext.ProvinciasEstados
                 .Include(p => p.Pais).AsNoTracking();
 
