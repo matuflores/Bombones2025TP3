@@ -10,5 +10,7 @@ namespace Bombones2025.Servicios.Servicios
         List<Pais> GetPais(string? textoParaFiltrar=null);
         bool Agregar(Pais pais, out List<string> errores);
         bool Editar(Pais pais, out List<string> errores);
+
+        //bool EstaRelacionado(int paisId);
     }
 }

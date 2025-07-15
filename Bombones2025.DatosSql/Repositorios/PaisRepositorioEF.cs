@@ -43,6 +43,12 @@ namespace Bombones2025.DatosSql.Repositorios
             _dbContext.SaveChanges();
         }
 
+        public bool EstaRelacionado(int paisId)
+        {//me fijo si hay alguna provincia que tenga el paisId que le paso
+            //si esto da verdadero ANY devuelve un bool
+            return _dbContext.ProvinciasEstados.Any(pe=>pe.PaisId==paisId);
+        }
+
         public bool Existe(Pais pais)
         {
             return pais.PaisId==0?

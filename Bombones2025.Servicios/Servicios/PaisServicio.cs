@@ -45,7 +45,13 @@ namespace Bombones2025.Servicios.Servicios
 
         public bool Borrar(int paisId, out List<string> errores)
         {
-            errores=new List<string>();
+            errores = new List<string>();
+            if (_paisRepositorio.EstaRelacionado(paisId))
+            {
+                errores.Add("Pais con registros relacionados");
+                return false;
+            }
+            
             _paisRepositorio.Borrar(paisId);
             return true;
         }
@@ -60,6 +66,11 @@ namespace Bombones2025.Servicios.Servicios
             }
             _paisRepositorio.Editar(pais);
             return true;
+        }
+
+        public bool EstaRelacionado(int paisId)
+        {
+            throw new NotImplementedException();
         }
 
         //public bool Existe(Pais pais)

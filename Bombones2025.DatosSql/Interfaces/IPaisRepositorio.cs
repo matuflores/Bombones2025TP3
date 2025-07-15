@@ -9,7 +9,7 @@ namespace Bombones2025.DatosSql.Repositorios
         void Editar(Pais pais);
         bool Existe(Pais pais);
         List<Pais> GetPais(string? textoParaFiltrar=null);
-
         int GetCantidad();
+        bool EstaRelacionado(int paisId);
     }
 }
