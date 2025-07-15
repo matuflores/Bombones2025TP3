@@ -17,9 +17,9 @@ namespace Bombones2025.Servicios.Servicios
         {
             _provinciaEstadoRepositorio = provinciaEstadoRepositorio;
         }
-        public List<ProvinciaEstado> GetProvinciaEstado()
+        public List<ProvinciaEstado> GetProvinciaEstado(int? paisId = null, string? textoFiltro = null)
         {
-            return _provinciaEstadoRepositorio.GetProvinciaEstados();
+            return _provinciaEstadoRepositorio.GetProvinciaEstados(paisId,textoFiltro);
         }
     }
 }

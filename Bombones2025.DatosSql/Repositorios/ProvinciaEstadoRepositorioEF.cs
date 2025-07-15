@@ -18,12 +18,30 @@ namespace Bombones2025.DatosSql.Repositorios
             _dbContext = dbContext;
         }
 
-        public List<ProvinciaEstado> GetProvinciaEstados()
+        public List<ProvinciaEstado> GetProvinciaEstados(int? paisId = null, string? textoFiltro=null )
         {
-            return _dbContext.ProvinciasEstados
-                .Include(p=>p.Pais)//esto hace que pueda acceder al Pais, de aca modifico en el GridHelper
-                .AsNoTracking()
-                .ToList();
+            //si viene un paisId tengo que filtrar, IQueryable es una interfaz que me permite ir armando el query por partes
+            IQueryable<ProvinciaEstado> query = _dbContext.ProvinciasEstados
+                .Include(p => p.Pais).AsNoTracking();
+
+            if (paisId.HasValue)
+            {
+                query = query.Where(p => p.PaisId == paisId.Value);
+            }
+            if (!string.IsNullOrEmpty(textoFiltro))//si aca no niego "!" al cargar la grilla no me trae ninguna Prov/Est
+            {
+                query = query.Where(p => p.Pais!.NombrePais.Contains(textoFiltro)||
+                p.NombreProvinciaEstado.Contains(textoFiltro));
+            }
+            return query.ToList();//recien aca ejecuta la consulta
+
+            //return _dbContext.ProvinciasEstados
+            //    .Include(p=>p.Pais)//esto hace que pueda acceder al Pais, de aca modifico en el GridHelper
+            //    .AsNoTracking()
+            //    .ToList();
+
+            //return paisId.HasValue ? query.Where(p => p.PaisId == paisId.Value).ToList():query.ToList();
+            //TIENE VALOR EL ID ENTONCES AGARRO ESE VALOR FILTRO Y ARMO LA LISTA, SI NO AGARRO EL QUERY Y EJECUTO LA LISTA
 
         }
     }

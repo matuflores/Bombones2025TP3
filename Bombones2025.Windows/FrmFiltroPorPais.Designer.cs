@@ -28,10 +28,13 @@
         /// </summary>
         private void InitializeComponent()
         {
+            components = new System.ComponentModel.Container();
             labelPais = new Label();
             btnCancel = new Button();
             btnOk = new Button();
             cbPaises = new ComboBox();
+            errorProvider1 = new ErrorProvider(components);
+            ((System.ComponentModel.ISupportInitialize)errorProvider1).BeginInit();
             SuspendLayout();
             // 
             // labelPais
@@ -67,6 +70,7 @@
             btnOk.Text = "OK";
             btnOk.TextImageRelation = TextImageRelation.ImageAboveText;
             btnOk.UseVisualStyleBackColor = true;
+            btnOk.Click += btnOk_Click;
             // 
             // cbPaises
             // 
@@ -75,6 +79,11 @@
             cbPaises.Name = "cbPaises";
             cbPaises.Size = new Size(262, 23);
             cbPaises.TabIndex = 11;
+            cbPaises.SelectedIndexChanged += cbPaises_SelectedIndexChanged;
+            // 
+            // errorProvider1
+            // 
+            errorProvider1.ContainerControl = this;
             // 
             // FrmFiltroPorPais
             // 
@@ -88,6 +97,7 @@
             Name = "FrmFiltroPorPais";
             StartPosition = FormStartPosition.CenterScreen;
             Text = "FrmFiltroPorPais";
+            ((System.ComponentModel.ISupportInitialize)errorProvider1).EndInit();
             ResumeLayout(false);
             PerformLayout();
         }
@@ -98,5 +108,6 @@
         private Button btnCancel;
         private Button btnOk;
         private ComboBox cbPaises;
+        private ErrorProvider errorProvider1;
     }
 }

@@ -37,5 +37,34 @@ namespace Bombones2025.Windows
         {
             DialogResult = DialogResult.Cancel;
         }
+
+        private void btnOk_Click(object sender, EventArgs e)
+        {
+            if (ValidarDatos())
+            {
+                DialogResult = DialogResult.OK;
+            }
+        }
+
+        private bool ValidarDatos()
+        {
+            bool valido = true;
+            errorProvider1.Clear();
+            if (cbPaises.SelectedIndex == 0)
+            {
+                valido = false;
+                errorProvider1.SetError(cbPaises, "Debe seleccionar un pais");
+                return valido;
+            }
+            return valido;
+        }
+
+        private void cbPaises_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            paisFiltro=cbPaises.SelectedIndex>0?(Pais)cbPaises.SelectedItem!
+                : null;
+            //seleccione un pais le doy el pais seleccionado si no selecciono nada le pongo nulo
+
+        }
     }
 }

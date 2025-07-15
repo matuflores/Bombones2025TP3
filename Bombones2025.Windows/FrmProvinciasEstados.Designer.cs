@@ -28,7 +28,7 @@
         /// </summary>
         private void InitializeComponent()
         {
-            DataGridViewCellStyle dataGridViewCellStyle2 = new DataGridViewCellStyle();
+            DataGridViewCellStyle dataGridViewCellStyle1 = new DataGridViewCellStyle();
             splitContainer1 = new SplitContainer();
             dgvProvEst = new DataGridView();
             ProvinciaEstadoId = new DataGridViewTextBoxColumn();
@@ -39,13 +39,13 @@
             btnBorrar = new ToolStripButton();
             btnEditar = new ToolStripButton();
             toolStripSeparator1 = new ToolStripSeparator();
+            btnFiltrar = new ToolStripDropDownButton();
+            textoToolStripMenuItem = new ToolStripMenuItem();
+            paisToolStripMenuItem = new ToolStripMenuItem();
             btnRefresh = new ToolStripButton();
             toolStripSeparator2 = new ToolStripSeparator();
             btnPrint = new ToolStripButton();
             btnCerrar = new ToolStripButton();
-            btnFiltrar = new ToolStripDropDownButton();
-            textoToolStripMenuItem = new ToolStripMenuItem();
-            paisToolStripMenuItem = new ToolStripMenuItem();
             ((System.ComponentModel.ISupportInitialize)splitContainer1).BeginInit();
             splitContainer1.Panel1.SuspendLayout();
             splitContainer1.SuspendLayout();
@@ -72,8 +72,8 @@
             // 
             dgvProvEst.AllowUserToAddRows = false;
             dgvProvEst.AllowUserToDeleteRows = false;
-            dataGridViewCellStyle2.BackColor = Color.Silver;
-            dgvProvEst.AlternatingRowsDefaultCellStyle = dataGridViewCellStyle2;
+            dataGridViewCellStyle1.BackColor = Color.Silver;
+            dgvProvEst.AlternatingRowsDefaultCellStyle = dataGridViewCellStyle1;
             dgvProvEst.ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             dgvProvEst.Columns.AddRange(new DataGridViewColumn[] { ProvinciaEstadoId, NombreProvinciaEstado, Pais });
             dgvProvEst.Dock = DockStyle.Fill;
@@ -156,6 +156,31 @@
             toolStripSeparator1.Name = "toolStripSeparator1";
             toolStripSeparator1.Size = new Size(6, 62);
             // 
+            // btnFiltrar
+            // 
+            btnFiltrar.DropDownItems.AddRange(new ToolStripItem[] { textoToolStripMenuItem, paisToolStripMenuItem });
+            btnFiltrar.Image = Properties.Resources.FILTRO40;
+            btnFiltrar.ImageScaling = ToolStripItemImageScaling.None;
+            btnFiltrar.ImageTransparentColor = Color.Magenta;
+            btnFiltrar.Name = "btnFiltrar";
+            btnFiltrar.Size = new Size(63, 59);
+            btnFiltrar.Text = "FILTRAR";
+            btnFiltrar.TextImageRelation = TextImageRelation.ImageAboveText;
+            // 
+            // textoToolStripMenuItem
+            // 
+            textoToolStripMenuItem.Name = "textoToolStripMenuItem";
+            textoToolStripMenuItem.Size = new Size(180, 22);
+            textoToolStripMenuItem.Text = "Texto";
+            textoToolStripMenuItem.Click += textoToolStripMenuItem_Click;
+            // 
+            // paisToolStripMenuItem
+            // 
+            paisToolStripMenuItem.Name = "paisToolStripMenuItem";
+            paisToolStripMenuItem.Size = new Size(180, 22);
+            paisToolStripMenuItem.Text = "Pais";
+            paisToolStripMenuItem.Click += paisToolStripMenuItem_Click;
+            // 
             // btnRefresh
             // 
             btnRefresh.Image = Properties.Resources.REFRESH40;
@@ -165,6 +190,7 @@
             btnRefresh.Size = new Size(58, 59);
             btnRefresh.Text = "REFRESH";
             btnRefresh.TextImageRelation = TextImageRelation.ImageAboveText;
+            btnRefresh.Click += btnRefresh_Click;
             // 
             // toolStripSeparator2
             // 
@@ -191,30 +217,6 @@
             btnCerrar.Text = "CERRAR";
             btnCerrar.TextImageRelation = TextImageRelation.ImageAboveText;
             btnCerrar.Click += btnCerrar_Click;
-            // 
-            // btnFiltrar
-            // 
-            btnFiltrar.DropDownItems.AddRange(new ToolStripItem[] { textoToolStripMenuItem, paisToolStripMenuItem });
-            btnFiltrar.Image = Properties.Resources.FILTRO40;
-            btnFiltrar.ImageScaling = ToolStripItemImageScaling.None;
-            btnFiltrar.ImageTransparentColor = Color.Magenta;
-            btnFiltrar.Name = "btnFiltrar";
-            btnFiltrar.Size = new Size(63, 59);
-            btnFiltrar.Text = "FILTRAR";
-            btnFiltrar.TextImageRelation = TextImageRelation.ImageAboveText;
-            // 
-            // textoToolStripMenuItem
-            // 
-            textoToolStripMenuItem.Name = "textoToolStripMenuItem";
-            textoToolStripMenuItem.Size = new Size(180, 22);
-            textoToolStripMenuItem.Text = "Texto";
-            // 
-            // paisToolStripMenuItem
-            // 
-            paisToolStripMenuItem.Name = "paisToolStripMenuItem";
-            paisToolStripMenuItem.Size = new Size(180, 22);
-            paisToolStripMenuItem.Text = "Pais";
-            paisToolStripMenuItem.Click += paisToolStripMenuItem_Click;
             // 
             // FrmProvinciasEstados
             // 
