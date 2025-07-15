@@ -18,6 +18,13 @@ namespace Bombones2025.DatosSql.Repositorios
             _dbContext = dbContext;
         }
 
+        public void Agregar(ProvinciaEstado provinciaEstado)
+        {
+            _dbContext.ProvinciasEstados.Add(provinciaEstado);
+            //_dbContext.ProvinciasEstados.AsNoTracking();
+            _dbContext.SaveChanges();
+        }
+
         public List<ProvinciaEstado> GetProvinciaEstados(int? paisId = null, string? textoFiltro=null )
         {
             //si viene un paisId tengo que filtrar, IQueryable es una interfaz que me permite ir armando el query por partes

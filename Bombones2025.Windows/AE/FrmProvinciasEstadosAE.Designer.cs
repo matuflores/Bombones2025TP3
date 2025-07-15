@@ -28,12 +28,15 @@
         /// </summary>
         private void InitializeComponent()
         {
+            components = new System.ComponentModel.Container();
             textBoxProvEst = new TextBox();
             labelProvEst = new Label();
             btnCancel = new Button();
             btnOk = new Button();
             labelPaisProvEst = new Label();
             cbPaisProvEst = new ComboBox();
+            errorProvider1 = new ErrorProvider(components);
+            ((System.ComponentModel.ISupportInitialize)errorProvider1).BeginInit();
             SuspendLayout();
             // 
             // textBoxProvEst
@@ -42,7 +45,7 @@
             textBoxProvEst.Margin = new Padding(3, 2, 3, 2);
             textBoxProvEst.Name = "textBoxProvEst";
             textBoxProvEst.Size = new Size(242, 23);
-            textBoxProvEst.TabIndex = 11;
+            textBoxProvEst.TabIndex = 0;
             // 
             // labelProvEst
             // 
@@ -50,7 +53,7 @@
             labelProvEst.Location = new Point(89, 27);
             labelProvEst.Name = "labelProvEst";
             labelProvEst.Size = new Size(99, 15);
-            labelProvEst.TabIndex = 10;
+            labelProvEst.TabIndex = 4;
             labelProvEst.Text = "Provincia/Estado:";
             // 
             // btnCancel
@@ -60,10 +63,11 @@
             btnCancel.Margin = new Padding(3, 2, 3, 2);
             btnCancel.Name = "btnCancel";
             btnCancel.Size = new Size(85, 69);
-            btnCancel.TabIndex = 9;
+            btnCancel.TabIndex = 3;
             btnCancel.Text = "CANCELAR";
             btnCancel.TextImageRelation = TextImageRelation.ImageAboveText;
             btnCancel.UseVisualStyleBackColor = true;
+            btnCancel.Click += btnCancel_Click;
             // 
             // btnOk
             // 
@@ -72,10 +76,11 @@
             btnOk.Margin = new Padding(3, 2, 3, 2);
             btnOk.Name = "btnOk";
             btnOk.Size = new Size(85, 69);
-            btnOk.TabIndex = 8;
+            btnOk.TabIndex = 2;
             btnOk.Text = "OK";
             btnOk.TextImageRelation = TextImageRelation.ImageAboveText;
             btnOk.UseVisualStyleBackColor = true;
+            btnOk.Click += btnOk_Click;
             // 
             // labelPaisProvEst
             // 
@@ -83,7 +88,7 @@
             labelPaisProvEst.Location = new Point(89, 62);
             labelPaisProvEst.Name = "labelPaisProvEst";
             labelPaisProvEst.Size = new Size(31, 15);
-            labelPaisProvEst.TabIndex = 12;
+            labelPaisProvEst.TabIndex = 5;
             labelPaisProvEst.Text = "Pais:";
             // 
             // cbPaisProvEst
@@ -92,7 +97,11 @@
             cbPaisProvEst.Location = new Point(199, 59);
             cbPaisProvEst.Name = "cbPaisProvEst";
             cbPaisProvEst.Size = new Size(242, 23);
-            cbPaisProvEst.TabIndex = 13;
+            cbPaisProvEst.TabIndex = 1;
+            // 
+            // errorProvider1
+            // 
+            errorProvider1.ContainerControl = this;
             // 
             // FrmProvinciasEstadosAE
             // 
@@ -106,7 +115,9 @@
             Controls.Add(btnCancel);
             Controls.Add(btnOk);
             Name = "FrmProvinciasEstadosAE";
+            StartPosition = FormStartPosition.CenterScreen;
             Text = "FrmProvinciasEstadosAE";
+            ((System.ComponentModel.ISupportInitialize)errorProvider1).EndInit();
             ResumeLayout(false);
             PerformLayout();
         }
@@ -119,5 +130,6 @@
         private Button btnOk;
         private Label labelPaisProvEst;
         private ComboBox cbPaisProvEst;
+        private ErrorProvider errorProvider1;
     }
 }

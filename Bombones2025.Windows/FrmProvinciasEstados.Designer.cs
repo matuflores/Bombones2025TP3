@@ -130,6 +130,7 @@
             btnNuevo.Size = new Size(50, 59);
             btnNuevo.Text = "NUEVO";
             btnNuevo.TextImageRelation = TextImageRelation.ImageAboveText;
+            btnNuevo.Click += btnNuevo_Click;
             // 
             // btnBorrar
             // 
@@ -170,14 +171,14 @@
             // textoToolStripMenuItem
             // 
             textoToolStripMenuItem.Name = "textoToolStripMenuItem";
-            textoToolStripMenuItem.Size = new Size(180, 22);
+            textoToolStripMenuItem.Size = new Size(102, 22);
             textoToolStripMenuItem.Text = "Texto";
             textoToolStripMenuItem.Click += textoToolStripMenuItem_Click;
             // 
             // paisToolStripMenuItem
             // 
             paisToolStripMenuItem.Name = "paisToolStripMenuItem";
-            paisToolStripMenuItem.Size = new Size(180, 22);
+            paisToolStripMenuItem.Size = new Size(102, 22);
             paisToolStripMenuItem.Text = "Pais";
             paisToolStripMenuItem.Click += paisToolStripMenuItem_Click;
             // 

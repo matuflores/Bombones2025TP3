@@ -1,6 +1,7 @@
 ﻿using Bombones2025.Entidades;
 using Bombones2025.Servicios.Interfaces;
 using Bombones2025.Servicios.Servicios;
+using Bombones2025.Windows.AE;
 using Bombones2025.Windows.Helpers;
 using Bombones2025.Windows.Properties;
 using System;
@@ -112,7 +113,7 @@ namespace Bombones2025.Windows
             if (!filtrarOn)
             {
                 FrmFiltrar frm = new FrmFiltrar() { Text = "Texto para filtrar Provincia/Estado" };
-                DialogResult dr=frm.ShowDialog(this);
+                DialogResult dr = frm.ShowDialog(this);
                 if (dr == DialogResult.Cancel) return;
                 string? textoFiltro = frm.GetTexto();
                 if (textoFiltro is null) return;
@@ -134,6 +135,36 @@ namespace Bombones2025.Windows
                 MessageBox.Show("Quitar Filtro", "Error",
                         MessageBoxButtons.OK,
                         MessageBoxIcon.Error);
+            }
+        }
+
+        private void btnNuevo_Click(object sender, EventArgs e)
+        {
+            FrmProvinciasEstadosAE frm = new FrmProvinciasEstadosAE(_paisServicio) { Text = "Nueva Provincia/Estado" };
+            DialogResult dr = frm.ShowDialog(this);
+            if (dr == DialogResult.Cancel) return;
+            ProvinciaEstado? provinciaEstado = frm.GetProvinciaEstado();
+            if (provinciaEstado is null) return;
+
+            try
+            {
+                if (_provinciaEstadoServicio.Guardar(provinciaEstado, out var errores))//(_provinciaEstadoServicio.Existe(provinciaEstado))
+                {
+
+                    DataGridViewRow r = GridHelper.ConstruirFila(dgvProvEst);
+                    GridHelper.SetearFila(r, provinciaEstado);
+                    GridHelper.AgregarFila(r, dgvProvEst);
+                    MessageBox.Show("Provincia/Estado Agregado", "Mensaje", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                }
+                else
+                {
+                    MessageBox.Show(errores.First(), "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                }
+            }
+            catch (Exception)
+            {
+
+                throw;
             }
         }
     }
