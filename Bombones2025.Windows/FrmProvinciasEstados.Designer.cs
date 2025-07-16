@@ -141,6 +141,7 @@
             btnBorrar.Size = new Size(56, 59);
             btnBorrar.Text = "BORRAR";
             btnBorrar.TextImageRelation = TextImageRelation.ImageAboveText;
+            btnBorrar.Click += btnBorrar_Click;
             // 
             // btnEditar
             // 
@@ -151,6 +152,7 @@
             btnEditar.Size = new Size(49, 59);
             btnEditar.Text = "EDITAR";
             btnEditar.TextImageRelation = TextImageRelation.ImageAboveText;
+            btnEditar.Click += btnEditar_Click;
             // 
             // toolStripSeparator1
             // 

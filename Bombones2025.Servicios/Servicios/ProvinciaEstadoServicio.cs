@@ -18,6 +18,18 @@ namespace Bombones2025.Servicios.Servicios
             _provinciaEstadoRepositorio = provinciaEstadoRepositorio;
         }
 
+        public bool Borrar(int provinciaEstadoId, out List<string> errores)
+        {
+            errores=new List<string>();
+            if (_provinciaEstadoRepositorio.EstaRelacionado(provinciaEstadoId))
+            {
+                errores.Add("Registro relacionado, no es posible borrar");
+                return false;
+            }
+            _provinciaEstadoRepositorio.Borrar(provinciaEstadoId);
+            return true;
+        }
+
         public ProvinciaEstado? GetById(int provinciaEstadoId)
         {
             return _provinciaEstadoRepositorio.GetById(provinciaEstadoId);
@@ -31,18 +43,18 @@ namespace Bombones2025.Servicios.Servicios
         public bool Guardar(ProvinciaEstado provinciaEstado, out List<string> errores)
         {
             errores=new List<string>();
-            //if (_provinciaEstadoRepositorio.Existe(provinciaEstado))
-            //{
-            //    errores.Add("Provincia existente");
-            //    return false;
-            //}
+            if (_provinciaEstadoRepositorio.Existe(provinciaEstado))
+            {
+                errores.Add("Provincia/Estado existente");
+                return false;
+            }
             if (provinciaEstado.ProvinciaEstadoId==0)
             {
                 _provinciaEstadoRepositorio.Agregar(provinciaEstado);
                 return true;
             }
-            //_provinciaEstadoRepositorio.Editar(provinciaEstado);
-            return false;
+            _provinciaEstadoRepositorio.Editar(provinciaEstado);
+            return true;
         }
     }
 }

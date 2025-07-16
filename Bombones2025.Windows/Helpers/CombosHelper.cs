@@ -18,8 +18,9 @@ namespace Bombones2025.Windows.Helpers
             var defaultPais = new Pais
             {
                 PaisId = 0,
-                NombrePais = "Selecione Pais"
+                NombrePais = "Selecione País"
             };
+            listaPaises.Insert(0, defaultPais);
             cbo.DataSource = listaPaises;
             cbo.DisplayMember = "NombrePais";
             cbo.ValueMember = "PaisId";

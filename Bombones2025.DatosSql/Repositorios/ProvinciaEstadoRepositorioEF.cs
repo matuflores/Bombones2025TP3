@@ -24,6 +24,57 @@ namespace Bombones2025.DatosSql.Repositorios
             _dbContext.SaveChanges();
         }
 
+        public void Borrar(int provinciaEstadoId)
+        {
+            //PRIMER FORMA DE HACERLO
+            //--aca en el get le digo que no este trakeado, trae el obj y si no esta siendo 
+            //--trakeado yo le digo remove y como no lo esta siguiendo no sabe que lo tiene que cambiar
+            var provEstEnDb = GetById(provinciaEstadoId);
+            if (provEstEnDb is not null)
+            {
+                _dbContext.Entry(provEstEnDb).State = EntityState.Deleted;
+                _dbContext.SaveChanges();
+            }
+
+            //SEGUNDA FORMA DE HACERLO
+            //--en el remove tiene que estar siendo trakeado
+            //var provEstEnDb = _dbContext.ProvinciasEstados.Find(provinciaEstadoId);
+            //if (provEstEnDb is not null)
+            //{
+            //    _dbContext.ProvinciasEstados.Remove(provEstEnDb);
+            //    _dbContext.SaveChanges();
+            //}
+        }
+
+        public void Editar(ProvinciaEstado provinciaEstado)
+        {
+            var provEstEnDb=GetById(provinciaEstado.ProvinciaEstadoId);
+            if(provEstEnDb is not null)
+            {
+                //CUANDO QUERIA GUARDAR LA EDICION SALIO UN ERROR QUE SE ME MODIFICABA PERO NO ME 
+                //VOLVIA A MOSTRAR LA LISTA! es porque me esta guardando tambien el PAIS!
+                provEstEnDb.NombreProvinciaEstado = provinciaEstado.NombreProvinciaEstado;
+                provEstEnDb.PaisId=provinciaEstado.PaisId;
+                provEstEnDb.Pais = null;//con esto lo anulo y no se guarda!
+                _dbContext.Entry(provEstEnDb).State=EntityState.Modified;
+                _dbContext.SaveChanges();
+            }
+        }
+
+        public bool EstaRelacionado(int provinciaEstadoId)
+        {
+            //implemento cuando la entidad este relacionado
+            return false;
+        }
+
+        public bool Existe(ProvinciaEstado provinciaEstado)
+        {
+            return provinciaEstado.ProvinciaEstadoId == 0
+                ? _dbContext.ProvinciasEstados.Any(pe => pe.NombreProvinciaEstado == provinciaEstado.NombreProvinciaEstado)
+                : _dbContext.ProvinciasEstados.Any(pe => pe.NombreProvinciaEstado == provinciaEstado.NombreProvinciaEstado
+                && pe.ProvinciaEstadoId != provinciaEstado.ProvinciaEstadoId);
+        }
+
         public ProvinciaEstado? GetById(int provinciaEstadoId)
         {
             return _dbContext.ProvinciasEstados

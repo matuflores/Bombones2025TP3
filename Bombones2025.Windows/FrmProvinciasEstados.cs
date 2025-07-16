@@ -167,5 +167,72 @@ namespace Bombones2025.Windows
                 throw;
             }
         }
+
+        private void btnBorrar_Click(object sender, EventArgs e)
+        {
+            if (dgvProvEst.SelectedRows.Count == 0) return;
+            DataGridViewRow r = dgvProvEst.SelectedRows[0];
+            //ProvinciaEstado? provEstBorrar = (ProvinciaEstado)r.Tag!;
+            ProvinciaEstado? provEstBorrar = r.Tag as ProvinciaEstado;
+            if (provEstBorrar is null) return;
+
+            DialogResult dr = MessageBox.Show($"¿Desea Borrar la Provincia/Estado {provEstBorrar}",
+                "Confirmar Eliminacion", MessageBoxButtons.YesNo, MessageBoxIcon.Question,
+                MessageBoxDefaultButton.Button2);
+
+            if (dr == DialogResult.No) return;
+            try
+            {
+                if (_provinciaEstadoServicio.Borrar(provEstBorrar.ProvinciaEstadoId, out var errores))
+                {
+                    GridHelper.QuitarFila(r, dgvProvEst);
+                    MessageBox.Show("Provincia/Estado Eliminado", "Informacion", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                }
+            }
+            catch (Exception ex)
+            {
+                throw new Exception(ex.Message, ex);
+            }
+        }
+
+        private void btnEditar_Click(object sender, EventArgs e)
+        {
+            if (dgvProvEst.SelectedRows.Count == 0) return;
+            DataGridViewRow r = dgvProvEst.SelectedRows[0];
+            ProvinciaEstado? provinciaEstado = r.Tag as ProvinciaEstado;//(ProvinciaEstado)r.Tag!;
+            if (provinciaEstado == null) return;
+            ProvinciaEstado? provEstEdit = provinciaEstado.Clonar();
+            if (provinciaEstado is null) return;
+            FrmProvinciasEstadosAE frm = new FrmProvinciasEstadosAE(_paisServicio) { Text = "Editar Provincia/Estado" };
+            frm.SetProvinciaEstado(provEstEdit!);
+            DialogResult dr = frm.ShowDialog(this);
+            if (dr == DialogResult.Cancel) return;
+            provEstEdit = frm.GetProvinciaEstado();
+            if (provEstEdit == null) return;
+
+            try
+            {
+                if (_provinciaEstadoServicio.Guardar(provEstEdit, out var errores))
+                {
+                    ProvinciaEstado? provEstEditado = _provinciaEstadoServicio.GetById(provEstEdit.ProvinciaEstadoId);
+                    GridHelper.SetearFila(r, provEstEditado!);
+
+                    MessageBox.Show("Provincia/Estado Modificado", "Mensaje",
+                        MessageBoxButtons.OK,
+                        MessageBoxIcon.Information);
+                }
+                else
+                {
+                    MessageBox.Show(errores.First(), "Error",
+                        MessageBoxButtons.OK,
+                        MessageBoxIcon.Error);
+                }
+            }
+            catch (Exception ex)
+            {
+
+                throw new Exception(ex.Message, ex);
+            }
+        }
     }
 }

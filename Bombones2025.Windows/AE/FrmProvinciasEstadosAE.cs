@@ -1,16 +1,6 @@
 ﻿using Bombones2025.Entidades;
-using Bombones2025.Servicios.Interfaces;
 using Bombones2025.Servicios.Servicios;
 using Bombones2025.Windows.Helpers;
-using System;
-using System.Collections.Generic;
-using System.ComponentModel;
-using System.Data;
-using System.Drawing;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using System.Windows.Forms;
 
 namespace Bombones2025.Windows.AE
 {
@@ -27,6 +17,15 @@ namespace Bombones2025.Windows.AE
         {
             base.OnLoad(e);
             CombosHelper.CargarComboPaises(ref cbPaisProvEst, _paisServicio);
+            if(_provinciaEstado is not null)
+            {
+                textBoxProvEst.Text = _provinciaEstado.NombreProvinciaEstado;
+
+                //Si no me aparece el pais correspondiente a la prov/est es porque el select
+                //no es el que corresponde, antes tenia SELECTEINDEX y no era correcto el pais que
+                //me cargaba el cbPaisProvEst
+                cbPaisProvEst.SelectedValue = _provinciaEstado.PaisId;
+            }
         }
         public ProvinciaEstado? GetProvinciaEstado()
         {
@@ -49,8 +48,8 @@ namespace Bombones2025.Windows.AE
                 _provinciaEstado.NombreProvinciaEstado = textBoxProvEst.Text;
                 _provinciaEstado.PaisId = (int)cbPaisProvEst.SelectedValue!;
                 //aca le paso el PAIS id, pero tengo que mostrar el nombre en la grilla
-                
-                
+
+
                 //_provinciaEstado.Pais=(Pais)cbPaisProvEst.SelectedItem!;
                 DialogResult = DialogResult.OK;
             }
@@ -65,13 +64,18 @@ namespace Bombones2025.Windows.AE
                 valido = false;
                 errorProvider1.SetError(textBoxProvEst, "El nombre es requerido");
             }
-            if (cbPaisProvEst.SelectedIndex==0)
+            if (cbPaisProvEst.SelectedIndex == 0)
             {
                 valido = false;
                 errorProvider1.SetError(cbPaisProvEst, "Debe seleccionar un pais");
             }
-            
+
             return valido;
+        }
+
+        internal void SetProvinciaEstado(ProvinciaEstado provEstEdit)
+        {
+            _provinciaEstado = provEstEdit;
         }
     }
 }
